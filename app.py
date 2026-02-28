@@ -173,86 +173,147 @@ logo = Image.open("assets/hospital.png")
 st.markdown("""
 <style>
 
-/* REMOVE BUTTON WHITE BOXES */
+/* ---------- REMOVE STREAMLIT DEFAULT ---------- */
 
-div.stButton > button{
+header {visibility:hidden;}
+[data-testid="stSidebar"]{display:none;}
 
-background:transparent !important;
-border:none !important;
-color:white !important;
-font-weight:600;
 
-padding:8px 18px;
+/* ---------- APP BACKGROUND ---------- */
 
-border-radius:20px;
-
-}
-
-div.stButton > button:hover{
-
-background:linear-gradient(90deg,#00c6ff,#0072ff) !important;
-color:white !important;
-
+.stApp{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
 
-/* ACTIVE TAB */
-
-.activeTab button{
-
-background:linear-gradient(90deg,#00c6ff,#0072ff) !important;
-}
-
-
-/* NAVBAR */
+/* ---------- FIXED TOP BAR ---------- */
 
 .navbar{
 
+position:fixed;     /* STICKY */
+
+top:0;
+
+left:0;
+
+width:100%;
+
+z-index:999;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
+padding:18px 60px;
 
 background:#000000;
 
-padding:15px 35px;
-
-border-radius:20px;
-
-margin-bottom:30px;
-
-box-shadow:0px 10px 25px rgba(0,0,0,.8);
+box-shadow:0px 10px 30px rgba(0,0,0,.9);
 
 }
 
 
-/* LEFT */
+/* PUSH PAGE DOWN (avoid overlap) */
+
+.block-container{
+
+margin-top:90px;
+
+max-width:95%;
+
+margin-left:auto;
+
+margin-right:auto;
+
+}
+
+
+/* ---------- LEFT LOGO ---------- */
 
 .nav-left{
 
 display:flex;
+
 align-items:center;
 
-gap:12px;
+gap:15px;
 
-font-size:20px;
+font-size:24px;     /* BIGGER TEXT */
 
-font-weight:700;
+font-weight:800;
 
 color:#00c6ff;
 
 }
 
 
-/* RIGHT */
+/* ---------- LOGO IMAGE ---------- */
+
+.nav-left img{
+
+height:48px;        /* BIGGER LOGO */
+
+}
+
+
+/* ---------- CENTER MENU ---------- */
+
+.nav-center{
+
+display:flex;
+
+gap:35px;
+
+}
+
+
+/* REMOVE WHITE BUTTON */
+
+div.stButton > button{
+
+background:transparent !important;
+
+border:none !important;
+
+color:white !important;
+
+font-size:16px;
+
+font-weight:600;
+
+padding:10px 20px;
+
+border-radius:25px;
+
+}
+
+
+/* HOVER */
+
+div.stButton > button:hover{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff)!important;
+
+}
+
+
+/* ---------- RIGHT ---------- */
 
 .nav-right{
 
 display:flex;
+
 align-items:center;
 
 gap:15px;
 
 color:white;
+
+font-size:17px;
+
+font-weight:600;
 
 }
 
@@ -261,8 +322,9 @@ color:white;
 
 .avatar{
 
-width:36px;
-height:36px;
+width:40px;
+
+height:40px;
 
 border-radius:50%;
 
@@ -271,36 +333,33 @@ background:linear-gradient(135deg,#00c6ff,#0072ff);
 display:flex;
 
 align-items:center;
+
 justify-content:center;
+
+font-size:18px;
 
 }
 
 </style>
-""", unsafe_allow_html=True)
-
-
-
-# ---------------- NAVBAR LAYOUT ----------------
-
+""",unsafe_allow_html=True)
 nav1,nav2,nav3 = st.columns([4,6,3])
 
 
-# -------- LEFT LOGO --------
+# -------- LEFT --------
 
 with nav1:
 
-    logo_col , text_col = st.columns([1,5])
+    logo_col,text_col = st.columns([1,6])
 
     with logo_col:
 
-        st.image("assets/hospital.png", width=50)
+        st.image("assets/hospital.png",use_container_width=True)
 
     with text_col:
 
         st.markdown(
         "<div class='nav-left'>ApexCare Medical Centre</div>",
-        unsafe_allow_html=True
-        )
+        unsafe_allow_html=True)
 
 
 
@@ -308,27 +367,27 @@ with nav1:
 
 with nav2:
 
-    d1,d2,d3,d4 = st.columns(4)
+    c1,c2,c3,c4 = st.columns(4)
 
-    with d1:
+    with c1:
         if st.button("Dashboard"):
             st.session_state.page="Dashboard"
 
-    with d2:
+    with c2:
         if st.button("Diagnosis"):
             st.session_state.page="Diagnosis"
 
-    with d3:
+    with c3:
         if st.button("Reports"):
             st.session_state.page="Reports"
 
-    with d4:
+    with c4:
         if st.button("Settings"):
             st.session_state.page="Settings"
 
 
 
-# -------- RIGHT PROFILE --------
+# -------- RIGHT --------
 
 with nav3:
 
@@ -339,10 +398,10 @@ with nav3:
 
 <div class="avatar">👨‍⚕️</div>
 
-<b>Dr MohanKrishna</b>
+Dr MohanKrishna
 
 </div>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
 
@@ -550,6 +609,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
