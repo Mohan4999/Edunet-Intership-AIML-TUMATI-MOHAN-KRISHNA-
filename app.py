@@ -449,66 +449,119 @@ box-shadow:0 10px 30px rgba(0,0,0,.4);
 # =================================================
 elif page == "Diagnosis":
 
-    # -------- PAGE TITLE --------
+    # -------- TITLE --------
     st.markdown("""
-    <h2 style='color:white; text-align:center; margin-bottom:30px;'>
+    <h2 style='text-align:center;color:white;margin-bottom:30px;'>
     ❤️ Heart Disease Risk Prediction
     </h2>
     """, unsafe_allow_html=True)
 
 
-    # -------- FORM CARD --------
-    st.markdown("""
-    <div style="
-    background: rgba(255,255,255,0.08);
-    padding:40px;
-    border-radius:20px;
-    backdrop-filter: blur(12px);
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-    ">
-    """, unsafe_allow_html=True)
+    # -------- CENTERED CARD CONTAINER --------
+    outer1, outer2, outer3 = st.columns([2,6,2])
+
+    with outer2:
+
+        st.markdown("""
+        <div style="
+        background:rgba(255,255,255,0.08);
+        padding:35px;
+        border-radius:18px;
+        backdrop-filter:blur(10px);
+        box-shadow:0 10px 30px rgba(0,0,0,.4);
+        ">
+        """, unsafe_allow_html=True)
 
 
-    # Input fields in 2 columns
-    col1, col2 = st.columns(2)
+        # 2 column layout inside card
+        col1, col2 = st.columns(2)
 
-    with col1:
-        age = st.number_input("Age", min_value=1, max_value=100, value=25)
-        resting_bp = st.number_input("Resting Blood Pressure", 80, 200, 120)
+        with col1:
+            age = st.number_input("Age", 1, 100, 25)
+            resting_bp = st.number_input("Resting Blood Pressure", 80, 200, 120)
 
-    with col2:
-        cholesterol = st.number_input("Cholesterol Level", 100, 400, 200)
-        max_hr = st.number_input("Max Heart Rate", 60, 220, 150)
+        with col2:
+            cholesterol = st.number_input("Cholesterol", 100, 400, 200)
+            max_hr = st.number_input("Max Heart Rate", 60, 220, 150)
 
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
-    # Centered Predict Button
-    c1, c2, c3 = st.columns([3,2,3])
-    with c2:
-        predict = st.button("🔍 Predict Heart Risk")
+        # Center Button
+        # -------- BUTTON STYLE --------
 
-    st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("""
+<style>
+
+div.stButton > button{
+
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+
+color:white;
+
+font-size:18px;
+
+font-weight:700;
+
+border-radius:12px;
+
+padding:14px;
+
+border:none;
+
+box-shadow:0px 8px 25px rgba(255,75,43,.5);
+
+transition:.3s;
+
+}
+
+/* Hover Effect */
+
+div.stButton > button:hover{
+
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+
+transform:scale(1.05);
+
+box-shadow:0px 10px 30px rgba(0,198,255,.6);
+
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
+# CENTER BUTTON
+b1,b2,b3 = st.columns([2,3,2])
+
+with b2:
+    predict = st.button("❤️ Predict Heart Risk", use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
     # -------- RESULT SECTION --------
     if predict:
+
         st.markdown("<br>", unsafe_allow_html=True)
 
-        st.markdown("""
-        <div style="
-        background:linear-gradient(135deg,#00c6ff,#0072ff);
-        padding:25px;
-        border-radius:15px;
-        text-align:center;
-        color:white;
-        font-size:20px;
-        font-weight:600;
-        box-shadow:0 10px 30px rgba(0,0,0,.4);
-        ">
-        Prediction Result: Low Risk ✅
-        </div>
-        """, unsafe_allow_html=True)
+        result1, result2, result3 = st.columns([2,6,2])
+
+        with result2:
+            st.markdown("""
+            <div style="
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            padding:25px;
+            border-radius:15px;
+            text-align:center;
+            color:white;
+            font-size:20px;
+            font-weight:600;
+            box-shadow:0 10px 30px rgba(0,0,0,.4);
+            ">
+            Prediction Result: Low Risk ✅
+            </div>
+            """, unsafe_allow_html=True)
 # =================================================
 # REPORTS
 # =================================================
@@ -575,6 +628,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
