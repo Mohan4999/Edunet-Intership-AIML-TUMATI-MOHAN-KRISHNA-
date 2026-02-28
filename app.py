@@ -134,7 +134,7 @@ div[data-baseweb="input"] input {{
                         st.rerun()
                     else:
                         st.error("Invalid Login")
-                        st.stop()
+        st.stop()
 # =================================================
 # SIDEBAR
 # =================================================
@@ -287,6 +287,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
