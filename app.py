@@ -448,7 +448,7 @@ col1, col2, col3 = st.columns([3,2,3])
 
 with col2:
     if st.button("Start Diagnosis →"):
-        st.session_state.page = "Diagnosis"
+       st.session_state.page = "Diagnosis"
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -542,6 +542,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
