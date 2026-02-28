@@ -34,11 +34,11 @@ if not st.session_state.login:
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
 
-    /* FULL BACKGROUND */
+    /* Full background */
     .stApp {{
         background:
-        linear-gradient(rgba(0,0,0,.70),
-        rgba(0,0,0,.80)),
+        linear-gradient(rgba(0,0,0,.65),
+        rgba(0,0,0,.75)),
         url("data:image/jpg;base64,{bg}");
         background-size:cover;
         background-position:center;
@@ -46,42 +46,30 @@ if not st.session_state.login:
     }}
 
     .block-container {{
-        padding-top:100px;
+        padding-top:120px;
         max-width:100%;
     }}
 
-    /* GLASS CARD STYLE */
-    div[data-testid="stVerticalBlock"] > div:has(div.login-box) {{
-        display:flex;
-        justify-content:center;
-    }}
-
-    .login-box {{
+    /* Style only CENTER column */
+    section.main > div > div > div > div:nth-child(2) {{
         background:rgba(0,0,0,.55);
         backdrop-filter:blur(18px);
-        padding:35px 30px;
+        padding:35px;
         border-radius:18px;
-        width:330px;
-        box-shadow:0 25px 70px rgba(0,0,0,.8);
+        width:350px;
+        margin:auto;
+        box-shadow:0 30px 60px rgba(0,0,0,.8);
         text-align:center;
     }}
 
-    .login-title {{
-        color:white;
-        font-size:20px;
-        font-weight:600;
-        margin-top:12px;
-        margin-bottom:20px;
-    }}
-
     div[data-baseweb="input"] > div {{
-        border-radius:10px;
+        border-radius:12px;
     }}
 
     div.stButton > button {{
         width:100%;
         padding:12px;
-        border-radius:10px;
+        border-radius:12px;
         background:linear-gradient(90deg,#00c6ff,#0072ff);
         color:white;
         font-weight:600;
@@ -92,30 +80,24 @@ if not st.session_state.login:
     </style>
     """, unsafe_allow_html=True)
 
-    # Center container
-    col1, col2, col3 = st.columns([3,2,3])
+    # Center layout
+    left, center, right = st.columns([3,2,3])
 
-    with col2:
-        st.markdown("<div class='login-box'>", unsafe_allow_html=True)
-
-        st.image("assets/hospital.png", width=150)
-
+    with center:
+        st.image("assets/hospital.png", width=160)
         st.markdown(
-            "<div class='login-title'>ApexCare Medical Centre</div>",
+            "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
             unsafe_allow_html=True
         )
 
-        username = st.text_input("Username", label_visibility="collapsed")
-        password = st.text_input("Password", type="password",
-                                 label_visibility="collapsed")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
 
         if st.button("Login"):
-            if username == "admin@123" and password == "admin1234":
+            if username == "admin" and password == "1234":
                 st.success("Login Successful")
             else:
                 st.error("Invalid Login")
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     st.stop()
 # =================================================
@@ -270,6 +252,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
