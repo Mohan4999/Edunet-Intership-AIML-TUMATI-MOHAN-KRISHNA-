@@ -34,7 +34,12 @@ if not st.session_state.login:
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
 
-    /* FULL BACKGROUND */
+    /* Remove default padding */
+    .block-container {{
+        padding:0rem;
+    }}
+
+    /* Fullscreen background */
     .stApp {{
         background:
         linear-gradient(rgba(0,0,0,.65),
@@ -45,28 +50,30 @@ if not st.session_state.login:
         background-repeat:no-repeat;
     }}
 
-    .block-container {{
-        padding-top:120px;
-        max-width:100%;
+    /* Full screen center wrapper */
+    .center-wrapper {{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
     }}
 
-    /* CENTER CARD */
+    /* Login card */
     .login-card {{
         background:rgba(0,0,0,.55);
-        backdrop-filter:blur(15px);
+        backdrop-filter:blur(18px);
         padding:35px 30px;
         border-radius:18px;
-        width:320px;
-        margin:auto;
-        box-shadow:0 25px 60px rgba(0,0,0,.7);
+        width:330px;
         text-align:center;
+        box-shadow:0 30px 60px rgba(0,0,0,.8);
     }}
 
-    .login-title {{
+    .title {{
         color:white;
         font-size:20px;
         font-weight:600;
-        margin-top:10px;
+        margin-top:12px;
         margin-bottom:20px;
     }}
 
@@ -88,11 +95,12 @@ if not st.session_state.login:
     </style>
     """, unsafe_allow_html=True)
 
+    st.markdown("<div class='center-wrapper'>", unsafe_allow_html=True)
     st.markdown("<div class='login-card'>", unsafe_allow_html=True)
 
-    st.image("assets/hospital.png", width=160)
+    st.image("assets/hospital.png", width=150)
 
-    st.markdown("<div class='login-title'>ApexCare Medical Centre</div>",
+    st.markdown("<div class='title'>ApexCare Medical Centre</div>",
                 unsafe_allow_html=True)
 
     username = st.text_input("Username", label_visibility="collapsed")
@@ -105,7 +113,7 @@ if not st.session_state.login:
         else:
             st.error("Invalid Login")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div></div>", unsafe_allow_html=True)
 
     st.stop()
 # =================================================
@@ -260,6 +268,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
