@@ -169,7 +169,7 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 """,unsafe_allow_html=True)
 # ---------------- NAVBAR STYLE ----------------
 logo_path = os.path.join(os.getcwd(), "hospital.png")
-logo = Image.open(assets/hospital.png)
+logo = Image.open("assets/hospital.png")
 st.markdown("""
 <style>
 
@@ -487,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
