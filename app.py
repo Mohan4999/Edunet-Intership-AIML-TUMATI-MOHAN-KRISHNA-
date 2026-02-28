@@ -7,9 +7,10 @@ st.set_page_config(layout="wide")
 
 model = pickle.load(open("model.pkl","rb"))
 
+st.set_page_config(layout="wide")
+
 if "login" not in st.session_state:
     st.session_state.login=False
-
 
 # =================================================
 # LOGIN PAGE
@@ -21,8 +22,11 @@ if not st.session_state.login:
 
 <style>
 
-header, footer {visibility:hidden;}
-#MainMenu {visibility:hidden;}
+header,footer{visibility:hidden;}
+#MainMenu{visibility:hidden;}
+
+
+/* FULL BACKGROUND */
 
 .stApp{
 
@@ -38,17 +42,19 @@ background-position:center;
 
 }
 
-/* remove spacing */
+
+/* remove white spacing */
 
 .block-container{
 
-padding-top:120px;
+padding-top:130px;
 
 }
 
+
 /* LOGIN CARD */
 
-.login-card{
+[data-testid="stVerticalBlock"]:has(.login-card){
 
 background:rgba(255,255,255,.12);
 
@@ -62,22 +68,18 @@ box-shadow:
 
 0 15px 45px rgba(0,0,0,.7);
 
-text-align:center;
-
-color:white;
-
 }
 
 
 /* BUTTON */
 
-div.stButton>button{
+div.stButton > button{
 
 width:100%;
 
-border-radius:12px;
+padding:14px;
 
-padding:12px;
+border-radius:12px;
 
 background:
 
@@ -96,29 +98,30 @@ border:none;
 """,unsafe_allow_html=True)
 
 
-    # CENTER CARD
+    # CENTER PAGE
     left,center,right=st.columns([3,2,3])
 
     with center:
 
-        st.markdown('<div class="login-card">',
+        # MAGIC CSS TARGET
+        st.markdown('<div class="login-card"></div>',
         unsafe_allow_html=True)
 
         st.image("assets/hospital.png",
         width=220)
 
         st.markdown(
-        "<h3 style='text-align:center;'>ApexCare Medical Centre</h3>",
-        unsafe_allow_html=True)
+        "### ApexCare Medical Centre")
 
-        user=st.text_input("Username")
+        username=st.text_input("Username")
 
-        pwd=st.text_input("Password",
+        password=st.text_input(
+        "Password",
         type="password")
 
         if st.button("Login"):
 
-            if user=="admin" and pwd=="1234":
+            if username=="admin" and password=="1234":
 
                 st.session_state.login=True
 
@@ -128,11 +131,7 @@ border:none;
 
                 st.error("Invalid Login")
 
-        st.markdown("</div>",
-        unsafe_allow_html=True)
-
     st.stop()
-
 
 # =================================================
 # SIDEBAR
@@ -286,3 +285,4 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
