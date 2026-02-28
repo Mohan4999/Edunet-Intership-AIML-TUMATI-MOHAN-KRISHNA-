@@ -1,111 +1,144 @@
 import streamlit as st
+import pandas as pd
 
-# ------------------------
-# SESSION STATE INIT
-# ------------------------
+st.set_page_config(page_title="ApexCare Medical Centre", layout="wide")
 
+# ---------- CUSTOM CSS ----------
+st.markdown("""
+<style>
+body {
+    background-color: #0e1117;
+}
+.main {
+    background-color: #0e1117;
+    color: white;
+}
+.card {
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+.green { background-color: #00c853; }
+.red { background-color: #d50000; }
+.blue { background-color: #2962ff; }
+.purple { background-color: #aa00ff; }
+
+.big-button {
+    background: linear-gradient(90deg,#00c6ff,#0072ff);
+    padding: 10px;
+    border-radius: 8px;
+    text-align:center;
+    color:white;
+    font-weight:bold;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------- LOGIN SYSTEM ----------
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-
-# ------------------------
-# LOGIN PAGE
-# ------------------------
-
-def login_page():
-    st.title("Medical AI Login")
+if not st.session_state.logged_in:
+    st.title("🏥 ApexCare Medical Centre")
 
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
     if st.button("Login"):
-
-        if username == "admin@123" and password == "admin1234":
+        if username == "admin" and password == "1234":
             st.session_state.logged_in = True
-            st.success("Login Successful")
             st.rerun()
         else:
-            st.error("Invalid Login")
+            st.error("Invalid Credentials")
 
+    st.stop()
 
-# ------------------------
-# DASHBOARD
-# ------------------------
+# ---------- SIDEBAR ----------
+st.sidebar.title("ApexCare")
+page = st.sidebar.radio("Navigation", 
+                        ["Dashboard", "Diagnosis", "Reports", "Settings"])
 
-def dashboard():
-    st.title("Dashboard")
+st.sidebar.write("👨‍⚕️ Dr MohanKrishna")
 
-    st.metric("Cases Solved", 120)
-    st.metric("High Risk", 45)
-    st.metric("Stable", 75)
+# ---------- DASHBOARD ----------
+if page == "Dashboard":
+    st.title("📊 Dashboard")
 
+    col1, col2, col3, col4 = st.columns(4)
 
-# ------------------------
-# DIAGNOSIS
-# ------------------------
+    with col1:
+        st.markdown('<div class="card green">Cases Solved<br><h2>150</h2></div>',
+                    unsafe_allow_html=True)
 
-def diagnosis():
+    with col2:
+        st.markdown('<div class="card red">High Risk<br><h2>45</h2></div>',
+                    unsafe_allow_html=True)
 
-    st.title("Heart Disease Prediction")
+    with col3:
+        st.markdown('<div class="card blue">Stable Patients<br><h2>105</h2></div>',
+                    unsafe_allow_html=True)
 
-    age = st.number_input("Age", min_value=1, max_value=120)
-    bp = st.number_input("Blood Pressure")
-    chol = st.number_input("Cholesterol")
+    with col4:
+        st.markdown('<div class="card purple">Total Patients<br><h2>150</h2></div>',
+                    unsafe_allow_html=True)
 
-    if st.button("Predict"):
+    st.subheader("Recent Patients")
 
-        if age > 50 or bp > 140 or chol > 240:
-            st.error("High Risk - Patient has higher chance of heart disease.")
+    data = {
+        "Name": ["Ravi Kumar", "Anita Devi"],
+        "Age": [54, 39],
+        "Status": ["High Risk", "Stable"],
+        "Treatment": ["Cardiac Monitoring", "Medication"]
+    }
+
+    df = pd.DataFrame(data)
+    st.dataframe(df, use_container_width=True)
+
+# ---------- DIAGNOSIS ----------
+elif page == "Diagnosis":
+    st.title("❤️ Heart Disease Check")
+    st.write("Enter patient details")
+
+    age = st.number_input("Age", 1, 100)
+    bp = st.number_input("Blood Pressure", 50, 200)
+    chol = st.number_input("Cholesterol Level", 100, 400)
+
+    if st.button("Predict Heart Risk"):
+        if age > 50 and bp > 130 and chol > 200:
+            st.error("🔴 High Risk - Patient has higher chance of heart disease.")
         else:
-            st.success("Low Risk - Patient condition looks stable.")
+            st.success("🟢 Low Risk - Patient condition looks stable.")
 
+# ---------- REPORTS ----------
+elif page == "Reports":
+    st.title("📑 Patient Treatment Reports")
 
-# ------------------------
-# REPORTS
-# ------------------------
+    data = {
+        "Name": ["Ravi Kumar", "Anita Devi", "Suresh Reddy", "Meena Sharma", "Priya Nair"],
+        "Age": [54, 39, 61, 45, 33],
+        "Status": ["High Risk", "Stable", "High Risk", "Stable", "Stable"],
+        "Treatment": ["Cardiac Monitoring", "Medication", "ICU Observation", 
+                      "Regular Checkup", "Diet Monitoring"]
+    }
 
-def reports():
-    st.title("Reports")
-    st.write("New Patient Report Added")
-    st.write("AI Model Updated")
+    df = pd.DataFrame(data)
+    st.dataframe(df, use_container_width=True)
 
+# ---------- SETTINGS ----------
+elif page == "Settings":
+    st.title("⚙ Account Settings")
 
-# ------------------------
-# SETTINGS
-# ------------------------
+    st.subheader("Doctor Profile")
+    name = st.text_input("Doctor Name", "Dr MohanKrishna")
+    email = st.text_input("Email", "mohankrishna@email.com")
+    hospital = st.text_input("Hospital Name", "ApexCare Medical Centre")
 
-def settings():
-    st.title("Settings")
-    st.write("Update your system settings here.")
+    if st.button("Save Profile"):
+        st.success("Profile Saved Successfully")
 
-
-# ------------------------
-# MAIN APP
-# ------------------------
-
-if not st.session_state.logged_in:
-    login_page()
-else:
-
-    st.sidebar.title("Navigation")
-
-    page = st.sidebar.radio(
-        "Go to",
-        ["Dashboard", "Diagnosis", "Reports", "Settings", "Logout"]
-    )
-
-    if page == "Dashboard":
-        dashboard()
-
-    elif page == "Diagnosis":
-        diagnosis()
-
-    elif page == "Reports":
-        reports()
-
-    elif page == "Settings":
-        settings()
-
-    elif page == "Logout":
-        st.session_state.logged_in = False
-        st.rerun()
+    st.subheader("Notification Settings")
+    st.checkbox("Email Alerts", value=True)
+    st.checkbox("High Risk Patient Alerts", value=True)
+    st.checkbox("Weekly Diagnosis Report")
