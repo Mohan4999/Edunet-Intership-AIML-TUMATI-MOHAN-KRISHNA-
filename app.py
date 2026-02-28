@@ -101,11 +101,10 @@ div[data-baseweb="input"] input {{
             <img src="data:assets/hospital.png;base64,{logo}" class="login-logo">
         </div>
         """, unsafe_allow_html=True)
-
-       st.markdown(
-           "<h2 style='text-align:center;color:white;font-weight:600;margin-bottom:20px;'>ApexCare Medical Centre</h2>",
-           unsafe_allow_html=True
-       )
+        st.markdown(
+            "<h2 style='text-align:center;color:white;font-weight:600;margin-bottom:20px;'>ApexCare Medical Centre</h2>",
+            unsafe_allow_html=True
+        )
 
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
@@ -270,6 +269,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
