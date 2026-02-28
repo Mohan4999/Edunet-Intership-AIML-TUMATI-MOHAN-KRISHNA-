@@ -29,131 +29,93 @@ if "login" not in st.session_state:
 if not st.session_state.login:
 
     st.markdown(f"""
+    <style>
 
-<style>
+    header, footer {{visibility:hidden;}}
+    #MainMenu {{visibility:hidden;}}
 
-header, footer {{visibility:hidden;}}
-#MainMenu {{visibility:hidden;}}
+    /* FULL BACKGROUND */
+    .stApp {{
+        background:
+        linear-gradient(rgba(0,0,0,.70),
+        rgba(0,0,0,.80)),
+        url("data:image/jpg;base64,{bg}");
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+    }}
 
+    .block-container {{
+        padding-top:100px;
+        max-width:100%;
+    }}
 
-/* BACKGROUND IMAGE */
+    /* GLASS CARD STYLE */
+    div[data-testid="stVerticalBlock"] > div:has(div.login-box) {{
+        display:flex;
+        justify-content:center;
+    }}
 
-.stApp {{
+    .login-box {{
+        background:rgba(0,0,0,.55);
+        backdrop-filter:blur(18px);
+        padding:35px 30px;
+        border-radius:18px;
+        width:330px;
+        box-shadow:0 25px 70px rgba(0,0,0,.8);
+        text-align:center;
+    }}
 
-background:
+    .login-title {{
+        color:white;
+        font-size:20px;
+        font-weight:600;
+        margin-top:12px;
+        margin-bottom:20px;
+    }}
 
-linear-gradient(
+    div[data-baseweb="input"] > div {{
+        border-radius:10px;
+    }}
 
-rgba(0,0,0,.70),
+    div.stButton > button {{
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        background:linear-gradient(90deg,#00c6ff,#0072ff);
+        color:white;
+        font-weight:600;
+        border:none;
+        margin-top:10px;
+    }}
 
-rgba(0,0,0,.80)
+    </style>
+    """, unsafe_allow_html=True)
 
-),
+    # Center container
+    col1, col2, col3 = st.columns([3,2,3])
 
-url("data:image/jpg;base64,{bg}");
+    with col2:
+        st.markdown("<div class='login-box'>", unsafe_allow_html=True)
 
-background-size:cover;
-
-background-position:center;
-
-background-repeat:no-repeat;
-
-}}
-
-
-/* REMOVE WHITE SPACE */
-
-.block-container {{
-
-padding-top:140px;
-
-max-width:100%;
-
-}}
-
-
-/* GLASS CARD (CENTER COLUMN ONLY) */
-
-div[data-testid="column"]:nth-child(2) {{
-
-background:rgba(0,0,0,.55);
-
-backdrop-filter:blur(18px);
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:
-
-0 25px 70px rgba(0,0,0,.8);
-
-text-align:center;
-
-}}
-
-
-/* INPUT ROUND */
-
-div[data-baseweb="input"]>div {{
-
-border-radius:12px;
-
-}}
-
-
-/* BUTTON */
-
-div.stButton>button {{
-
-width:100%;
-
-padding:14px;
-
-border-radius:12px;
-
-background:
-
-linear-gradient(90deg,#00c6ff,#0072ff);
-
-color:white;
-
-font-weight:600;
-
-border:none;
-
-}}
-
-</style>
-
-""",unsafe_allow_html=True)
-
-
-    # CENTER CARD USING COLUMNS
-
-    left,center,right = st.columns([3,1.4,3])
-
-    with center:
-
-        st.image("assets/hospital.png",width=170)
+        st.image("assets/hospital.png", width=150)
 
         st.markdown(
-        "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
-        unsafe_allow_html=True)
+            "<div class='login-title'>ApexCare Medical Centre</div>",
+            unsafe_allow_html=True
+        )
 
-        username = st.text_input("Username")
-
-        password = st.text_input("Password",type="password")
+        username = st.text_input("Username", label_visibility="collapsed")
+        password = st.text_input("Password", type="password",
+                                 label_visibility="collapsed")
 
         if st.button("Login"):
-
-            if username=="admin" and password=="1234":
-
+            if username == "admin@123" and password == "admin1234":
                 st.success("Login Successful")
-
             else:
-
                 st.error("Invalid Login")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.stop()
 # =================================================
@@ -308,6 +270,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
