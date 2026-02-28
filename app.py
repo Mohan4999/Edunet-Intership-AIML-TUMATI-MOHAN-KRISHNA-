@@ -537,7 +537,7 @@ b1,b2,b3 = st.columns([2,3,2])
 
 with b2:
     predict = st.button("❤️ Predict Heart Risk", use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
     # -------- RESULT SECTION --------
@@ -628,6 +628,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
