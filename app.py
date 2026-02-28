@@ -76,16 +76,75 @@ border-left:6px solid green;
 """, unsafe_allow_html=True)
 
 # ---------------- SESSION ----------------
+st.set_page_config(layout="wide")
+
 if "login" not in st.session_state:
     st.session_state.login = False
 
 # ---------------- LOGIN PAGE ----------------
 if not st.session_state.login:
 
-    st.markdown("## 🏥 ApexCare Medical Centre Login")
+    st.markdown("""
+    <style>
 
-    if hospital_logo:
-        st.image(hospital_logo, width=200)
+    /* Remove Streamlit default */
+    header, footer {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+
+    .stApp {
+        background:
+        linear-gradient(rgba(0,0,0,.75),
+        rgba(0,0,0,.85)),
+        url("https://images.unsplash.com/photo-1580281657527-47f249e0bfc4?auto=format&fit=crop&w=2000&q=80");
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Center container */
+    .block-container {
+        padding-top: 5rem;
+    }
+
+    .login-card {
+        width: 380px;
+        margin: auto;
+        background: rgba(255,255,255,.12);
+        backdrop-filter: blur(20px);
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 15px 45px rgba(0,0,0,.7);
+        text-align: center;
+        color: white;
+    }
+
+    .login-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    div.stButton > button {
+        width: 100%;
+        border-radius: 12px;
+        padding: 12px;
+        background: linear-gradient(45deg,#00c6ff,#0072ff);
+        color: white;
+        font-weight: 600;
+        border: none;
+    }
+
+    div.stButton > button:hover {
+        transform: scale(1.03);
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="login-card">', unsafe_allow_html=True)
+
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Red_Cross.svg/120px-Red_Cross.svg.png", width=120)
+
+    st.markdown('<div class="login-title">ApexCare Medical Centre</div>', unsafe_allow_html=True)
 
     user = st.text_input("Username")
     pwd = st.text_input("Password", type="password")
@@ -96,6 +155,8 @@ if not st.session_state.login:
             st.rerun()
         else:
             st.error("Invalid Login")
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.stop()
 
@@ -203,3 +264,4 @@ elif menu == "Settings":
     st.checkbox("Email Alerts", True)
     st.checkbox("High Risk Patient Alerts", True)
     st.checkbox("Weekly Diagnosis Report")
+
