@@ -25,29 +25,26 @@ if "login" not in st.session_state:
 
 if not st.session_state.login:
 
-    st.markdown("""
+   st.markdown(f"""
 
 <style>
 
-header, footer {visibility:hidden;}
-#MainMenu {visibility:hidden;}
+header, footer {{visibility:hidden;}}
+#MainMenu {{visibility:hidden;}}
 
 
 /* BACKGROUND IMAGE */
 
-.stApp{
+.stApp {{
 
 background:
 
 linear-gradient(
-
 rgba(0,0,0,.75),
-
 rgba(0,0,0,.85)
-
 ),
 
-url("assets/medical-bg");
+url("data:image/jpg;base64,{bg}");
 
 background-size:cover;
 
@@ -55,27 +52,25 @@ background-position:center;
 
 background-repeat:no-repeat;
 
-}
+}}
 
 
-/* REMOVE WHITE SPACE */
-
-.block-container{
+.block-container {{
 
 padding-top:140px;
 
 max-width:100%;
 
-}
+}}
 
 
 /* LOGIN CARD */
 
-div[data-testid="column"]:nth-child(2){
+div[data-testid="column"]:nth-child(2) {{
 
 background:rgba(0,0,0,.55);
 
-backdrop-filter:blur(15px);
+backdrop-filter:blur(18px);
 
 padding:35px;
 
@@ -89,12 +84,12 @@ text-align:center;
 
 color:white;
 
-}
+}}
 
 
-/* LOGIN BUTTON */
+/* BUTTON */
 
-div.stButton>button{
+div.stButton > button {{
 
 width:100%;
 
@@ -104,15 +99,7 @@ border-radius:10px;
 
 background:
 
-linear-gradient(
-
-90deg,
-
-#00c6ff,
-
-#0072ff
-
-);
+linear-gradient(90deg,#00c6ff,#0072ff);
 
 color:white;
 
@@ -120,11 +107,11 @@ font-weight:600;
 
 border:none;
 
-}
+}}
 
 </style>
 
-""",unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 
 
@@ -305,6 +292,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
