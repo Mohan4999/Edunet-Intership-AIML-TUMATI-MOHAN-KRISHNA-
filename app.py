@@ -33,18 +33,17 @@ if not st.session_state.login:
 
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
-    /* LABEL STYLE */
-    label {
-    color: white;
-    font-weight: 600;
+    label {{
+    color: white !important;
+    font-weight: 600 !important;
     background: rgba(0,0,0,0.4);
     padding: 3px 8px;
     border-radius: 6px;
     display: inline-block;
-}
-input::placeholder {
+}}
+input::placeholder {{
     color: #cccccc;
-}
+}}
 
     /* Full background */
     .stApp {{
@@ -264,6 +263,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
