@@ -3,11 +3,14 @@ import pandas as pd
 import pickle
 import base64
 
-def get_base64(img_path):
-    with open(img_path,"rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-bg = get_base64("assets/medical-bg")
+st.set_page_config(layout="wide")
+
+# ---------- CONVERT IMAGE TO BASE64 ----------
+def get_base64(path):
+    with open(path, "rb") as file:
+        return base64.b64encode(file.read()).decode()
+
+bg_image = get_base64("assets/medical-bg")
     
 # ---------------- PAGE ----------------
 st.set_page_config(layout="wide")
@@ -17,7 +20,7 @@ model = pickle.load(open("model.pkl","rb"))
 st.set_page_config(layout="wide")
 
 if "login" not in st.session_state:
-    st.session_state.login=False
+    st.session_state.login = False
 
 # =================================================
 # LOGIN PAGE
@@ -25,118 +28,83 @@ if "login" not in st.session_state:
 
 if not st.session_state.login:
 
-   st.markdown(f"""
+    st.markdown(f"""
+    <style>
 
-<style>
+    header, footer {{visibility:hidden;}}
+    #MainMenu {{visibility:hidden;}}
 
-header, footer {{visibility:hidden;}}
-#MainMenu {{visibility:hidden;}}
+    /* FULL BACKGROUND IMAGE */
 
+    .stApp {{
+        background:
+        linear-gradient(rgba(0,0,0,.75),
+        rgba(0,0,0,.85)),
+        url("data:image/jpg;base64,{bg_image}");
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+    }}
 
-/* BACKGROUND IMAGE */
+    /* REMOVE DEFAULT PADDING */
 
-.stApp {{
+    .block-container {{
+        padding-top:120px;
+        max-width:100%;
+    }}
 
-background:
+    /* CENTER COLUMN CARD */
 
-linear-gradient(
-rgba(0,0,0,.75),
-rgba(0,0,0,.85)
-),
+    div[data-testid="column"] {{
+        background:rgba(0,0,0,.6);
+        backdrop-filter:blur(18px);
+        padding:40px;
+        border-radius:20px;
+        box-shadow:0 25px 70px rgba(0,0,0,.8);
+        text-align:center;
+    }}
 
-url("data:image/jpg;base64,{bg}");
+    /* INPUT STYLE */
 
-background-size:cover;
+    div[data-baseweb="input"] > div {{
+        border-radius:12px !important;
+    }}
 
-background-position:center;
+    /* LOGIN BUTTON */
 
-background-repeat:no-repeat;
+    div.stButton > button {{
+        width:100%;
+        padding:14px;
+        border-radius:12px;
+        background:linear-gradient(90deg,#00c6ff,#0072ff);
+        color:white;
+        font-weight:600;
+        border:none;
+    }}
 
-}}
-
-
-.block-container {{
-
-padding-top:140px;
-
-max-width:100%;
-
-}}
-
-
-/* LOGIN CARD */
-
-div[data-testid="column"]:nth-child(2) {{
-
-background:rgba(0,0,0,.55);
-
-backdrop-filter:blur(18px);
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:
-
-0 20px 60px rgba(0,0,0,.8);
-
-text-align:center;
-
-color:white;
-
-}}
+    </style>
+    """, unsafe_allow_html=True)
 
 
-/* BUTTON */
-
-div.stButton > button {{
-
-width:100%;
-
-padding:14px;
-
-border-radius:10px;
-
-background:
-
-linear-gradient(90deg,#00c6ff,#0072ff);
-
-color:white;
-
-font-weight:600;
-
-border:none;
-
-}}
-
-</style>
-
-""", unsafe_allow_html=True)
-
-
-
-    left,center,right = st.columns([3,1.4,3])
+    left, center, right = st.columns([3,1.4,3])
 
     with center:
 
-        st.image("assets/hospital.png",width=200)
+        st.image("assets/hospital.png", width=200)
 
-        st.markdown("### ApexCare Medical Centre")
+        st.markdown(
+            "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
+            unsafe_allow_html=True
+        )
 
-        username=st.text_input("Username")
-
-        password=st.text_input("Password",type="password")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
 
         if st.button("Login"):
-
-            if username=="admin" and password=="1234":
-
-                st.session_state.login=True
-
+            if username == "admin" and password == "1234":
+                st.session_state.login = True
                 st.rerun()
-
             else:
-
                 st.error("Invalid Login")
 
     st.stop()
@@ -292,6 +260,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
