@@ -136,9 +136,12 @@ div[data-baseweb="input"] input {{
 # =================================================
 # DASHBOARD PAGE
 # =================================================
+if "page" not in st.session_state:
+    st.session_state.page = "Dashboard"
 st.set_page_config(layout="wide")
+if page == "Dashboard":
 
-
+    # ALL YOUR DASHBOARD CODE HERE
 # ---------- GLOBAL STYLE ----------
 
 st.markdown("""
@@ -515,6 +518,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
