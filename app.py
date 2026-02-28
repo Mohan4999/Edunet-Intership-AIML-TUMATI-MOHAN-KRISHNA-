@@ -80,17 +80,105 @@ border-left:6px solid green;
 """,unsafe_allow_html=True)
 
 
-# ---------- LOGIN ----------
 if "login" not in st.session_state:
     st.session_state.login=False
 
+
+# ---------- LOGIN PAGE ----------
 if not st.session_state.login:
 
-    st.image(hospital_logo,width=300)
+    st.markdown("""
 
-    st.markdown("## ApexCare Medical Centre")
+<style>
+
+/* Hide Streamlit */
+
+header {visibility:hidden;}
+#MainMenu {visibility:hidden;}
+footer {visibility:hidden;}
+
+[data-testid="stAppViewContainer"]{
+
+background:
+
+linear-gradient(rgba(0,0,0,.75),
+rgba(0,0,0,.85)),
+
+url("https://images.unsplash.com/photo-1580281657527-47f249e0bfc4?auto=format&fit=crop&w=1600&q=80");
+
+background-size:cover;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+}
+
+
+/* LOGIN CARD */
+
+.login-card{
+
+width:380px;
+
+margin:auto;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(20px);
+
+padding:35px;
+
+border-radius:18px;
+
+box-shadow:
+
+0 15px 45px rgba(0,0,0,.7);
+
+text-align:center;
+
+color:white;
+
+}
+
+
+/* BUTTON */
+
+.login-btn{
+
+background:
+
+linear-gradient(45deg,#00c6ff,#0072ff);
+
+padding:12px;
+
+border-radius:12px;
+
+color:white;
+
+font-weight:600;
+
+}
+
+</style>
+
+<div class="login-card">
+
+<img src="https://i.imgur.com/xzv2kZy.png" width="200">
+
+<h2>ApexCare Medical Centre</h2>
+
+</div>
+
+""",unsafe_allow_html=True)
+
+
+    st.markdown("### ")
 
     user = st.text_input("Username")
+
     pwd = st.text_input("Password",type="password")
 
     if st.button("Login"):
@@ -101,10 +189,10 @@ if not st.session_state.login:
             st.rerun()
 
         else:
+
             st.error("Invalid Login")
 
     st.stop()
-
 
 # ---------- NAV ----------
 menu = st.sidebar.radio(
@@ -268,5 +356,6 @@ elif menu=="Settings":
     st.checkbox("Email Alerts",True)
 
     st.checkbox("High Risk Patient Alerts",True)
+
 
     st.checkbox("Weekly Diagnosis Report")
