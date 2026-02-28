@@ -167,9 +167,8 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 """,unsafe_allow_html=True)
 
 
-
+logo = Image.open("hospital.png")
 # ---------------- NAVBAR STYLE ----------------
-# ---------------- NAVBAR ----------------
 
 st.markdown("""
 <style>
@@ -240,13 +239,17 @@ with navbar:
     col1,col2,col3 = st.columns([4,6,3])
 
     # LEFT
-    with col1:
-        st.markdown("""
-        <div class="nav-left">
-        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="28">
-        ApexCare Medical Centre
-        </div>
-        """, unsafe_allow_html=True)
+   with col1:
+    logo_col, text_col = st.columns([1,4])
+
+    with logo_col:
+        st.image(hospital, width=55)
+
+    with text_col:
+        st.markdown(
+            "<h4 style='color:white;margin-top:10px;'>ApexCare Medical Centre</h4>",
+            unsafe_allow_html=True
+        )
 
     # CENTER
     with col2:
@@ -484,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
