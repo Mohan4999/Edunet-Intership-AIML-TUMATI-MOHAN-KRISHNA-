@@ -173,57 +173,106 @@ logo = Image.open("assets/hospital.png")
 st.markdown("""
 <style>
 
+/* REMOVE BUTTON WHITE BOXES */
+
+div.stButton > button{
+
+background:transparent !important;
+border:none !important;
+color:white !important;
+font-weight:600;
+
+padding:8px 18px;
+
+border-radius:20px;
+
+}
+
+div.stButton > button:hover{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff) !important;
+color:white !important;
+
+}
+
+
+/* ACTIVE TAB */
+
+.activeTab button{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff) !important;
+}
+
+
+/* NAVBAR */
+
 .navbar{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 40px;
+
 background:#000000;
+
+padding:15px 35px;
+
 border-radius:20px;
-margin-bottom:35px;
-color:white;
-box-shadow:0px 12px 30px rgba(0,0,0,1);
+
+margin-bottom:30px;
+
+box-shadow:0px 10px 25px rgba(0,0,0,.8);
+
 }
+
+
+/* LEFT */
 
 .nav-left{
+
 display:flex;
 align-items:center;
-gap:10px;
-font-size:18px;
-font-weight:600;
+
+gap:12px;
+
+font-size:20px;
+
+font-weight:700;
+
+color:#00c6ff;
+
 }
 
-.nav-center{
-display:flex;
-gap:30px;
-}
 
-.nav-center button{
-background:transparent;
-border:none;
-color:white;
-font-weight:600;
-}
-
-.nav-center button:hover{
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-border-radius:20px;
-}
+/* RIGHT */
 
 .nav-right{
+
 display:flex;
 align-items:center;
+
 gap:15px;
+
+color:white;
+
 }
 
+
+/* AVATAR */
+
 .avatar{
-width:35px;
-height:35px;
+
+width:36px;
+height:36px;
+
 border-radius:50%;
+
 background:linear-gradient(135deg,#00c6ff,#0072ff);
+
 display:flex;
+
 align-items:center;
 justify-content:center;
+
 }
 
 </style>
@@ -231,55 +280,69 @@ justify-content:center;
 
 
 
-# NAVBAR CONTAINER
-navbar = st.container()
+# ---------------- NAVBAR LAYOUT ----------------
 
-with navbar:
+nav1,nav2,nav3 = st.columns([4,6,3])
 
-    col1,col2,col3 = st.columns([4,6,3])
 
-    # LEFT
-    with col1:
-        logo_col, text_col = st.columns([1,4])
+# -------- LEFT LOGO --------
+
+with nav1:
+
+    logo_col , text_col = st.columns([1,5])
 
     with logo_col:
-        st.image("assets/hospital.png", width=55)
+
+        st.image("assets/hospital.png", width=50)
 
     with text_col:
+
         st.markdown(
-            "<h4 style='color:white;margin-top:10px;'>ApexCare Medical Centre</h4>",
-            unsafe_allow_html=True
+        "<div class='nav-left'>ApexCare Medical Centre</div>",
+        unsafe_allow_html=True
         )
 
-    # CENTER
-    with col2:
-        nav1,nav2,nav3,nav4 = st.columns(4)
 
-        with nav1:
-            if st.button("Dashboard"):
-                st.session_state.page="Dashboard"
 
-        with nav2:
-            if st.button("Diagnosis"):
-                st.session_state.page="Diagnosis"
+# -------- CENTER MENU --------
 
-        with nav3:
-            if st.button("Reports"):
-                st.session_state.page="Reports"
+with nav2:
 
-        with nav4:
-            if st.button("Settings"):
-                st.session_state.page="Settings"
+    d1,d2,d3,d4 = st.columns(4)
 
-    # RIGHT
-    with col3:
-        st.markdown("""
-        <div class="nav-right">
-        🔔
-        <div class="avatar">👨‍⚕️</div>
-        Dr MohanKrishna
-        </div>
-        """, unsafe_allow_html=True)
+    with d1:
+        if st.button("Dashboard"):
+            st.session_state.page="Dashboard"
+
+    with d2:
+        if st.button("Diagnosis"):
+            st.session_state.page="Diagnosis"
+
+    with d3:
+        if st.button("Reports"):
+            st.session_state.page="Reports"
+
+    with d4:
+        if st.button("Settings"):
+            st.session_state.page="Settings"
+
+
+
+# -------- RIGHT PROFILE --------
+
+with nav3:
+
+    st.markdown("""
+<div class="nav-right">
+
+🔔
+
+<div class="avatar">👨‍⚕️</div>
+
+<b>Dr MohanKrishna</b>
+
+</div>
+""", unsafe_allow_html=True)
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
 
@@ -487,6 +550,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
