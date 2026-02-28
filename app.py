@@ -8,24 +8,46 @@ import base64
 # =================================================
 
 st.set_page_config(layout="wide")
+import base64
+
+def get_base64(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+bg = get_base64("assets/medical-bg.jpg")
+
+st.markdown(f"""
+<style>
+
+/* Hide default header */
+header {{
+    visibility: hidden;
+}}
+
+/* Apply medical background to entire app */
+.stApp {{
+    background:
+    linear-gradient(rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.75)),
+    url("data:image/jpg;base64,{bg}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}}
+
+/* Remove top spacing */
+.block-container {{
+    padding-top: 0rem !important;
+}}
+
+</style>
+""", unsafe_allow_html=True)
 
 # =================================================
 # LOAD MODEL
 # =================================================
 
 model = pickle.load(open("model.pkl","rb"))
-
-# =================================================
-# LOAD BACKGROUND IMAGE
-# =================================================
-
-def get_base64(path):
-    with open(path,"rb") as f:
-        return base64.b64encode(f.read()).decode()
-
-bg = get_base64("assets/medical-bg.jpg")
-
-
 # =================================================
 # LOGIN SESSION
 # =================================================
@@ -657,3 +679,4 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
