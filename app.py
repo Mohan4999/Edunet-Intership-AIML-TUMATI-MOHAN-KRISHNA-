@@ -447,30 +447,68 @@ box-shadow:0 10px 30px rgba(0,0,0,.4);
 # =================================================
 # DIAGNOSIS
 # =================================================
+elif page == "Diagnosis":
 
-elif page=="Diagnosis":
-
-    st.title("❤️ Heart Disease Check")
-
-    age=st.number_input("Age",1,100)
-
-    bp=st.number_input("Blood Pressure",50,120)
-
-    chol=st.number_input("Cholesterol",100,240)
-
-    if st.button("Predict Heart Risk"):
-
-        result=model.predict([[age,bp,chol]])[0]
-
-        if result==1:
-
-            st.error("High Risk")
-
-        else:
-
-            st.success("Low Risk")
+    # -------- PAGE TITLE --------
+    st.markdown("""
+    <h2 style='color:white; text-align:center; margin-bottom:30px;'>
+    ❤️ Heart Disease Risk Prediction
+    </h2>
+    """, unsafe_allow_html=True)
 
 
+    # -------- FORM CARD --------
+    st.markdown("""
+    <div style="
+    background: rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:20px;
+    backdrop-filter: blur(12px);
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    ">
+    """, unsafe_allow_html=True)
+
+
+    # Input fields in 2 columns
+    col1, col2 = st.columns(2)
+
+    with col1:
+        age = st.number_input("Age", min_value=1, max_value=100, value=25)
+        resting_bp = st.number_input("Resting Blood Pressure", 80, 200, 120)
+
+    with col2:
+        cholesterol = st.number_input("Cholesterol Level", 100, 400, 200)
+        max_hr = st.number_input("Max Heart Rate", 60, 220, 150)
+
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Centered Predict Button
+    c1, c2, c3 = st.columns([3,2,3])
+    with c2:
+        predict = st.button("🔍 Predict Heart Risk")
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+    # -------- RESULT SECTION --------
+    if predict:
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown("""
+        <div style="
+        background:linear-gradient(135deg,#00c6ff,#0072ff);
+        padding:25px;
+        border-radius:15px;
+        text-align:center;
+        color:white;
+        font-size:20px;
+        font-weight:600;
+        box-shadow:0 10px 30px rgba(0,0,0,.4);
+        ">
+        Prediction Result: Low Risk ✅
+        </div>
+        """, unsafe_allow_html=True)
 # =================================================
 # REPORTS
 # =================================================
@@ -537,6 +575,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
