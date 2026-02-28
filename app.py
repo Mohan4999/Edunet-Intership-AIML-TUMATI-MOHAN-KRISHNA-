@@ -1,265 +1,512 @@
 import streamlit as st
 import pandas as pd
 import pickle
-from PIL import Image
-import os
+import base64
 
-# ---------- PAGE ----------
+# =================================================
+# PAGE CONFIG
+# =================================================
 st.set_page_config(layout="wide")
 
-# ---------- LOAD MODEL ----------
-model = pickle.load(open("model.pkl","rb"))
+# =================================================
+# BACKGROUND IMAGE
+# =================================================
+def get_base64(path):
+    with open(path,"rb") as f:
+        return base64.b64encode(f.read()).decode()
 
-# ---------- IMAGES ----------
-hospital_logo = Image.open("assets/hospital.png")
-doctor_img = Image.open("assets/doctor.png")
-if os.path.exists("assets/hospital.png"):
-    hospital_logo = Image.open("assets/hospital.png")
-    st.image(hospital_logo,width=250)
-else:
-    st.title("ApexCare Medical Centre")
-# ---------- CSS ----------
-st.markdown("""
+bg = get_base64("assets/medical-bg.jpg")
+
+st.markdown(f"""
 <style>
 
-[data-testid="stAppViewContainer"]{
+header{{visibility:hidden;}}
+
+/* GLOBAL BACKGROUND */
+
+.stApp{{
 background:
-linear-gradient(rgba(5,20,30,.9),
-rgba(5,20,30,.95)),
-url("medical-bg.jpg");
+linear-gradient(rgba(0,0,0,.65),
+rgba(0,0,0,.75)),
+url("data:image/jpg;base64,{bg}");
 
 background-size:cover;
-color:white;
+background-position:center;
+background-attachment:fixed;
+}}
+
+.block-container{{
+padding-top:0rem!important;
+}}
+
+</style>
+""",unsafe_allow_html=True)
+
+# =================================================
+# MODEL
+# =================================================
+model = pickle.load(open("model.pkl","rb"))
+
+# =================================================
+# LOGIN SESSION
+# =================================================
+if "login" not in st.session_state:
+    st.session_state.login=False
+
+
+# =================================================
+# LOGIN PAGE
+# =================================================
+if not st.session_state.login:
+
+    logo=get_base64("assets/hospital.png")
+
+    st.markdown("""
+<style>
+
+.block-container{
+padding-top:140px;
 }
 
-.topbar{
+.login-box{
 display:flex;
-justify-content:space-between;
+flex-direction:column;
 align-items:center;
-background:#020617;
-padding:15px 40px;
-border-radius:12px;
+justify-content:center;
 }
 
-.menu{
+div.stButton{
 display:flex;
-gap:20px;
+justify-content:center;
 }
 
-.card{
-padding:25px;
-border-radius:18px;
-text-align:center;
+div.stButton>button{
+
+width:250px;
+
+padding:14px;
+
+font-size:18px;
+
+border-radius:14px;
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+
 color:white;
-font-size:20px;
-box-shadow:0 10px 30px black;
+
+font-weight:700;
+
+border:none;
+
 }
 
-.green{background:#16a34a;}
-.red{background:#dc2626;}
-.blue{background:#2563eb;}
-.purple{background:#7c3aed;}
+label{
 
-.result-risk{
-background:#ffd6d6;
-color:#b00020;
-padding:20px;
-border-radius:12px;
-border-left:6px solid red;
+color:white!important;
+
+font-size:20px!important;
+
+font-weight:700!important;
+
 }
 
-.result-safe{
-background:#d6ffe5;
-color:#006b2c;
-padding:20px;
-border-radius:12px;
-border-left:6px solid green;
+.login-logo{
+
+width:170px;
+
+border-radius:15px;
+
+margin-bottom:15px;
+
 }
 
 </style>
 """,unsafe_allow_html=True)
 
+    c1,c2,c3=st.columns([3,2,3])
 
-# ---------- LOGIN ----------
-if "login" not in st.session_state:
-    st.session_state.login=False
+    with c2:
 
-if not st.session_state.login:
+        st.markdown(f"""
+<div class="login-box">
 
-    st.image(hospital_logo,width=300)
+<img src="data:image/png;base64,{logo}"
+class="login-logo">
 
-    st.markdown("## ApexCare Medical Centre")
+<h2 style="color:white;">
+ApexCare Medical Centre
+</h2>
 
-    user = st.text_input("Username")
-    pwd = st.text_input("Password",type="password")
+</div>
+""",unsafe_allow_html=True)
 
-    if st.button("Login"):
+        username=st.text_input("Username")
+        password=st.text_input("Password",type="password")
 
-        if user=="admin" and pwd=="1234":
+        if st.button("Login"):
 
-            st.session_state.login=True
-            st.rerun()
+            if username=="admin" and password=="1234":
 
-        else:
-            st.error("Invalid Login")
+                st.session_state.login=True
+                st.rerun()
+
+            else:
+
+                st.error("Invalid Login")
 
     st.stop()
 
+# =================================================
+# NAVBAR STYLE
+# =================================================
+st.markdown("""
+<style>
 
-# ---------- NAV ----------
-menu = st.sidebar.radio(
+.block-container{
 
-"Navigation",
+margin-top:70px;
 
-["Dashboard",
-"Diagnosis",
-"Reports",
-"Settings"]
+max-width:92%;
 
-)
+margin-left:auto;
+margin-right:auto;
+}
 
-st.sidebar.image(doctor_img,width=80)
+/* NAVBAR */
 
-st.sidebar.write("Dr MohanKrishna")
+.nav-left{
 
+display:flex;
 
-# ---------- DASHBOARD ----------
-if menu=="Dashboard":
+align-items:center;
 
-    st.title("ApexCare Medical Centre")
+gap:15px;
+
+font-size:26px;
+
+font-weight:700;
+
+color:#00d4ff;
+
+}
+
+.nav-right{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+color:white;
+
+font-weight:600;
+
+}
+
+.avatar{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+/* NAV BUTTONS NORMAL */
+
+div.stButton > button{
+
+background:transparent!important;
+
+border:none!important;
+
+color:#cccccc!important;
+
+font-size:17px;
+
+font-weight:600;
+
+}
+
+/* HOVER */
+
+div.stButton > button:hover{
+
+background:linear-gradient(
+90deg,#00c6ff,#0072ff)!important;
+
+color:white!important;
+
+border-radius:25px;
+
+}
+
+/* CARDS */
+
+.card{
+
+padding:30px;
+
+border-radius:18px;
+
+text-align:center;
+
+color:white;
+
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+
+}
+
+</style>
+""",unsafe_allow_html=True)
+
+# =================================================
+# NAVBAR
+# =================================================
+
+if "page" not in st.session_state:
+    st.session_state.page="Dashboard"
+
+nav1,nav2,nav3=st.columns([4,6,3])
+
+# LEFT
+with nav1:
+
+    l1,l2=st.columns([1,5])
+
+    with l1:
+        st.image("assets/hospital.png",width=55)
+
+    with l2:
+        st.markdown(
+"<div class='nav-left'>ApexCare Medical Centre</div>",
+unsafe_allow_html=True)
+
+# CENTER MENU
+with nav2:
 
     c1,c2,c3,c4=st.columns(4)
 
-    c1.markdown(
-    '<div class="card green">Cases Solved<h2>150</h2></div>',
-    unsafe_allow_html=True)
+    if c1.button("Dashboard"):
+        st.session_state.page="Dashboard"
 
-    c2.markdown(
-    '<div class="card red">High Risk<h2>45</h2></div>',
-    unsafe_allow_html=True)
+    if c2.button("Diagnosis"):
+        st.session_state.page="Diagnosis"
 
-    c3.markdown(
-    '<div class="card blue">Stable Patients<h2>105</h2></div>',
-    unsafe_allow_html=True)
+    if c3.button("Reports"):
+        st.session_state.page="Reports"
 
-    c4.markdown(
-    '<div class="card purple">Total Patients<h2>150</h2></div>',
-    unsafe_allow_html=True)
+    if c4.button("Settings"):
+        st.session_state.page="Settings"
 
-
-    st.subheader("Recent Patients")
-
-    df=pd.DataFrame({
-
-    "Name":["Ravi Kumar","Anita Devi"],
-    "Age":[54,39],
-    "Status":["High Risk","Stable"],
-    "Treatment":["Cardiac Monitoring","Medication"]
-
-    })
-
-    st.dataframe(df,use_container_width=True)
+# RIGHT
+with nav3:
 
     st.markdown("""
-    <div style="
-    background:linear-gradient(135deg,#00c6ff,#0047ff);
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
-    margin-top:20px;
-    ">
-    <h3>Medical Diagnosis</h3>
-    Predict heart disease risk using AI Model
-    </div>
-    """,unsafe_allow_html=True)
+<div class="nav-right">
 
+🔔
 
-# ---------- DIAGNOSIS ----------
-elif menu=="Diagnosis":
+<div class="avatar">👨‍⚕️</div>
 
-    st.title("❤️ Heart Disease Check")
+Dr MohanKrishna
 
-    age=st.number_input("Age",1,100)
-    bp=st.number_input("Blood Pressure",50,200)
-    chol=st.number_input("Cholesterol",100,400)
+</div>
+""",unsafe_allow_html=True)
 
-    if st.button("Predict Heart Risk"):
+page=st.session_state.page
 
-        pred=model.predict([[age,bp,chol]])[0]
+# =================================================
+# DASHBOARD
+# =================================================
+if page=="Dashboard":
 
-        if pred==1:
+    st.markdown(
+"<h2 style='text-align:center;color:white'>ApexCare Medical Centre Dashboard</h2>",
+unsafe_allow_html=True)
 
-            st.markdown("""
-            <div class="result-risk">
+    cols=st.columns(4)
 
-            <h3>High Risk</h3>
+    cards=[
 
-            Patient has higher chance of heart disease.
+("Cases Solved","150","#00b09b,#96c93d"),
 
-            </div>
+("High Risk","45","#ff416c,#ff4b2b"),
 
-            """,unsafe_allow_html=True)
+("Stable Patients","105","#36d1dc,#5b86e5"),
 
-        else:
+("Total Patients","150","#8360c3,#2ebf91")
 
-            st.markdown("""
-            <div class="result-safe">
+]
 
-            <h3>Low Risk</h3>
+    for col,(t,v,g) in zip(cols,cards):
 
-            Patient condition looks stable.
+        with col:
 
-            </div>
+            st.markdown(f"""
+<div class="card"
+style="background:linear-gradient(135deg,{g});">
 
-            """,unsafe_allow_html=True)
+<h4>{t}</h4>
 
+<h2>{v}</h2>
 
+</div>
+""",unsafe_allow_html=True)
 
-# ---------- REPORTS ----------
-elif menu=="Reports":
-
-    st.title("Patient Treatment Reports")
+    st.markdown(
+"<h3 style='color:white;margin-top:35px;'>📋 Recent Patients</h3>",
+unsafe_allow_html=True)
 
     df=pd.DataFrame({
 
-    "Name":["Ravi Kumar","Anita Devi",
-    "Suresh Reddy","Meena Sharma","Priya Nair"],
+"Name":["Ravi Kumar","Anita Devi"],
 
-    "Age":[54,39,61,45,33],
+"Age":[54,39],
 
-    "Status":["High Risk","Stable",
-    "High Risk","Stable","Stable"],
+"Status":["High Risk","Stable"],
 
-    "Treatment":[
+"Treatment":["Cardiac Monitoring","Medication"]
 
-    "Cardiac Monitoring",
-    "Medication",
-    "ICU Observation",
-    "Regular Checkup",
-    "Diet Monitoring"]
-
-    })
+})
 
     st.dataframe(df,use_container_width=True)
 
+    c1,c2,c3=st.columns([3,2,3])
+
+    if c2.button("Start Diagnosis →"):
+        st.session_state.page="Diagnosis"
 
 
-# ---------- SETTINGS ----------
-elif menu=="Settings":
+# =================================================
+# DIAGNOSIS PAGE
+# =================================================
+elif page=="Diagnosis":
 
-    st.title("Account Settings")
+    # NAVBAR BUTTON COLOR CHANGE ONLY HERE
+    st.markdown("""
+<style>
 
-    name=st.text_input(
-    "Doctor Name",
-    "Dr MohanKrishna")
+/* Navbar buttons different color */
 
-    email=st.text_input(
-    "Email",
-    "mohankrishna@email.com")
+div.stButton > button{
 
-    hospital=st.text_input(
-    "Hospital",
-    "ApexCare Medical Centre")
+color:#ffffff!important;
+
+}
+
+div.stButton > button:hover{
+
+background:linear-gradient(
+135deg,#ff416c,#ff4b2b)!important;
+
+}
+
+label{
+
+color:white!important;
+
+font-weight:600!important;
+
+}
+
+</style>
+""",unsafe_allow_html=True)
+
+    st.markdown("""
+<h2 style="text-align:center;color:white">
+
+❤️ Heart Disease Risk Prediction
+
+</h2>
+""",unsafe_allow_html=True)
+
+    o1,o2,o3=st.columns([2,6,2])
+
+    with o2:
+
+        c1,c2=st.columns(2)
+
+        with c1:
+
+            age=st.number_input("Age",1,100,25)
+
+            resting_bp=st.number_input(
+"Resting BP",80,200,120)
+
+        with c2:
+
+            cholesterol=st.number_input(
+"Cholesterol",100,400,200)
+
+            max_hr=st.number_input(
+"Max Heart Rate",60,220,150)
+
+        b1,b2,b3=st.columns([3,3,3])
+
+        predict=b2.button(
+"❤️ Predict Heart Risk",
+use_container_width=True)
+
+    if predict:
+
+        st.success(
+"Prediction Result : Low Risk ✅")
+
+
+# =================================================
+# REPORTS
+# =================================================
+elif page=="Reports":
+
+    st.markdown(
+"<h2 style='color:white'>📊 Reports</h2>",
+unsafe_allow_html=True)
+
+    df=pd.DataFrame({
+
+"Name":["Ravi Kumar","Anita Devi"],
+
+"Age":[54,39],
+
+"Status":["High Risk","Stable"],
+
+"Treatment":["Cardiac Monitoring","Medication"]
+
+})
+
+    st.dataframe(df,use_container_width=True)
+
+# =================================================
+# SETTINGS
+# =================================================
+elif page=="Settings":
+
+    st.markdown(
+"<h2 style='color:white'>⚙️ Settings</h2>",
+unsafe_allow_html=True)
+
+    st.text_input(
+"Doctor Name",
+"Dr MohanKrishna")
+
+    st.text_input(
+"Email",
+"mohankrishna@email.com")
+
+    st.text_input(
+"Hospital",
+"ApexCare Medical Centre")
 
     if st.button("Save Profile"):
 
@@ -267,6 +514,6 @@ elif menu=="Settings":
 
     st.checkbox("Email Alerts",True)
 
-    st.checkbox("High Risk Patient Alerts",True)
+    st.checkbox("High Risk Alerts",True)
 
-    st.checkbox("Weekly Diagnosis Report")
+    st.checkbox("Weekly Report")
