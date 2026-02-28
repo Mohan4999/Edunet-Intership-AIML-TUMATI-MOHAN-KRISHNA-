@@ -29,91 +29,131 @@ if "login" not in st.session_state:
 if not st.session_state.login:
 
     st.markdown(f"""
-    <style>
 
-    header, footer {{visibility:hidden;}}
-    #MainMenu {{visibility:hidden;}}
+<style>
 
-    /* Remove default padding */
-    .block-container {{
-        padding:0rem;
-    }}
+header, footer {{visibility:hidden;}}
+#MainMenu {{visibility:hidden;}}
 
-    /* Fullscreen background */
-    .stApp {{
-        background:
-        linear-gradient(rgba(0,0,0,.65),
-        rgba(0,0,0,.75)),
-        url("data:image/jpg;base64,{bg}");
-        background-size:cover;
-        background-position:center;
-        background-repeat:no-repeat;
-    }}
 
-    /* Full screen center wrapper */
-    .center-wrapper {{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-    }}
+/* BACKGROUND IMAGE */
 
-    /* Login card */
-    .login-card {{
-        background:rgba(0,0,0,.55);
-        backdrop-filter:blur(18px);
-        padding:35px 30px;
-        border-radius:18px;
-        width:330px;
-        text-align:center;
-        box-shadow:0 30px 60px rgba(0,0,0,.8);
-    }}
+.stApp {{
 
-    .title {{
-        color:white;
-        font-size:20px;
-        font-weight:600;
-        margin-top:12px;
-        margin-bottom:20px;
-    }}
+background:
 
-    div[data-baseweb="input"] > div {{
-        border-radius:10px !important;
-    }}
+linear-gradient(
 
-    div.stButton > button {{
-        width:100%;
-        padding:12px;
-        border-radius:10px;
-        background:linear-gradient(90deg,#00c6ff,#0072ff);
-        color:white;
-        font-weight:600;
-        border:none;
-        margin-top:10px;
-    }}
+rgba(0,0,0,.70),
 
-    </style>
-    """, unsafe_allow_html=True)
+rgba(0,0,0,.80)
 
-    st.markdown("<div class='center-wrapper'>", unsafe_allow_html=True)
-    st.markdown("<div class='login-card'>", unsafe_allow_html=True)
+),
 
-    st.image("assets/hospital.png", width=150)
+url("data:image/jpg;base64,{bg}");
 
-    st.markdown("<div class='title'>ApexCare Medical Centre</div>",
-                unsafe_allow_html=True)
+background-size:cover;
 
-    username = st.text_input("Username", label_visibility="collapsed")
-    password = st.text_input("Password", type="password",
-                             label_visibility="collapsed")
+background-position:center;
 
-    if st.button("Login"):
-        if username == "admin" and password == "1234":
-            st.success("Login Successful")
-        else:
-            st.error("Invalid Login")
+background-repeat:no-repeat;
 
-    st.markdown("</div></div>", unsafe_allow_html=True)
+}}
+
+
+/* REMOVE WHITE SPACE */
+
+.block-container {{
+
+padding-top:140px;
+
+max-width:100%;
+
+}}
+
+
+/* GLASS CARD (CENTER COLUMN ONLY) */
+
+div[data-testid="column"]:nth-child(2) {{
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(18px);
+
+padding:35px;
+
+border-radius:18px;
+
+box-shadow:
+
+0 25px 70px rgba(0,0,0,.8);
+
+text-align:center;
+
+}}
+
+
+/* INPUT ROUND */
+
+div[data-baseweb="input"]>div {{
+
+border-radius:12px;
+
+}}
+
+
+/* BUTTON */
+
+div.stButton>button {{
+
+width:100%;
+
+padding:14px;
+
+border-radius:12px;
+
+background:
+
+linear-gradient(90deg,#00c6ff,#0072ff);
+
+color:white;
+
+font-weight:600;
+
+border:none;
+
+}}
+
+</style>
+
+""",unsafe_allow_html=True)
+
+
+    # CENTER CARD USING COLUMNS
+
+    left,center,right = st.columns([3,1.4,3])
+
+    with center:
+
+        st.image("assets/hospital.png",width=170)
+
+        st.markdown(
+        "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
+        unsafe_allow_html=True)
+
+        username = st.text_input("Username")
+
+        password = st.text_input("Password",type="password")
+
+        if st.button("Login"):
+
+            if username=="admin" and password=="1234":
+
+                st.success("Login Successful")
+
+            else:
+
+                st.error("Invalid Login")
 
     st.stop()
 # =================================================
@@ -268,6 +308,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
