@@ -160,8 +160,6 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 </style>
 """, unsafe_allow_html=True)
 
-
-# ---------------- NAVBAR STYLE ----------------
 # ---------------- NAVBAR CSS ----------------
 st.markdown("""
 <style>
@@ -256,26 +254,6 @@ Dr MohanKrishna
 
 </div>
 """, unsafe_allow_html=True)
-
-
-# ---------------- FUNCTIONAL BUTTONS (INVISIBLE ROW) ----------------
-c1,c2,c3,c4 = st.columns(4)
-
-with c1:
-    if st.button("Dashboard"):
-        st.session_state.page = "Dashboard"
-
-with c2:
-    if st.button("Diagnosis"):
-        st.session_state.page = "Diagnosis"
-
-with c3:
-    if st.button("Reports"):
-        st.session_state.page = "Reports"
-
-with c4:
-    if st.button("Settings"):
-        st.session_state.page = "Settings"
 # ---------------- NAVBAR ----------------
 col1, col2, col3 = st.columns([3,5,2])
 
@@ -361,47 +339,6 @@ if page == "Dashboard":
     with col2:
         if st.button("Start Diagnosis →"):
             st.session_state.page = "Diagnosis"
-
-
-
-# =====================================================
-# ================= DIAGNOSIS PAGE ====================
-# =====================================================
-
-elif page == "Diagnosis":
-
-    st.markdown(
-        '<h2 style="text-align:center;color:white;">Diagnosis Page</h2>',
-        unsafe_allow_html=True
-    )
-
-    st.info("Here your AI model prediction form will appear.")
-
-
-
-# =====================================================
-# ================= REPORTS PAGE ======================
-# =====================================================
-
-elif page == "Reports":
-
-    st.markdown(
-        '<h2 style="text-align:center;color:white;">Reports Page</h2>',
-        unsafe_allow_html=True
-    )
-
-
-
-# =====================================================
-# ================= SETTINGS PAGE =====================
-# =====================================================
-
-elif page == "Settings":
-
-    st.markdown(
-        '<h2 style="text-align:center;color:white;">Settings Page</h2>',
-        unsafe_allow_html=True
-    )
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -495,6 +432,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
