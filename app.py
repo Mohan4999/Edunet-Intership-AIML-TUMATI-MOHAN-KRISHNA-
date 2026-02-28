@@ -243,7 +243,7 @@ with navbar:
         logo_col, text_col = st.columns([1,4])
 
     with logo_col:
-        st.image(hospital, width=55)
+        st.image(hospital.png, width=55)
 
     with text_col:
         st.markdown(
@@ -487,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
