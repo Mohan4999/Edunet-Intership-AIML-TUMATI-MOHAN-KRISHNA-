@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import base64
 import os
+from PIL import Image
 
 st.set_page_config(layout="wide")
 
@@ -486,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
