@@ -138,18 +138,30 @@ div[data-baseweb="input"] input {{
 # =================================================
 st.set_page_config(layout="wide")
 
+
+# ---------- GLOBAL STYLE ----------
+
 st.markdown("""
 <style>
+
+/* REMOVE SIDEBAR + HEADER */
+
 [data-testid="stSidebar"]{display:none;}
 header{visibility:hidden;}
-.block-container{padding-top:1rem;max-width:95%;margin:auto;}
+
+.block-container{
+padding-top:1rem;
+max-width:95%;
+margin:auto;
+}
+
+
+/* BACKGROUND */
+
 .stApp{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
+
 
 /* NAVBAR */
 
@@ -166,9 +178,6 @@ box-shadow:0px 8px 25px rgba(0,0,0,.5);
 }
 
 .nav-left{
-display:flex;
-align-items:center;
-gap:12px;
 font-weight:600;
 font-size:18px;
 }
@@ -176,13 +185,11 @@ font-size:18px;
 .nav-center{
 display:flex;
 gap:35px;
-font-weight:500;
 }
 
 .nav-center span{
 padding:8px 18px;
 border-radius:20px;
-cursor:pointer;
 }
 
 .active{
@@ -191,8 +198,8 @@ background:linear-gradient(90deg,#00c6ff,#0072ff);
 
 .nav-right{
 display:flex;
-align-items:center;
 gap:15px;
+align-items:center;
 }
 
 .avatar{
@@ -205,9 +212,9 @@ align-items:center;
 justify-content:center;
 }
 
-</style>
-""", unsafe_allow_html=True)
+
 /* TITLE */
+
 .dashboard-title{
 text-align:center;
 color:white;
@@ -215,7 +222,10 @@ font-size:30px;
 font-weight:700;
 margin-bottom:25px;
 }
+
+
 /* CARDS */
+
 .card{
 padding:30px;
 border-radius:18px;
@@ -224,19 +234,14 @@ color:white;
 font-weight:600;
 box-shadow:0px 15px 35px rgba(0,0,0,.5);
 }
-.green{
-background:linear-gradient(135deg,#00b09b,#96c93d);
-}
-.red{
-background:linear-gradient(135deg,#ff416c,#ff4b2b);
-}
-.blue{
-background:linear-gradient(135deg,#36d1dc,#5b86e5);
-}
-.purple{
-background:linear-gradient(135deg,#8360c3,#2ebf91);
-}
-/* WHITE TABLE CARD */
+
+.green{background:linear-gradient(135deg,#00b09b,#96c93d);}
+.red{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
+.blue{background:linear-gradient(135deg,#36d1dc,#5b86e5);}
+.purple{background:linear-gradient(135deg,#8360c3,#2ebf91);}
+
+
+/* TABLE CARD */
 
 .white-card{
 
@@ -253,8 +258,8 @@ box-shadow:0px 12px 30px rgba(0,0,0,.5);
 
 .diag{
 
-margin-top:40px;
-padding:40px;
+margin-top:50px;
+padding:50px;
 border-radius:20px;
 background:linear-gradient(135deg,#2193b0,#6dd5ed);
 text-align:center;
@@ -273,7 +278,7 @@ justify-content:center;
 
 }
 
-div.stButton > button {
+div.stButton > button{
 
 padding:14px 30px;
 border-radius:10px;
@@ -285,84 +290,17 @@ border:none;
 }
 
 </style>
-""",unsafe_allow_html=True)
-
-
-
-# ---------- NAVIGATION STATE ----------
-
-if "page" not in st.session_state:
-    st.session_state.page="Dashboard"
+""", unsafe_allow_html=True)
 
 
 
 # ---------- NAVBAR ----------
 
 st.markdown("""
-<style>
-
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:16px 40px;
-background:rgba(0,0,0,.75);
-border-radius:20px;
-margin-bottom:40px;
-color:white;
-box-shadow:0px 8px 25px rgba(0,0,0,.5);
-}
-
-.nav-left{
-display:flex;
-align-items:center;
-gap:12px;
-font-weight:600;
-font-size:18px;
-}
-
-.nav-center{
-display:flex;
-gap:35px;
-font-weight:500;
-}
-
-.nav-center span{
-padding:8px 18px;
-border-radius:20px;
-cursor:pointer;
-}
-
-.active{
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-}
-
-.nav-right{
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.avatar{
-width:35px;
-height:35px;
-border-radius:50%;
-background:linear-gradient(135deg,#00c6ff,#0072ff);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:16px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-st.markdown("""
 <div class="navbar">
 
 <div class="nav-left">
- ApexCare Medical Centre
+🏥 ApexCare Medical Centre
 </div>
 
 <div class="nav-center">
@@ -373,15 +311,21 @@ st.markdown("""
 </div>
 
 <div class="nav-right">
+
 🔔
+
 <div class="avatar">👨‍⚕️</div>
+
 Dr MohanKrishna
+
 </div>
 
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- DASHBOARD TITLE ----------
+
+
+# ---------- TITLE ----------
 
 st.markdown(
 '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
@@ -389,7 +333,7 @@ unsafe_allow_html=True)
 
 
 
-# -------- CARDS --------
+# ---------- CARDS ----------
 
 c1,c2,c3,c4 = st.columns(4)
 
@@ -397,11 +341,8 @@ with c1:
 
     st.markdown("""
 <div class="card green">
-
 Cases Solved
-
 <h2>150</h2>
-
 </div>
 """,unsafe_allow_html=True)
 
@@ -410,11 +351,8 @@ with c2:
 
     st.markdown("""
 <div class="card red">
-
 High Risk
-
 <h2>45</h2>
-
 </div>
 """,unsafe_allow_html=True)
 
@@ -423,11 +361,8 @@ with c3:
 
     st.markdown("""
 <div class="card blue">
-
 Stable Patients
-
 <h2>105</h2>
-
 </div>
 """,unsafe_allow_html=True)
 
@@ -436,14 +371,10 @@ with c4:
 
     st.markdown("""
 <div class="card purple">
-
 Total Patients
-
 <h2>150</h2>
-
 </div>
 """,unsafe_allow_html=True)
-
 
 
 
@@ -456,15 +387,9 @@ st.markdown("### 📋 Recent Patients")
 df = pd.DataFrame({
 
 "Name":["Ravi Kumar","Anita Devi"],
-
 "Age":[54,39],
-
 "Status":["High Risk","Stable"],
-
-"Treatment":[
-
-"Cardiac Monitoring",
-"Medication"]
+"Treatment":["Cardiac Monitoring","Medication"]
 
 })
 
@@ -474,52 +399,28 @@ st.markdown('</div>',unsafe_allow_html=True)
 
 
 
-# -------- DIAGNOSIS SECTION --------
-
-st.markdown("""
-<style>
-
-.diag{
-margin-top:50px;
-padding:50px;
-border-radius:20px;
-background:linear-gradient(135deg,#2193b0,#6dd5ed);
-text-align:center;
-color:white;
-box-shadow:0px 15px 40px rgba(0,0,0,.5);
-}
-
-.diag-btn{
-margin-top:25px;
-display:flex;
-justify-content:center;
-}
-
-div.stButton > button{
-padding:14px 30px;
-border-radius:10px;
-background:white;
-color:#2193b0;
-font-weight:700;
-border:none;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
+# ---------- DIAGNOSIS ----------
 
 st.markdown("""
 <div class="diag">
+
 <h3>🩺 Medical Diagnosis</h3>
+
 <p>Predict heart disease risk using AI model.</p>
+
 </div>
 """, unsafe_allow_html=True)
 
-# Button INSIDE visually
-col1, col2, col3 = st.columns([3,2,3])
+
+
+# BUTTON CENTER INSIDE
+
+col1,col2,col3 = st.columns([3,2,3])
 
 with col2:
+
     if st.button("Start Diagnosis →", key="diag_btn"):
+
         st.success("Redirecting to Diagnosis Page...")
 # =================================================
 # DIAGNOSIS
@@ -614,6 +515,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
