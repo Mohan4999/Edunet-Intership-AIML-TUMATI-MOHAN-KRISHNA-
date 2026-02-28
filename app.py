@@ -7,6 +7,7 @@ def get_base64(img_path):
     with open(img_path,"rb") as f:
         data = f.read()
     return base64.b64encode(data).decode()
+bg = get_base64("assets/medical-bg")
     
 # ---------------- PAGE ----------------
 st.set_page_config(layout="wide")
@@ -304,6 +305,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
