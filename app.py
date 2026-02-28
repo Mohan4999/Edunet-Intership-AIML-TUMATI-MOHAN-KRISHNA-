@@ -1,7 +1,13 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import base64
 
+def get_base64(img_path):
+    with open(img_path,"rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+    
 # ---------------- PAGE ----------------
 st.set_page_config(layout="wide")
 
@@ -40,7 +46,7 @@ rgba(0,0,0,.85)
 
 ),
 
-url("assets/medical-bg.jpg");
+url("assets/medical-bg");
 
 background-size:cover;
 
@@ -298,6 +304,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
