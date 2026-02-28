@@ -54,10 +54,6 @@ model = pickle.load(open("model.pkl","rb"))
 
 if "login" not in st.session_state:
     st.session_state.login=False
-
-# ===========================================
-# LOGIN PAGE
-# ===========================================
 # =================================================
 # LOGIN PAGE
 # =================================================
@@ -67,135 +63,88 @@ if not st.session_state.login:
     logo = get_base64("assets/hospital.png")
 
     st.markdown("""
-<style>
+    <style>
 
-header,footer,#MainMenu{
-visibility:hidden;
-}
+    header, footer, #MainMenu {
+        visibility: hidden;
+    }
 
-/* Remove Streamlit spacing */
+    /* Center everything */
+    .block-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 600px;
+        margin: auto;
+    }
 
-.block-container{
-padding-top:8vh !important;
-max-width:450px;
-margin:auto;
-}
+    /* Logo bigger */
+    .login-logo {
+        width: 220px;
+        margin-bottom: 25px;
+        border-radius: 18px;
+    }
 
-/* Login Card */
+    /* Bigger labels */
+    label {
+        color: white !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
 
-.login-card{
+    /* Bigger input fields */
+    div[data-baseweb="input"] input {
+        height: 55px !important;
+        font-size: 18px !important;
+        border-radius: 14px !important;
+    }
 
-padding:40px;
+    /* Bigger login button */
+    div.stButton {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 
-border-radius:20px;
+    div.stButton > button {
+        width: 260px;
+        height: 55px;
+        font-size: 20px;
+        border-radius: 14px;
+        background: linear-gradient(90deg,#00c6ff,#0072ff);
+        color: white;
+        font-weight: 700;
+        border: none;
+    }
 
-background:rgba(0,0,0,.70);
+    div.stButton > button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0,114,255,0.5);
+    }
 
-backdrop-filter:blur(12px);
+    </style>
+    """, unsafe_allow_html=True)
 
-box-shadow:0 15px 40px rgba(0,0,0,.7);
-
-text-align:center;
-
-}
-
-/* Logo */
-
-.login-logo{
-
-width:140px;
-
-margin-bottom:15px;
-
-border-radius:12px;
-
-}
-
-/* Labels */
-
-label{
-
-color:white!important;
-
-font-size:18px!important;
-
-font-weight:600!important;
-
-}
-
-/* Input box size fix */
-
-div[data-baseweb="input"]{
-
-max-width:100%!important;
-
-}
-
-/* Login Button */
-
-div.stButton{
-
-display:flex;
-
-justify-content:center;
-
-}
-
-div.stButton>button{
-
-width:220px;
-
-padding:14px;
-
-font-size:18px;
-
-border-radius:14px;
-
-background:linear-gradient(
-90deg,#00c6ff,#0072ff);
-
-color:white;
-
-font-weight:700;
-
-border:none;
-
-}
-
-</style>
-""",unsafe_allow_html=True)
-
-
-    st.markdown('<div class="login-card">',unsafe_allow_html=True)
-
-    st.markdown(f"""
-<img src="data:image/png;base64,{logo}" class="login-logo">
-
-<h2 style="color:white;">
-ApexCare Medical Centre
-</h2>
-""",unsafe_allow_html=True)
-
-    username = st.text_input("Username")
-
-    password = st.text_input(
-        "Password",
-        type="password"
+    st.markdown(
+        f"""
+        <div style="text-align:center;">
+        <img src="data:image/png;base64,{logo}" class="login-logo">
+        <h1 style="color:white;">ApexCare Medical Centre</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
     if st.button("Login"):
-
-        if username=="admin" and password=="1234":
-
-            st.session_state.login=True
-
+        if username == "admin" and password == "1234":
+            st.session_state.login = True
             st.rerun()
-
         else:
-
             st.error("Invalid Login")
-
-    st.markdown("</div>",unsafe_allow_html=True)
 
     st.stop()
 # ===========================================
@@ -563,4 +512,5 @@ unsafe_allow_html=True)
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
