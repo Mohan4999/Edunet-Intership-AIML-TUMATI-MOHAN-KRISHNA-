@@ -154,176 +154,246 @@ page=st.sidebar.radio(
 )
 
 # =================================================
-# DASHBOARD
+# DASHBOARD PAGE
 # =================================================
+
 if page == "Dashboard":
 
+    # ---------- CSS ----------
     st.markdown("""
 <style>
 
-/* Hide Streamlit sidebar completely */
-[data-testid="stSidebar"] {
-    display: none;
-}
-
-/* Remove top padding */
-.block-container{
-    padding-top:0rem;
-    max-width:95%;
-}
-
-/* Full Dark Gradient Background */
+/* FULL BACKGROUND */
 .stApp{
-    background: linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+}
+
+/* REMOVE SPACE */
+.block-container{
+padding-top:0rem;
+max-width:100%;
 }
 
 /* NAVBAR */
+
 .navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 60px;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(12px);
-    border-radius:0px 0px 25px 25px;
-    margin-bottom:50px;
-    color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(12px);
+border-radius:0px 0px 20px 20px;
+margin-bottom:40px;
+color:white;
+font-weight:600;
 }
 
-/* Dashboard Title */
+/* TITLE */
+
 .dashboard-title{
-    text-align:center;
-    color:white;
-    font-size:32px;
-    font-weight:700;
-    margin-bottom:35px;
+text-align:center;
+color:white;
+font-size:30px;
+font-weight:700;
+margin-bottom:25px;
 }
 
 /* CARDS */
+
 .card{
-    padding:35px;
-    border-radius:20px;
-    text-align:center;
-    color:white;
-    font-weight:600;
-    box-shadow:0px 20px 45px rgba(0,0,0,.6);
-    transition:0.3s;
+padding:30px;
+border-radius:18px;
+text-align:center;
+color:white;
+font-weight:600;
+box-shadow:0px 15px 35px rgba(0,0,0,.5);
 }
 
-.card:hover{
-    transform:translateY(-5px);
+.green{
+background:linear-gradient(135deg,#00b09b,#96c93d);
 }
 
-.green{background:linear-gradient(135deg,#00b09b,#96c93d);}
-.red{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
-.blue{background:linear-gradient(135deg,#36d1dc,#5b86e5);}
-.purple{background:linear-gradient(135deg,#8360c3,#2ebf91);}
+.red{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
 
-/* WHITE PATIENT CARD */
+.blue{
+background:linear-gradient(135deg,#36d1dc,#5b86e5);
+}
+
+.purple{
+background:linear-gradient(135deg,#8360c3,#2ebf91);
+}
+
+
+/* WHITE TABLE CARD */
+
 .white-card{
-    background:white;
-    border-radius:25px;
-    padding:30px;
-    margin-top:40px;
-    box-shadow:0px 20px 50px rgba(0,0,0,.6);
+
+background:white;
+border-radius:20px;
+padding:25px;
+margin-top:30px;
+box-shadow:0px 12px 30px rgba(0,0,0,.5);
+
 }
 
-/* Diagnosis Section */
+
+/* DIAGNOSIS */
+
 .diag{
-    margin-top:60px;
-    padding:60px;
-    border-radius:25px;
-    background:linear-gradient(135deg,#2193b0,#6dd5ed);
-    text-align:center;
-    color:white;
-    box-shadow:0px 25px 60px rgba(0,0,0,.6);
+
+margin-top:40px;
+padding:40px;
+border-radius:20px;
+background:linear-gradient(135deg,#2193b0,#6dd5ed);
+text-align:center;
+color:white;
+box-shadow:0px 15px 40px rgba(0,0,0,.5);
+
 }
 
-/* Center Diagnosis Button */
+/* CENTER BUTTON */
+
 .center-btn{
-    display:flex;
-    justify-content:center;
-    margin-top:30px;
+
+display:flex;
+justify-content:center;
+margin-top:20px;
+
 }
 
-/* Button Style */
 div.stButton > button {
-    padding:16px 40px;
-    border-radius:12px;
-    background:white;
-    color:#2193b0;
-    font-weight:700;
-    border:none;
-    font-size:16px;
+
+padding:14px 30px;
+border-radius:12px;
+background:white;
+color:#2193b0;
+font-weight:600;
+border:none;
+
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-    # NAVBAR
+
+    # ---------- NAVBAR ----------
     st.markdown("""
+
 <div class="navbar">
+
 🏥 ApexCare Medical Centre
-<div>🔔 👨‍⚕️ Dr MohanKrishna</div>
+
+<div>
+Dashboard &nbsp;&nbsp;&nbsp;
+Diagnosis &nbsp;&nbsp;&nbsp;
+Reports &nbsp;&nbsp;&nbsp;
+Settings
 </div>
+
+👨‍⚕️ Dr MohanKrishna
+
+</div>
+
 """, unsafe_allow_html=True)
 
 
-    # TITLE
+
+    # ---------- TITLE ----------
     st.markdown(
-        '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
+        '<div class="dashboard-title">'
+        'ApexCare Medical Centre Dashboard'
+        '</div>',
         unsafe_allow_html=True
     )
 
 
-    # CARDS
+
+    # ---------- CARDS ----------
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
-        st.markdown('<div class="card green">Cases Solved<h2>150</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div class="card green">
+Cases Solved
+<h2>150</h2>
+</div>
+""", unsafe_allow_html=True)
 
     with c2:
-        st.markdown('<div class="card red">High Risk<h2>45</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div class="card red">
+High Risk
+<h2>45</h2>
+</div>
+""", unsafe_allow_html=True)
 
     with c3:
-        st.markdown('<div class="card blue">Stable Patients<h2>105</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div class="card blue">
+Stable Patients
+<h2>105</h2>
+</div>
+""", unsafe_allow_html=True)
 
     with c4:
-        st.markdown('<div class="card purple">Total Patients<h2>150</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div class="card purple">
+Total Patients
+<h2>150</h2>
+</div>
+""", unsafe_allow_html=True)
 
 
-    # RECENT PATIENTS SECTION
-    st.markdown('<div class="white-card">', unsafe_allow_html=True)
 
-    st.markdown("<h4>📋 Recent Patients</h4>", unsafe_allow_html=True)
+    # ---------- WHITE CARD ----------
+    st.markdown('<div class="white-card">',unsafe_allow_html=True)
+
+    st.markdown("#### 📋 Recent Patients")
 
     df = pd.DataFrame({
+
         "Name":["Ravi Kumar","Anita Devi"],
         "Age":[54,39],
         "Status":["High Risk","Stable"],
-        "Treatment":["Cardiac Monitoring","Medication"]
+        "Treatment":[
+            "Cardiac Monitoring",
+            "Medication"]
+
     })
 
     st.dataframe(df,use_container_width=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>',unsafe_allow_html=True)
 
 
-    # DIAGNOSIS SECTION
+
+    # ---------- DIAGNOSIS ----------
     st.markdown("""
+
 <div class="diag">
+
 <h3>🩺 Medical Diagnosis</h3>
+
 <p>Predict heart disease risk using AI model.</p>
+
 </div>
+
 """, unsafe_allow_html=True)
 
-    st.markdown('<div class="center-btn">', unsafe_allow_html=True)
 
-    if st.button("Start Diagnosis →"):
+
+    # ---------- CENTER BUTTON ----------
+    st.markdown('<div class="center-btn">',unsafe_allow_html=True)
+
+    if st.button("Start Diagnosis →",key="start_diag"):
+
         st.success("Redirecting to Diagnosis page...")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>',unsafe_allow_html=True)
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -417,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
