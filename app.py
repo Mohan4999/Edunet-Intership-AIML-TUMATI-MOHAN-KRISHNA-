@@ -54,7 +54,6 @@ if not st.session_state.login:
         border-radius:12px;
     }}
 
-    /* Login Button Center + Bigger */
 /* PERFECT CENTER LOGIN BUTTON */
 
 div.stButton {{
@@ -128,7 +127,6 @@ div[data-baseweb="input"] input {{
         if st.button("Login", key="login_btn"):
             col1, col2, col3 = st.columns([2,2,2])
             with col2:
-                if st.button("Login", key="login_btn"):
                     if username == "admin" and password == "1234":
                         st.session_state.login = True
                         st.rerun()
@@ -287,6 +285,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
