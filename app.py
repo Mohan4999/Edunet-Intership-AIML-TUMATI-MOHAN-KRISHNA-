@@ -150,51 +150,49 @@ if "page" not in st.session_state:
 
 
 # ---------------- GLOBAL STYLE ----------------
-st.markdown("""
-<style>
+/* REMOVE STREAMLIT HEADER + SPACE */
+header{
+display:none !important;
+height:0px !important;
+}
 
-/* Hide Header + Sidebar */
-header{visibility:hidden;}
-[data-testid="stSidebar"]{display:none;}
+/* REMOVE DEFAULT TOP GAP */
+section.main > div{
+padding-top:0rem !important;
+}
 
-/* Background */
+/* APP BACKGROUND */
+
 .stApp{
 background: radial-gradient(circle at top left,#0f2027,#203a43,#2c5364);
 }
 
 /* Push content below navbar */
 .block-container{
-margin-top:85px;
+margin-top:70px !important;   /* navbar height match */
+padding-top:0rem !important;
 max-width:92%;
 margin-left:auto;
 margin-right:auto;
+
 }
 
 /* -------- NAVBAR -------- */
 
 .navbar{
-
 position:fixed;
 top:0;
 left:0;
-
-height:75px;
+height:70px;
 width:100%;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 padding:0px 60px;
-
-background:rgba(0,0,0,.95);
-
-z-index:999;
-
-box-shadow:0 8px 25px rgba(0,0,0,.7);
-
+background:#000000;
+z-index:9999;
+box-shadow:0 8px 25px rgba(0,0,0,.8);
 }
-
 /* Logo Name */
 
 .nav-left{
@@ -202,12 +200,9 @@ box-shadow:0 8px 25px rgba(0,0,0,.7);
 display:flex;
 align-items:center;
 gap:15px;
-
 font-size:26px;
 font-weight:700;
-
 color:#00d4ff;
-
 }
 
 /* Right Profile */
@@ -540,6 +535,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
