@@ -55,24 +55,25 @@ if not st.session_state.login:
     }}
 
     /* Login Button Center + Bigger */
-/* Center Login Button */
+/* PERFECT CENTER LOGIN BUTTON */
+
 div.stButton {{
-    display: flex;
-    justify-content: center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }}
 
 div.stButton > button {{
-    width: 220px;
-    padding: 14px 0;
-    font-size: 18px;
-    border-radius: 14px;
-    background: linear-gradient(90deg,#00c6ff,#0072ff);
-    color: white;
-    font-weight: 600;
-    border: none;
-    margin-top: 20px;
+    width:240px;
+    padding:14px 0;
+    font-size:18px;
+    border-radius:14px;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:white;
+    font-weight:600;
+    border:none;
+    margin-top:20px;
 }}
-
 /* Hover Effect */
 div.stButton > button:hover {{
     transform:scale(1.05);
@@ -124,15 +125,16 @@ div[data-baseweb="input"] input {{
 
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
-
         if st.button("Login"):
-            if username == "admin" and password == "1234":
-                st.session_state.login = True
-                st.rerun()
-            else:
-                st.error("Invalid Login")
-
-    st.stop()
+            col1, col2, col3 = st.columns([2,2,2])
+            with col2:
+                if st.button("Login"):
+                    if username == "admin" and password == "1234":
+                        st.session_state.login = True
+                        st.rerun()
+                    else:
+                        st.error("Invalid Login")
+                        st.stop()
 # =================================================
 # SIDEBAR
 # =================================================
@@ -285,6 +287,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
