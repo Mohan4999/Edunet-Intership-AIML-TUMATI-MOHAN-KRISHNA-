@@ -172,68 +172,84 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 st.markdown("""
 <style>
 
+/* ---------- NAVBAR BLACK BACKGROUND ---------- */
+
 .navbar{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 padding:18px 40px;
-background:rgba(0,0,0,.85);
+
+/* BLACK BACKGROUND */
+background:#000000;
+
+/* Optional premium glass look */
+backdrop-filter:blur(12px);
+
 border-radius:20px;
+
 margin-bottom:35px;
+
 color:white;
-box-shadow:0px 8px 25px rgba(0,0,0,.6);
+
+box-shadow:0px 10px 30px rgba(0,0,0,.9);
+
 }
 
+
+/* LEFT LOGO */
+
 .nav-left{
+
 display:flex;
 align-items:center;
 gap:10px;
 font-size:18px;
 font-weight:600;
+
 }
+
+
+/* CENTER MENU */
 
 .nav-center{
+
 display:flex;
-gap:20px;
+gap:30px;
+
 }
+
+
+/* RIGHT PROFILE */
 
 .nav-right{
+
 display:flex;
-gap:15px;
 align-items:center;
+gap:15px;
+
 }
 
+
+/* AVATAR */
+
 .avatar{
+
 width:35px;
 height:35px;
 border-radius:50%;
 background:linear-gradient(135deg,#00c6ff,#0072ff);
+
 display:flex;
 align-items:center;
 justify-content:center;
-}
-
-div.stButton > button{
-
-background:transparent;
-border:none;
-color:white;
-font-weight:600;
-
-}
-
-div.stButton > button:hover{
-
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-border-radius:20px;
 
 }
 
 </style>
 """,unsafe_allow_html=True)
-
-
-
 # ---------------- NAVBAR ----------------
 col1,col2,col3 = st.columns([4,6,3])
 
@@ -493,6 +509,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
