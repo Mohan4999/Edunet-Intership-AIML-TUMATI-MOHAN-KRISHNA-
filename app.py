@@ -173,7 +173,7 @@ logo = Image.open("assets/hospital.png")
 st.markdown("""
 <style>
 
-/* Remove default Streamlit */
+/* Remove Header + Sidebar */
 header {visibility:hidden;}
 [data-testid="stSidebar"] {display:none;}
 
@@ -183,35 +183,34 @@ header {visibility:hidden;}
 }
 
 /* Push content below fixed navbar */
-.block-container {
-    margin-top: 110px;
-    max-width: 92%;
-    margin-left: auto;
-    margin-right: auto;
+.block-container{
+margin-top:110px;
+max-width:92%;
+margin-left:auto;
+margin-right:auto;
 }
-
 /* ---------------- NAVBAR ---------------- */
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 85px;
+.navbar{
+position:fixed;
+top:0;
+left:0;
+height:70px;      /* ↓ smaller height */
+width:100%;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+display:flex;
+justify-content:space-between;
+align-items:center;
 
-    padding: 0 70px;
+padding:0px 60px;
 
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(12px);
+background:rgba(0,0,0,.92);
 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+z-index:999;
 
-    z-index: 999;
+box-shadow:0px 8px 25px rgba(0,0,0,.7);
 }
+
 
 /* Logo Section */
 .nav-left {
@@ -233,6 +232,14 @@ header {visibility:hidden;}
 .nav-center {
     display: flex;
     gap: 40px;
+}
+/* REMOVE TOP SPACE */
+.block-container{
+padding-top:0rem !important;
+margin-top:70px !important;   /* ↓ reduced from 110 */
+max-width:92%;
+margin-left:auto;
+margin-right:auto;
 }
 
 /* Remove white Streamlit button style */
@@ -390,62 +397,58 @@ padding:30px;border-radius:18px;text-align:center;color:white;">
 <h2>150</h2>
 </div>
 """,unsafe_allow_html=True)
-
-
-
     # -------- RECENT PATIENTS --------
 
-    st.markdown(
-    '<div style="background:white;border-radius:20px;padding:20px;margin-top:30px;">',
-    unsafe_allow_html=True
-    )
+st.markdown("""
+<h3 style='color:white; margin-top:30px;'>
+📋 Recent Patients
+</h3>
+""", unsafe_allow_html=True)
 
-    st.markdown("### 📋 Recent Patients")
+st.markdown("""
+<div style="
+background:white;
+border-radius:18px;
+padding:20px;
+margin-top:10px;
+box-shadow:0 8px 25px rgba(0,0,0,.4);
+">
+""", unsafe_allow_html=True)
 
-    df=pd.DataFrame({
-
+df = pd.DataFrame({
     "Name":["Ravi Kumar","Anita Devi"],
     "Age":[54,39],
     "Status":["High Risk","Stable"],
     "Treatment":["Cardiac Monitoring","Medication"]
+})
 
-    })
+st.dataframe(df, use_container_width=True)
 
-    st.dataframe(df,use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
+# -------- DIAGNOSIS CARD --------
 
-    st.markdown("</div>",unsafe_allow_html=True)
-
-
-
-    # -------- DIAGNOSIS CARD --------
-
-    st.markdown("""
-
+st.markdown("""
 <div style="
 margin-top:40px;
 padding:40px;
 border-radius:20px;
 background:linear-gradient(135deg,#2193b0,#6dd5ed);
 text-align:center;
-color:white;">
-
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+">
 <h3>🩺 Medical Diagnosis</h3>
-
 <p>Predict heart disease risk using AI model.</p>
-
 </div>
-
-""",unsafe_allow_html=True)
-
+""", unsafe_allow_html=True)
 
 
-    col1,col2,col3=st.columns([3,2,3])
+# CENTER BUTTON PERFECTLY
+col1, col2, col3 = st.columns([3,2,3])
 
-    with col2:
-
-        if st.button("Start Diagnosis →"):
-
-            st.session_state.page="Diagnosis"
+with col2:
+    if st.button("Start Diagnosis →"):
+        st.session_state.page = "Diagnosis"
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -539,6 +542,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
