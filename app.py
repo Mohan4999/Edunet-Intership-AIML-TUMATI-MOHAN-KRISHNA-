@@ -75,6 +75,21 @@ if not st.session_state.login:
         width:180px;
         border-radius:15px;
     }}
+    /* Improve label visibility */
+label {{
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    background: rgba(0,0,0,0.6);
+    padding: 4px 10px;
+    border-radius: 8px;
+}}
+    /* Input field styling */
+div[data-baseweb="input"] input {{
+    background-color: rgba(255,255,255,0.95) !important;
+    color: black !important;
+    font-weight: 500;
+}}
     </style>
     """, unsafe_allow_html=True)
 
@@ -87,10 +102,10 @@ if not st.session_state.login:
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown(
-            "<h1 style='text-align:center;color:white;'>ApexCare Medical Centre</h1>",
-            unsafe_allow_html=True
-        )
+       st.markdown(
+           "<h2 style='text-align:center;color:white;font-weight:600;margin-bottom:20px;'>ApexCare Medical Centre</h2>",
+           unsafe_allow_html=True
+       )
 
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
@@ -255,6 +270,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
