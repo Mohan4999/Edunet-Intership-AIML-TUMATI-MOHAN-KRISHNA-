@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import base64
+import os
 
 st.set_page_config(layout="wide")
 
@@ -485,6 +486,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
