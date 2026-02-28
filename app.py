@@ -292,6 +292,15 @@ box-shadow:0px 15px 40px rgba(0,0,0,.5);
 
 }
 
+div.stButton > button {
+padding:14px 28px;
+border-radius:10px;
+background:white;
+color:#2193b0;
+font-weight:600;
+border:none;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -409,38 +418,19 @@ Total Patients
 
     # DIAGNOSIS SECTION
 
-    st.markdown("""
-
+st.markdown("""
 <div class="diag">
-
 <h3>🩺 Medical Diagnosis</h3>
-
-Predict heart disease risk using AI model.
-
-<br><br>
-
-<button style="
-
-padding:14px 28px;
-
-border:none;
-
-border-radius:10px;
-
-background:white;
-
-font-weight:600;
-
-color:#2193b0;
-
-">
-
-Start Diagnosis →
-
-</button>
-
+<p>Predict heart disease risk using AI model.</p>
 </div>
+""", unsafe_allow_html=True)
 
+col1,col2,col3 = st.columns([3,2,3])
+
+with col2:
+    if st.button("Start Diagnosis →"):
+        st.success("Redirecting to Diagnosis page...")
+</div>
 """, unsafe_allow_html=True)
 # =================================================
 # DIAGNOSIS
@@ -535,6 +525,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
