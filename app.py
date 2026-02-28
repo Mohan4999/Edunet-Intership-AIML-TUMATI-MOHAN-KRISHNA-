@@ -387,70 +387,210 @@ color:white;
 # DIAGNOSIS PAGE
 # =================================================
 
-elif page=="Diagnosis":
+elif page == "Diagnosis":
+
+    # -------- GLOBAL STYLE --------
 
     st.markdown("""
-<h2 style="text-align:center;color:white">
+    <style>
 
-❤️ Heart Disease Risk Prediction
+    /* Remove Top Gap */
+    .block-container{
+        padding-top:0rem !important;
+        margin-top:80px !important;
+    }
 
-</h2>
-""",unsafe_allow_html=True)
+    section.main > div{
+        padding-top:0rem !important;
+    }
 
-    outer1,outer2,outer3=st.columns([2,6,2])
+    /* Label Visibility */
+    label{
+        color:white !important;
+        font-size:16px !important;
+        font-weight:600 !important;
+    }
+
+    /* Input Styling */
+    div[data-baseweb="input"] input{
+        background:rgba(255,255,255,.95) !important;
+        color:black !important;
+        border-radius:10px !important;
+    }
+
+    /* Predict Button Highlight */
+    div.stButton > button{
+
+        background:linear-gradient(135deg,#ff416c,#ff4b2b) !important;
+
+        color:white !important;
+
+        font-size:18px !important;
+
+        font-weight:700 !important;
+
+        border-radius:14px !important;
+
+        padding:14px !important;
+
+        border:none !important;
+
+        box-shadow:0 8px 25px rgba(255,75,43,.6);
+
+        transition:.3s;
+
+    }
+
+    div.stButton > button:hover{
+
+        background:linear-gradient(135deg,#00c6ff,#0072ff) !important;
+
+        transform:scale(1.05);
+
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+
+    # -------- TITLE --------
+
+    st.markdown("""
+    <h2 style="text-align:center;color:white;margin-bottom:30px;">
+    ❤️ Heart Disease Risk Prediction
+    </h2>
+    """, unsafe_allow_html=True)
+
+
+
+    # -------- CENTER CARD --------
+
+    outer1, outer2, outer3 = st.columns([2,6,2])
 
     with outer2:
 
         st.markdown("""
-<div style="
+        <div style="
 
-background:rgba(255,255,255,.08);
+        background:rgba(255,255,255,.08);
 
-padding:35px;
+        padding:35px;
 
-border-radius:18px;
+        border-radius:18px;
 
-backdrop-filter:blur(10px);
+        backdrop-filter:blur(10px);
 
-">
+        box-shadow:0 10px 30px rgba(0,0,0,.4);
 
-""",unsafe_allow_html=True)
+        ">
+        """, unsafe_allow_html=True)
 
-        c1,c2=st.columns(2)
+
+        # INPUTS
+        c1, c2 = st.columns(2)
 
         with c1:
 
-            age=st.number_input("Age",1,100,25)
+            age = st.number_input("Age", 1, 100, 25)
 
-            resting_bp=st.number_input("Resting BP",80,200,120)
+            resting_bp = st.number_input(
+                "Resting Blood Pressure", 80, 200, 120
+            )
 
         with c2:
 
-            cholesterol=st.number_input("Cholesterol",100,400,200)
+            cholesterol = st.number_input(
+                "Cholesterol", 100, 400, 200
+            )
 
-            max_hr=st.number_input("Max Heart Rate",60,220,150)
+            max_hr = st.number_input(
+                "Max Heart Rate", 60, 220, 150
+            )
 
-        b1,b2,b3=st.columns([2,3,2])
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+
+        # CENTER BUTTON
+
+        b1, b2, b3 = st.columns([2,3,2])
 
         with b2:
 
-            if st.button("❤️ Predict Heart Risk",
-            use_container_width=True):
-
-                st.success("Prediction Result : Low Risk ✅")
-
-        st.markdown("</div>",unsafe_allow_html=True)
+            predict = st.button(
+                "❤️ Predict Heart Risk",
+                use_container_width=True
+            )
 
 
-elif page=="Reports":
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<h2 style='color:white'>Reports Page</h2>",
-    unsafe_allow_html=True)
 
-elif page=="Settings":
 
-    st.markdown("<h2 style='color:white'>Settings Page</h2>",
-    unsafe_allow_html=True)
+    # -------- RESULT --------
+
+    if predict:
+
+        r1, r2, r3 = st.columns([2,6,2])
+
+        with r2:
+
+            st.markdown("""
+            <div style="
+
+            background:linear-gradient(
+            135deg,#00c6ff,#0072ff);
+
+            padding:25px;
+
+            border-radius:15px;
+
+            text-align:center;
+
+            color:white;
+
+            font-size:20px;
+
+            font-weight:600;
+
+            margin-top:20px;
+
+            box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+            ">
+
+            Prediction Result : Low Risk ✅
+
+            </div>
+            """, unsafe_allow_html=True)
+
+
+
+# =================================================
+# REPORTS PAGE
+# =================================================
+
+elif page == "Reports":
+
+    st.markdown("""
+    <h2 style='color:white'>
+    📊 Reports Page
+    </h2>
+    """, unsafe_allow_html=True)
+
+
+
+# =================================================
+# SETTINGS PAGE
+# =================================================
+
+elif page == "Settings":
+
+    st.markdown("""
+    <h2 style='color:white'>
+    ⚙️ Settings Page
+    </h2>
+    """, unsafe_allow_html=True)
 # =================================================
 # REPORTS
 # =================================================
@@ -517,81 +657,3 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
