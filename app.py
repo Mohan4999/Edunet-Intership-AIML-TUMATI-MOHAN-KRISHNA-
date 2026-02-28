@@ -430,6 +430,7 @@ col1,col2,col3 = st.columns([3,2,3])
 with col2:
     if st.button("Start Diagnosis →"):
         st.success("Redirecting to Diagnosis page...")
+        """, unsafe_allow_html=True)
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -523,6 +524,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
