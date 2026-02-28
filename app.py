@@ -138,64 +138,47 @@ div[data-baseweb="input"] input {{
 # =================================================
 # DASHBOARD PAGE
 # =================================================
+import streamlit as st
+import pandas as pd
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(layout="wide")
-
 
 # ---------------- SESSION STATE ----------------
 if "page" not in st.session_state:
     st.session_state.page = "Dashboard"
 
 
-
-# ---------------- REMOVE SIDEBAR + BG ----------------
+# ---------------- GLOBAL STYLE ----------------
 st.markdown("""
 <style>
 
-[data-testid="stSidebar"]{display:none;}
+/* Hide Header + Sidebar */
 header{visibility:hidden;}
+[data-testid="stSidebar"]{display:none;}
 
-.block-container{
-padding-top:1rem;
-max-width:95%;
-margin:auto;
-}
-
+/* Background */
 .stApp{
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+background: radial-gradient(circle at top left,#0f2027,#203a43,#2c5364);
 }
 
-</style>
-""",unsafe_allow_html=True)
-# ---------------- NAVBAR STYLE ----------------
-logo_path = os.path.join(os.getcwd(), "hospital.png")
-logo = Image.open("assets/hospital.png")
-st.markdown("""
-<style>
-
-/* Remove Header + Sidebar */
-header {visibility:hidden;}
-[data-testid="stSidebar"] {display:none;}
-
-/* App Background */
-.stApp {
-    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-}
-
-/* Push content below fixed navbar */
+/* Push content below navbar */
 .block-container{
-margin-top:110px;
+margin-top:85px;
 max-width:92%;
 margin-left:auto;
 margin-right:auto;
 }
-/* ---------------- NAVBAR ---------------- */
+
+/* -------- NAVBAR -------- */
 
 .navbar{
+
 position:fixed;
 top:0;
 left:0;
-height:70px;      /* ↓ smaller height */
+
+height:75px;
 width:100%;
 
 display:flex;
@@ -204,117 +187,129 @@ align-items:center;
 
 padding:0px 60px;
 
-background:rgba(0,0,0,.92);
+background:rgba(0,0,0,.95);
 
 z-index:999;
 
-box-shadow:0px 8px 25px rgba(0,0,0,.7);
+box-shadow:0 8px 25px rgba(0,0,0,.7);
+
 }
 
+/* Logo Name */
 
-/* Logo Section */
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.nav-left{
 
-    font-size: 26px;
-    font-weight: 700;
-    color: #00d4ff;
-    letter-spacing: 0.5px;
+display:flex;
+align-items:center;
+gap:15px;
+
+font-size:26px;
+font-weight:700;
+
+color:#00d4ff;
+
 }
 
-.nav-left img {
-    height: 50px;
+/* Right Profile */
+
+.nav-right{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+font-size:16px;
+font-weight:600;
+
+color:white;
+
 }
 
-/* Center Menu */
-.nav-center {
-    display: flex;
-    gap: 40px;
-}
-/* REMOVE TOP SPACE */
-.block-container{
-padding-top:0rem !important;
-margin-top:70px !important;   /* ↓ reduced from 110 */
-max-width:92%;
-margin-left:auto;
-margin-right:auto;
-}
+.avatar{
 
-/* Remove white Streamlit button style */
-div.stButton > button {
-    background: transparent !important;
-    border: none !important;
-    color: #cccccc !important;
-    font-size: 17px;
-    font-weight: 500;
-    padding: 8px 18px;
-    border-radius: 25px;
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
 }
 
-/* Hover Effect */
-div.stButton > button:hover {
-    background: linear-gradient(90deg,#00c6ff,#0072ff) !important;
-    color: white !important;
-    transition: 0.3s;
+/* NAV BUTTONS */
+
+div.stButton > button{
+
+background:transparent !important;
+border:none !important;
+
+color:#cccccc !important;
+
+font-size:17px;
+font-weight:500;
+
+padding:8px 18px;
+
+border-radius:25px;
+
 }
 
-/* Right Section */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
+div.stButton > button:hover{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff) !important;
+
+color:white !important;
+
 }
 
-.avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#00c6ff,#0072ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-}
+/* Cards */
 
-/* ---------------- CARDS ---------------- */
+.card{
 
-.card {
-    padding: 35px;
-    border-radius: 18px;
-    text-align: center;
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-    transition: 0.3s;
-}
+padding:30px;
 
-.card:hover {
-    transform: translateY(-6px);
+border-radius:18px;
+
+text-align:center;
+
+color:white;
+
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
-nav1, nav2, nav3 = st.columns([4,6,3])
 
-# LEFT (Logo + Name)
+# ---------------- NAVBAR ----------------
+
+nav1,nav2,nav3 = st.columns([4,6,3])
+
+# LEFT (LOGO + NAME)
 with nav1:
-    col_logo, col_name = st.columns([1,5])
-    with col_logo:
-        st.image("assets/hospital.png", use_container_width=True)
-    with col_name:
-        st.markdown(
-            "<div class='nav-left'>ApexCare Medical Centre</div>",
-            unsafe_allow_html=True
-        )
 
-# CENTER (Navigation)
+    col_logo,col_name = st.columns([1,5])
+
+    with col_logo:
+
+        # Works in Streamlit Cloud
+        st.image("assets/hospital.png",width=55)
+
+    with col_name:
+
+        st.markdown(
+        "<div class='nav-left'>ApexCare Medical Centre</div>",
+        unsafe_allow_html=True)
+
+
+# CENTER NAVIGATION
 with nav2:
+
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
@@ -333,101 +328,97 @@ with nav2:
         if st.button("Settings"):
             st.session_state.page="Settings"
 
-# RIGHT (Profile)
+
+# RIGHT PROFILE
 with nav3:
+
     st.markdown("""
     <div class="nav-right">
-        🔔
-        <div class="avatar">👨‍⚕️</div>
-        Dr MohanKrishna
+    🔔
+    <div class="avatar">👨‍⚕️</div>
+    Dr MohanKrishna
     </div>
-    """, unsafe_allow_html=True)
+    """,unsafe_allow_html=True)
+
+
+
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
+
+
 # ===================================================
 # DASHBOARD
 # ===================================================
 
 if page=="Dashboard":
 
-
     st.markdown(
-    '<h2 style="text-align:center;color:white;">ApexCare Medical Centre Dashboard</h2>',
-    unsafe_allow_html=True
-    )
+    "<h2 style='text-align:center;color:white;'>ApexCare Medical Centre Dashboard</h2>",
+    unsafe_allow_html=True)
 
 
-    c1,c2,c3,c4=st.columns(4)
+    c1,c2,c3,c4 = st.columns(4)
 
     with c1:
+
         st.markdown("""
-<div style="background:linear-gradient(135deg,#00b09b,#96c93d);
-padding:30px;border-radius:18px;text-align:center;color:white;">
+<div class="card" style="background:linear-gradient(135deg,#00b09b,#96c93d);">
 <h4>Cases Solved</h4>
 <h2>150</h2>
 </div>
 """,unsafe_allow_html=True)
 
-
     with c2:
+
         st.markdown("""
-<div style="background:linear-gradient(135deg,#ff416c,#ff4b2b);
-padding:30px;border-radius:18px;text-align:center;color:white;">
+<div class="card" style="background:linear-gradient(135deg,#ff416c,#ff4b2b);">
 <h4>High Risk</h4>
 <h2>45</h2>
 </div>
 """,unsafe_allow_html=True)
 
-
     with c3:
+
         st.markdown("""
-<div style="background:linear-gradient(135deg,#36d1dc,#5b86e5);
-padding:30px;border-radius:18px;text-align:center;color:white;">
+<div class="card" style="background:linear-gradient(135deg,#36d1dc,#5b86e5);">
 <h4>Stable Patients</h4>
 <h2>105</h2>
 </div>
 """,unsafe_allow_html=True)
 
-
     with c4:
+
         st.markdown("""
-<div style="background:linear-gradient(135deg,#8360c3,#2ebf91);
-padding:30px;border-radius:18px;text-align:center;color:white;">
+<div class="card" style="background:linear-gradient(135deg,#8360c3,#2ebf91);">
 <h4>Total Patients</h4>
 <h2>150</h2>
 </div>
 """,unsafe_allow_html=True)
+
+
     # -------- RECENT PATIENTS --------
 
-st.markdown("""
-<h3 style='color:white; margin-top:30px;'>
-📋 Recent Patients
-</h3>
-""", unsafe_allow_html=True)
+    st.markdown(
+    "<h3 style='color:white;margin-top:35px;'>📋 Recent Patients</h3>",
+    unsafe_allow_html=True)
 
-st.markdown("""
-<div style="
-background:white;
-border-radius:18px;
-padding:20px;
-margin-top:10px;
-box-shadow:0 8px 25px rgba(0,0,0,.4);
-">
-""", unsafe_allow_html=True)
 
-df = pd.DataFrame({
+    df = pd.DataFrame({
+
     "Name":["Ravi Kumar","Anita Devi"],
     "Age":[54,39],
     "Status":["High Risk","Stable"],
     "Treatment":["Cardiac Monitoring","Medication"]
-})
 
-st.dataframe(df, use_container_width=True)
+    })
 
-st.markdown("</div>", unsafe_allow_html=True)
-# -------- DIAGNOSIS CARD --------
+    st.dataframe(df,use_container_width=True)
 
-st.markdown("""
+
+    # -------- DIAGNOSIS CARD --------
+
+    st.markdown("""
+
 <div style="
 margin-top:40px;
 padding:40px;
@@ -437,18 +428,25 @@ text-align:center;
 color:white;
 box-shadow:0 10px 30px rgba(0,0,0,.4);
 ">
+
 <h3>🩺 Medical Diagnosis</h3>
+
 <p>Predict heart disease risk using AI model.</p>
+
 </div>
-""", unsafe_allow_html=True)
+
+""",unsafe_allow_html=True)
 
 
-# CENTER BUTTON PERFECTLY
-col1, col2, col3 = st.columns([3,2,3])
 
-with col2:
-    if st.button("Start Diagnosis →"):
-       st.session_state.page = "Diagnosis"
+    # CENTER BUTTON
+    col1,col2,col3 = st.columns([3,2,3])
+
+    with col2:
+
+        if st.button("Start Diagnosis →"):
+
+            st.session_state.page="Diagnosis"
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -542,6 +540,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
