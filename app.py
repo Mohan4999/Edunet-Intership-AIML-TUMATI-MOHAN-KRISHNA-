@@ -136,37 +136,18 @@ div[data-baseweb="input"] input {{
 # =================================================
 # DASHBOARD PAGE
 # =================================================
-# -------- REMOVE SIDEBAR --------
 st.set_page_config(layout="wide")
 
 st.markdown("""
 <style>
-
-/* REMOVE SIDEBAR + HEADER */
-
-[data-testid="stSidebar"]{
-display:none;
-}
-
-header{
-visibility:hidden;
-}
-
-/* FULL PAGE BG */
-
+[data-testid="stSidebar"]{display:none;}
+header{visibility:hidden;}
+.block-container{padding-top:1rem;max-width:95%;margin:auto;}
 .stApp{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
-
-/* REMOVE TOP GAP */
-
-.block-container{
-padding-top:1rem;
-max-width:95%;
-margin:auto;
-}
-
-
+</style>
+""", unsafe_allow_html=True)
 /* NAVBAR */
 
 .navbar{
@@ -307,35 +288,88 @@ if "page" not in st.session_state:
 
 # ---------- NAVBAR ----------
 
-st.markdown(f"""
+st.markdown("""
+<style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 40px;
+background:rgba(0,0,0,.75);
+border-radius:20px;
+margin-bottom:40px;
+color:white;
+box-shadow:0px 8px 25px rgba(0,0,0,.5);
+}
+
+.nav-left{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:600;
+font-size:18px;
+}
+
+.nav-center{
+display:flex;
+gap:35px;
+font-weight:500;
+}
+
+.nav-center span{
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.active{
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.avatar{
+width:35px;
+height:35px;
+border-radius:50%;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("""
 <div class="navbar">
 
-<div>
-🏥 ApexCare Medical Centre
+<div class="nav-left">
+ ApexCare Medical Centre
 </div>
 
 <div class="nav-center">
-
-<a href="?page=Dashboard">Dashboard</a>
-
-<a href="?page=Diagnosis">Diagnosis</a>
-
-<a href="?page=Reports">Reports</a>
-
-<a href="?page=Settings">Settings</a>
-
+<span class="active">Dashboard</span>
+<span>Diagnosis</span>
+<span>Reports</span>
+<span>Settings</span>
 </div>
 
-<div>
-
-👨‍⚕️ Dr MohanKrishna
-
+<div class="nav-right">
+🔔
+<div class="avatar">👨‍⚕️</div>
+Dr MohanKrishna
 </div>
 
 </div>
-""",unsafe_allow_html=True)
-
-
+""", unsafe_allow_html=True)
 
 # ---------- DASHBOARD TITLE ----------
 
@@ -433,25 +467,50 @@ st.markdown('</div>',unsafe_allow_html=True)
 # -------- DIAGNOSIS SECTION --------
 
 st.markdown("""
+<style>
 
+.diag{
+margin-top:50px;
+padding:50px;
+border-radius:20px;
+background:linear-gradient(135deg,#2193b0,#6dd5ed);
+text-align:center;
+color:white;
+box-shadow:0px 15px 40px rgba(0,0,0,.5);
+}
+
+.diag-btn{
+margin-top:25px;
+display:flex;
+justify-content:center;
+}
+
+div.stButton > button{
+padding:14px 30px;
+border-radius:10px;
+background:white;
+color:#2193b0;
+font-weight:700;
+border:none;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("""
 <div class="diag">
-
 <h3>🩺 Medical Diagnosis</h3>
-
 <p>Predict heart disease risk using AI model.</p>
-
 </div>
+""", unsafe_allow_html=True)
 
-""",unsafe_allow_html=True)
+# Button INSIDE visually
+col1, col2, col3 = st.columns([3,2,3])
 
-
-
-# CENTER BUTTON
-
-if st.button("Start Diagnosis →"):
-
-    st.success("Redirecting to Diagnosis page...")
-
+with col2:
+    if st.button("Start Diagnosis →", key="diag_btn"):
+        st.success("Redirecting to Diagnosis Page...")
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -545,6 +604,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
