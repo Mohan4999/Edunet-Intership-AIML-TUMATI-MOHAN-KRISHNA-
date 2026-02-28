@@ -5,12 +5,12 @@ import base64
 
 st.set_page_config(layout="wide")
 
-# ---------- CONVERT IMAGE TO BASE64 ----------
+# ---------- LOAD IMAGE ----------
 def get_base64(path):
-    with open(path, "rb") as file:
-        return base64.b64encode(file.read()).decode()
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
-bg_image = get_base64("assets/medical-bg.jpg")
+bg = get_base64("assets/medical-bg.jpg")
     
 # ---------------- PAGE ----------------
 st.set_page_config(layout="wide")
@@ -34,78 +34,78 @@ if not st.session_state.login:
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
 
-    /* FULL BACKGROUND IMAGE */
-
+    /* FULL BACKGROUND */
     .stApp {{
         background:
-        linear-gradient(rgba(0,0,0,.75),
-        rgba(0,0,0,.85)),
-        url("data:image/jpg;base64,{bg_image}");
+        linear-gradient(rgba(0,0,0,.65),
+        rgba(0,0,0,.75)),
+        url("data:image/jpg;base64,{bg}");
         background-size:cover;
         background-position:center;
         background-repeat:no-repeat;
     }}
-
-    /* REMOVE DEFAULT PADDING */
 
     .block-container {{
         padding-top:120px;
         max-width:100%;
     }}
 
-    /* CENTER COLUMN CARD */
-
-    div[data-testid="column"] {{
-        background:rgba(0,0,0,.6);
-        backdrop-filter:blur(18px);
-        padding:40px;
-        border-radius:20px;
-        box-shadow:0 25px 70px rgba(0,0,0,.8);
+    /* CENTER CARD */
+    .login-card {{
+        background:rgba(0,0,0,.55);
+        backdrop-filter:blur(15px);
+        padding:35px 30px;
+        border-radius:18px;
+        width:320px;
+        margin:auto;
+        box-shadow:0 25px 60px rgba(0,0,0,.7);
         text-align:center;
     }}
 
-    /* INPUT STYLE */
-
-    div[data-baseweb="input"] > div {{
-        border-radius:12px !important;
+    .login-title {{
+        color:white;
+        font-size:20px;
+        font-weight:600;
+        margin-top:10px;
+        margin-bottom:20px;
     }}
 
-    /* LOGIN BUTTON */
+    div[data-baseweb="input"] > div {{
+        border-radius:10px !important;
+    }}
 
     div.stButton > button {{
         width:100%;
-        padding:14px;
-        border-radius:12px;
+        padding:12px;
+        border-radius:10px;
         background:linear-gradient(90deg,#00c6ff,#0072ff);
         color:white;
         font-weight:600;
         border:none;
+        margin-top:10px;
     }}
 
     </style>
     """, unsafe_allow_html=True)
 
+    st.markdown("<div class='login-card'>", unsafe_allow_html=True)
 
-    left, center, right = st.columns([3,1.4,3])
+    st.image("assets/hospital.png", width=160)
 
-    with center:
+    st.markdown("<div class='login-title'>ApexCare Medical Centre</div>",
+                unsafe_allow_html=True)
 
-        st.image("assets/hospital.png", width=200)
+    username = st.text_input("Username", label_visibility="collapsed")
+    password = st.text_input("Password", type="password",
+                             label_visibility="collapsed")
 
-        st.markdown(
-            "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
-            unsafe_allow_html=True
-        )
+    if st.button("Login"):
+        if username == "admin" and password == "1234":
+            st.success("Login Successful")
+        else:
+            st.error("Invalid Login")
 
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
-
-        if st.button("Login"):
-            if username == "admin" and password == "1234":
-                st.session_state.login = True
-                st.rerun()
-            else:
-                st.error("Invalid Login")
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.stop()
 # =================================================
@@ -260,6 +260,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
