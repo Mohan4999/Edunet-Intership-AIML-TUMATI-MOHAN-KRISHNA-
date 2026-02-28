@@ -93,8 +93,8 @@ div.stButton > button:hover {{
 /* Clean Label Styling */
 label {{
     color: white !important;
-    font-size: 18px !important;   /* Bigger text */
-    font-weight: 700 !important;
+    font-size: 20px !important;   /* Bigger text */
+    font-weight: 800 !important;
     background: none !important;  /* REMOVE black box */
     padding: 0 !important;
 }}
@@ -285,6 +285,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
