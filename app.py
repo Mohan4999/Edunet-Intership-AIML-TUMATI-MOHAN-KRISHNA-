@@ -95,36 +95,38 @@ if not st.session_state.login:
         margin-top:10px;
     }}
 
-    /* Center Logo + Title */
-    .center-box {{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-    }}
+    /* Logo Center + Bigger */
+.logo-box {{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:15px;
+}}
 
-    .center-box img {{
-        border-radius:12px;
-        margin-bottom:10px;
-    }}
-
-    .center-title {{
-        text-align:center;
-        font-size:28px;
-        font-weight:700;
-        color:white;
-        margin-bottom:20px;
-    }}
+.login-logo {{
+    width:160px;      /* increase size here */
+    border-radius:15px;
+}}
 
     </style>
     """, unsafe_allow_html=True)
-
+st.markdown("""
+<h1 style='text-align:center;
+           color:white;
+           font-weight:700;
+           margin-bottom:25px;'>
+ApexCare Medical Centre
+</h1>
+""", unsafe_allow_html=True)
     # Center layout
     left, center, right = st.columns([3,2,3])
 
     with center:
-        st.image("assets/hospital.png", width=120)
+        st.markdown(f"""
+        <div class="logo-box">
+        <img src="data:image/png;base64,{logo}" class="login-logo">
+        </div>
+        """, unsafe_allow_html=True)
         st.markdown(
             "<h2 style='text-align:center;color:white;'>ApexCare Medical Centre</h2>",
             unsafe_allow_html=True
@@ -291,6 +293,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
