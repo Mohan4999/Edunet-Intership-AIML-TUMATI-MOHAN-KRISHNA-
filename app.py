@@ -136,17 +136,22 @@ div[data-baseweb="input"] input {{
 # =================================================
 # DASHBOARD PAGE
 # =================================================
+# ---------------- PAGE CONFIG ----------------
 st.set_page_config(layout="wide")
+
 
 # ---------------- SESSION STATE ----------------
 if "page" not in st.session_state:
     st.session_state.page = "Dashboard"
 
-# ---------------- REMOVE SIDEBAR ----------------
+
+
+# ---------------- REMOVE SIDEBAR + BG ----------------
 st.markdown("""
 <style>
-[data-testid="stSidebar"] {display:none;}
-header {visibility:hidden;}
+
+[data-testid="stSidebar"]{display:none;}
+header{visibility:hidden;}
 
 .block-container{
 padding-top:1rem;
@@ -157,10 +162,13 @@ margin:auto;
 .stApp{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
-</style>
-""", unsafe_allow_html=True)
 
-# ---------------- NAVBAR CSS ----------------
+</style>
+""",unsafe_allow_html=True)
+
+
+
+# ---------------- NAVBAR STYLE ----------------
 st.markdown("""
 <style>
 
@@ -171,7 +179,7 @@ align-items:center;
 padding:18px 40px;
 background:rgba(0,0,0,.85);
 border-radius:20px;
-margin-bottom:40px;
+margin-bottom:35px;
 color:white;
 box-shadow:0px 8px 25px rgba(0,0,0,.6);
 }
@@ -180,35 +188,19 @@ box-shadow:0px 8px 25px rgba(0,0,0,.6);
 display:flex;
 align-items:center;
 gap:10px;
-font-weight:600;
 font-size:18px;
+font-weight:600;
 }
 
 .nav-center{
 display:flex;
-gap:30px;
-}
-
-.nav-link{
-color:white;
-padding:8px 18px;
-border-radius:20px;
-text-decoration:none;
-font-weight:500;
-}
-
-.nav-link:hover{
-background:#1f4068;
-}
-
-.active-tab{
-background:linear-gradient(90deg,#00c6ff,#0072ff);
+gap:20px;
 }
 
 .nav-right{
 display:flex;
-align-items:center;
 gap:15px;
+align-items:center;
 }
 
 .avatar{
@@ -221,124 +213,193 @@ align-items:center;
 justify-content:center;
 }
 
+div.stButton > button{
+
+background:transparent;
+border:none;
+color:white;
+font-weight:600;
+
+}
+
+div.stButton > button:hover{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+border-radius:20px;
+
+}
+
 </style>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
 
-# ---------------- NAVBAR STRUCTURE ----------------
-st.markdown(f"""
-<div class="navbar">
 
+# ---------------- NAVBAR ----------------
+col1,col2,col3 = st.columns([4,6,3])
+
+
+# LEFT
+with col1:
+
+    st.markdown("""
 <div class="nav-left">
 <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="28">
 ApexCare Medical Centre
 </div>
+""",unsafe_allow_html=True)
 
-<div class="nav-center">
 
-<span class="nav-link {'active-tab' if st.session_state.page=='Dashboard' else ''}">Dashboard</span>
 
-<span class="nav-link {'active-tab' if st.session_state.page=='Diagnosis' else ''}">Diagnosis</span>
+# CENTER NAVIGATION
+with col2:
 
-<span class="nav-link {'active-tab' if st.session_state.page=='Reports' else ''}">Reports</span>
+    nav1,nav2,nav3,nav4 = st.columns(4)
 
-<span class="nav-link {'active-tab' if st.session_state.page=='Settings' else ''}">Settings</span>
+    with nav1:
+        if st.button("Dashboard"):
+            st.session_state.page="Dashboard"
 
-</div>
+    with nav2:
+        if st.button("Diagnosis"):
+            st.session_state.page="Diagnosis"
 
+    with nav3:
+        if st.button("Reports"):
+            st.session_state.page="Reports"
+
+    with nav4:
+        if st.button("Settings"):
+            st.session_state.page="Settings"
+
+
+
+# RIGHT
+with col3:
+
+    st.markdown("""
 <div class="nav-right">
 🔔
 <div class="avatar">👨‍⚕️</div>
 Dr MohanKrishna
 </div>
-
-</div>
-""", unsafe_allow_html=True)
-# ---------------- NAVBAR ----------------
-col1, col2, col3 = st.columns([3,5,2])
-
-with col1:
-    st.markdown(
-        '<div class="nav-left">🏥 ApexCare Medical Centre</div>',
-        unsafe_allow_html=True
-    )
-
-with col2:
-    nav_cols = st.columns(4)
-
-    pages = ["Dashboard","Diagnosis","Reports","Settings"]
-
-    for i, p in enumerate(pages):
-        with nav_cols[i]:
-            if st.button(p, key=f"nav_{p}"):
-                st.session_state.page = p
-
-with col3:
-    st.markdown(
-        '<div class="nav-right">🔔 <div class="avatar">👨‍⚕️</div> Dr MohanKrishna</div>',
-        unsafe_allow_html=True
-    )
+""",unsafe_allow_html=True)
 
 
-# ---------------- PAGE RENDERING ----------------
+
+# ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
 
 
-# =====================================================
-# ================= DASHBOARD PAGE ====================
-# =====================================================
 
-if page == "Dashboard":
+# ===================================================
+# DASHBOARD
+# ===================================================
+
+if page=="Dashboard":
+
 
     st.markdown(
-        '<h2 style="text-align:center;color:white;">ApexCare Medical Centre Dashboard</h2>',
-        unsafe_allow_html=True
+    '<h2 style="text-align:center;color:white;">ApexCare Medical Centre Dashboard</h2>',
+    unsafe_allow_html=True
     )
 
-    c1,c2,c3,c4 = st.columns(4)
+
+    c1,c2,c3,c4=st.columns(4)
 
     with c1:
-        st.markdown('<div style="background:linear-gradient(135deg,#00b09b,#96c93d);padding:30px;border-radius:18px;text-align:center;color:white;"><h4>Cases Solved</h4><h2>150</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div style="background:linear-gradient(135deg,#00b09b,#96c93d);
+padding:30px;border-radius:18px;text-align:center;color:white;">
+<h4>Cases Solved</h4>
+<h2>150</h2>
+</div>
+""",unsafe_allow_html=True)
+
 
     with c2:
-        st.markdown('<div style="background:linear-gradient(135deg,#ff416c,#ff4b2b);padding:30px;border-radius:18px;text-align:center;color:white;"><h4>High Risk</h4><h2>45</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div style="background:linear-gradient(135deg,#ff416c,#ff4b2b);
+padding:30px;border-radius:18px;text-align:center;color:white;">
+<h4>High Risk</h4>
+<h2>45</h2>
+</div>
+""",unsafe_allow_html=True)
+
 
     with c3:
-        st.markdown('<div style="background:linear-gradient(135deg,#36d1dc,#5b86e5);padding:30px;border-radius:18px;text-align:center;color:white;"><h4>Stable Patients</h4><h2>105</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div style="background:linear-gradient(135deg,#36d1dc,#5b86e5);
+padding:30px;border-radius:18px;text-align:center;color:white;">
+<h4>Stable Patients</h4>
+<h2>105</h2>
+</div>
+""",unsafe_allow_html=True)
+
 
     with c4:
-        st.markdown('<div style="background:linear-gradient(135deg,#8360c3,#2ebf91);padding:30px;border-radius:18px;text-align:center;color:white;"><h4>Total Patients</h4><h2>150</h2></div>', unsafe_allow_html=True)
+        st.markdown("""
+<div style="background:linear-gradient(135deg,#8360c3,#2ebf91);
+padding:30px;border-radius:18px;text-align:center;color:white;">
+<h4>Total Patients</h4>
+<h2>150</h2>
+</div>
+""",unsafe_allow_html=True)
 
 
-    # Recent Patients
-    st.markdown('<div style="background:white;border-radius:20px;padding:20px;margin-top:30px;">', unsafe_allow_html=True)
+
+    # -------- RECENT PATIENTS --------
+
+    st.markdown(
+    '<div style="background:white;border-radius:20px;padding:20px;margin-top:30px;">',
+    unsafe_allow_html=True
+    )
+
     st.markdown("### 📋 Recent Patients")
 
-    df = pd.DataFrame({
-        "Name":["Ravi Kumar","Anita Devi"],
-        "Age":[54,39],
-        "Status":["High Risk","Stable"],
-        "Treatment":["Cardiac Monitoring","Medication"]
+    df=pd.DataFrame({
+
+    "Name":["Ravi Kumar","Anita Devi"],
+    "Age":[54,39],
+    "Status":["High Risk","Stable"],
+    "Treatment":["Cardiac Monitoring","Medication"]
+
     })
 
     st.dataframe(df,use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown("</div>",unsafe_allow_html=True)
 
 
-    # Diagnosis Card
+
+    # -------- DIAGNOSIS CARD --------
+
     st.markdown("""
-    <div style="margin-top:40px;padding:40px;border-radius:20px;
-    background:linear-gradient(135deg,#2193b0,#6dd5ed);
-    text-align:center;color:white;">
-    <h3>🩺 Medical Diagnosis</h3>
-    <p>Predict heart disease risk using AI model.</p>
-    </div>
-    """, unsafe_allow_html=True)
 
-    col1,col2,col3 = st.columns([3,2,3])
+<div style="
+margin-top:40px;
+padding:40px;
+border-radius:20px;
+background:linear-gradient(135deg,#2193b0,#6dd5ed);
+text-align:center;
+color:white;">
+
+<h3>🩺 Medical Diagnosis</h3>
+
+<p>Predict heart disease risk using AI model.</p>
+
+</div>
+
+""",unsafe_allow_html=True)
+
+
+
+    col1,col2,col3=st.columns([3,2,3])
+
     with col2:
+
         if st.button("Start Diagnosis →"):
-            st.session_state.page = "Diagnosis"
+
+            st.session_state.page="Diagnosis"
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -432,6 +493,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
