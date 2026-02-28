@@ -157,41 +157,129 @@ page=st.sidebar.radio(
 # DASHBOARD
 # =================================================
 
-if page=="Dashboard":
+if page == "Dashboard":
 
-    st.title("ApexCare Medical Centre Dashboard")
+    st.markdown("""
+    <style>
 
-    col1,col2,col3,col4=st.columns(4)
+    /* Background */
+    .stApp{
+        background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+        color:white;
+    }
 
-    col1.success("Cases Solved\n\n150")
+    h1{
+        text-align:center;
+        color:white;
+        font-weight:700;
+        margin-bottom:30px;
+    }
 
-    col2.error("High Risk\n\n45")
+    /* Cards */
+    .card{
+        padding:25px;
+        border-radius:18px;
+        text-align:center;
+        font-weight:600;
+        color:white;
+        box-shadow:0px 8px 20px rgba(0,0,0,.4);
+    }
 
-    col3.info("Stable Patients\n\n105")
+    .green{
+        background:linear-gradient(135deg,#00b09b,#96c93d);
+    }
 
-    col4.warning("Total Patients\n\n150")
+    .red{
+        background:linear-gradient(135deg,#ff416c,#ff4b2b);
+    }
+
+    .blue{
+        background:linear-gradient(135deg,#36d1dc,#5b86e5);
+    }
+
+    .purple{
+        background:linear-gradient(135deg,#8360c3,#2ebf91);
+    }
+
+    /* Recent Patients Card */
+    .table-card{
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        color:black;
+        box-shadow:0px 10px 30px rgba(0,0,0,.4);
+        margin-top:25px;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<h1>ApexCare Medical Centre Dashboard</h1>",
+    unsafe_allow_html=True)
 
 
-    st.subheader("Recent Patients")
+    col1,col2,col3,col4 = st.columns(4)
 
-    df=pd.DataFrame({
 
-    "Name":["Ravi Kumar","Anita Devi"],
+    with col1:
+        st.markdown("""
+        <div class="card green">
+        Cases Solved<br><br>
+        <h2>150</h2>
+        </div>
+        """,unsafe_allow_html=True)
 
-    "Age":[54,39],
+    with col2:
+        st.markdown("""
+        <div class="card red">
+        High Risk<br><br>
+        <h2>45</h2>
+        </div>
+        """,unsafe_allow_html=True)
 
-    "Status":["High Risk","Stable"],
+    with col3:
+        st.markdown("""
+        <div class="card blue">
+        Stable Patients<br><br>
+        <h2>105</h2>
+        </div>
+        """,unsafe_allow_html=True)
 
-    "Treatment":[
-    "Cardiac Monitoring",
-    "Medication"]
+    with col4:
+        st.markdown("""
+        <div class="card purple">
+        Total Patients<br><br>
+        <h2>150</h2>
+        </div>
+        """,unsafe_allow_html=True)
+
+
+
+    # Recent Patients Table
+
+    st.markdown("""
+    <div class="table-card">
+    <h4>📋 Recent Patients</h4>
+    </div>
+    """,unsafe_allow_html=True)
+
+
+
+    df = pd.DataFrame({
+
+        "Name":["Ravi Kumar","Anita Devi"],
+
+        "Age":[54,39],
+
+        "Status":["High Risk","Stable"],
+
+        "Treatment":[
+        "Cardiac Monitoring",
+        "Medication"]
 
     })
 
-    st.dataframe(df,
-    use_container_width=True)
-
-
+    st.dataframe(df,use_container_width=True)
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -285,6 +373,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
