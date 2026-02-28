@@ -134,44 +134,35 @@ div[data-baseweb="input"] input {{
                         st.error("Invalid Login")
         st.stop()
 # =================================================
-# SIDEBAR
-# =================================================
-
-st.sidebar.image("assets/doctor.png",
-width=90)
-
-st.sidebar.write("Dr MohanKrishna")
-
-page=st.sidebar.radio(
-
-"Navigation",
-
-["Dashboard",
-"Diagnosis",
-"Reports",
-"Settings"]
-
-)
-
-# =================================================
 # DASHBOARD PAGE
 # =================================================
-if page == "Dashboard":
+# -------- REMOVE SIDEBAR --------
+st.set_page_config(layout="wide")
 
-    st.markdown("""
+st.markdown("""
 <style>
 
-/* DARK BACKGROUND */
+/* REMOVE SIDEBAR + HEADER */
+
+[data-testid="stSidebar"]{
+display:none;
+}
+
+header{
+visibility:hidden;
+}
+
+/* FULL PAGE BG */
 
 .stApp{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
-/* FIX TOP SPACE (IMPORTANT) */
+/* REMOVE TOP GAP */
 
 .block-container{
-padding-top:2rem;
-max-width:1200px;
+padding-top:1rem;
+max-width:95%;
 margin:auto;
 }
 
@@ -185,9 +176,29 @@ align-items:center;
 padding:18px 40px;
 background:rgba(0,0,0,.65);
 backdrop-filter:blur(12px);
-border-radius:15px;
+border-radius:20px;
 margin-bottom:30px;
 color:white;
+}
+
+
+/* NAV LINKS */
+
+.nav-center a{
+
+text-decoration:none;
+color:white;
+margin:0px 20px;
+padding:8px 18px;
+border-radius:20px;
+font-weight:600;
+
+}
+
+.nav-center a:hover{
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+
 }
 
 
@@ -197,7 +208,7 @@ color:white;
 
 text-align:center;
 color:white;
-font-size:28px;
+font-size:30px;
 font-weight:700;
 margin-bottom:25px;
 
@@ -208,7 +219,7 @@ margin-bottom:25px;
 
 .card{
 
-padding:28px;
+padding:30px;
 border-radius:18px;
 text-align:center;
 color:white;
@@ -217,31 +228,42 @@ box-shadow:0px 15px 35px rgba(0,0,0,.5);
 
 }
 
-.green{background:linear-gradient(135deg,#00b09b,#96c93d);}
-.red{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
-.blue{background:linear-gradient(135deg,#36d1dc,#5b86e5);}
-.purple{background:linear-gradient(135deg,#8360c3,#2ebf91);}
+.green{
+background:linear-gradient(135deg,#00b09b,#96c93d);
+}
+
+.red{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.blue{
+background:linear-gradient(135deg,#36d1dc,#5b86e5);
+}
+
+.purple{
+background:linear-gradient(135deg,#8360c3,#2ebf91);
+}
 
 
-/* WHITE CARD */
+/* WHITE TABLE CARD */
 
 .white-card{
 
 background:white;
 border-radius:20px;
-padding:25px;
-margin-top:35px;
+padding:20px;
+margin-top:30px;
 box-shadow:0px 12px 30px rgba(0,0,0,.5);
 
 }
 
 
-/* DIAGNOSIS */
+/* DIAGNOSIS CARD */
 
 .diag{
 
 margin-top:40px;
-padding:45px;
+padding:40px;
 border-radius:20px;
 background:linear-gradient(135deg,#2193b0,#6dd5ed);
 text-align:center;
@@ -251,132 +273,166 @@ box-shadow:0px 15px 40px rgba(0,0,0,.5);
 }
 
 
-/* BUTTON CENTER */
+/* CENTER BUTTON */
 
-.center-btn{
+div.stButton{
 
 display:flex;
 justify-content:center;
-margin-top:20px;
 
 }
 
-div.stButton > button{
+div.stButton > button {
 
 padding:14px 30px;
 border-radius:10px;
 background:white;
 color:#2193b0;
-font-weight:600;
+font-weight:700;
 border:none;
 
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
 
-# -------- NAVBAR --------
 
-    st.markdown("""
+# ---------- NAVIGATION STATE ----------
 
+if "page" not in st.session_state:
+    st.session_state.page="Dashboard"
+
+
+
+# ---------- NAVBAR ----------
+
+st.markdown(f"""
 <div class="navbar">
 
-🏥 ApexCare Medical Centre
-
 <div>
+🏥 ApexCare Medical Centre
+</div>
 
-Dashboard | Diagnosis | Reports | Settings
+<div class="nav-center">
+
+<a href="?page=Dashboard">Dashboard</a>
+
+<a href="?page=Diagnosis">Diagnosis</a>
+
+<a href="?page=Reports">Reports</a>
+
+<a href="?page=Settings">Settings</a>
 
 </div>
+
+<div>
 
 👨‍⚕️ Dr MohanKrishna
 
 </div>
 
-""", unsafe_allow_html=True)
+</div>
+""",unsafe_allow_html=True)
 
 
 
-# TITLE
+# ---------- DASHBOARD TITLE ----------
 
-    st.markdown(
-    '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
-    unsafe_allow_html=True)
+st.markdown(
+'<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
+unsafe_allow_html=True)
 
 
 
 # -------- CARDS --------
 
-    c1,c2,c3,c4 = st.columns(4)
+c1,c2,c3,c4 = st.columns(4)
 
-    with c1:
-        st.markdown("""
+with c1:
+
+    st.markdown("""
 <div class="card green">
+
 Cases Solved
-<h2>150</h2>
-</div>
-""", unsafe_allow_html=True)
 
-    with c2:
-        st.markdown("""
+<h2>150</h2>
+
+</div>
+""",unsafe_allow_html=True)
+
+
+with c2:
+
+    st.markdown("""
 <div class="card red">
+
 High Risk
+
 <h2>45</h2>
-</div>
-""", unsafe_allow_html=True)
 
-    with c3:
-        st.markdown("""
+</div>
+""",unsafe_allow_html=True)
+
+
+with c3:
+
+    st.markdown("""
 <div class="card blue">
+
 Stable Patients
+
 <h2>105</h2>
-</div>
-""", unsafe_allow_html=True)
 
-    with c4:
-        st.markdown("""
+</div>
+""",unsafe_allow_html=True)
+
+
+with c4:
+
+    st.markdown("""
 <div class="card purple">
+
 Total Patients
+
 <h2>150</h2>
+
 </div>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
 
 
-# -------- RECENT PATIENTS --------
 
-    st.markdown("""
-<div class="white-card">
+# ---------- RECENT PATIENTS ----------
 
-<h4>📋 Recent Patients</h4>
+st.markdown('<div class="white-card">',unsafe_allow_html=True)
 
-""", unsafe_allow_html=True)
+st.markdown("### 📋 Recent Patients")
 
+df = pd.DataFrame({
 
-    df = pd.DataFrame({
+"Name":["Ravi Kumar","Anita Devi"],
 
-    "Name":["Ravi Kumar","Anita Devi"],
+"Age":[54,39],
 
-    "Age":[54,39],
+"Status":["High Risk","Stable"],
 
-    "Status":["High Risk","Stable"],
+"Treatment":[
 
-    "Treatment":[
-    "Cardiac Monitoring",
-    "Medication"]
+"Cardiac Monitoring",
+"Medication"]
 
-    })
+})
 
-    st.dataframe(df,use_container_width=True)
+st.dataframe(df,use_container_width=True)
 
-    st.markdown("</div>",unsafe_allow_html=True)
+st.markdown('</div>',unsafe_allow_html=True)
 
 
 
-# -------- DIAGNOSIS --------
+# -------- DIAGNOSIS SECTION --------
 
-    st.markdown("""
+st.markdown("""
 
 <div class="diag">
 
@@ -386,19 +442,16 @@ Total Patients
 
 </div>
 
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
 
 
 # CENTER BUTTON
 
-    col1,col2,col3 = st.columns([3,2,3])
+if st.button("Start Diagnosis →"):
 
-    with col2:
+    st.success("Redirecting to Diagnosis page...")
 
-        if st.button("Start Diagnosis →", key="diag_btn"):
-
-            st.success("Redirecting to Diagnosis Page")
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -492,6 +545,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
