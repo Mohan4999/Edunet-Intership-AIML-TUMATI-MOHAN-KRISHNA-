@@ -160,126 +160,288 @@ page=st.sidebar.radio(
 if page == "Dashboard":
 
     st.markdown("""
-    <style>
+<style>
 
-    /* Background */
-    .stApp{
-        background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-        color:white;
-    }
+/* FULL PAGE DARK BG */
+.stApp{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+}
 
-    h1{
-        text-align:center;
-        color:white;
-        font-weight:700;
-        margin-bottom:30px;
-    }
+/* remove default padding */
+.block-container{
+padding-top:0rem;
+max-width:100%;
+}
 
-    /* Cards */
-    .card{
-        padding:25px;
-        border-radius:18px;
-        text-align:center;
-        font-weight:600;
-        color:white;
-        box-shadow:0px 8px 20px rgba(0,0,0,.4);
-    }
+/* NAVBAR */
 
-    .green{
-        background:linear-gradient(135deg,#00b09b,#96c93d);
-    }
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(12px);
+border-radius:0px 0px 20px 20px;
+margin-bottom:40px;
+}
 
-    .red{
-        background:linear-gradient(135deg,#ff416c,#ff4b2b);
-    }
+/* LEFT */
+.nav-left{
+display:flex;
+align-items:center;
+gap:10px;
+color:white;
+font-size:18px;
+font-weight:600;
+}
 
-    .blue{
-        background:linear-gradient(135deg,#36d1dc,#5b86e5);
-    }
+/* CENTER MENU */
 
-    .purple{
-        background:linear-gradient(135deg,#8360c3,#2ebf91);
-    }
+.nav-center{
+display:flex;
+gap:40px;
+color:white;
+font-weight:500;
+}
 
-    /* Recent Patients Card */
-    .table-card{
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        color:black;
-        box-shadow:0px 10px 30px rgba(0,0,0,.4);
-        margin-top:25px;
-    }
+.nav-center span{
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+}
 
-    </style>
-    """, unsafe_allow_html=True)
+.active{
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+}
 
-    st.markdown("<h1>ApexCare Medical Centre Dashboard</h1>",
+/* RIGHT */
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:15px;
+color:white;
+font-weight:600;
+}
+
+
+/* DASHBOARD TITLE */
+
+.dashboard-title{
+text-align:center;
+color:white;
+font-size:30px;
+font-weight:700;
+margin-bottom:25px;
+}
+
+
+/* CARDS */
+
+.card{
+padding:30px;
+border-radius:18px;
+text-align:center;
+color:white;
+font-weight:600;
+box-shadow:0px 15px 35px rgba(0,0,0,.5);
+}
+
+.green{
+background:linear-gradient(135deg,#00b09b,#96c93d);
+}
+
+.red{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.blue{
+background:linear-gradient(135deg,#36d1dc,#5b86e5);
+}
+
+.purple{
+background:linear-gradient(135deg,#8360c3,#2ebf91);
+}
+
+
+/* WHITE TABLE CARD */
+
+.white-card{
+
+background:white;
+border-radius:20px;
+padding:25px;
+margin-top:30px;
+box-shadow:0px 12px 30px rgba(0,0,0,.5);
+
+}
+
+
+/* DIAGNOSIS */
+
+.diag{
+
+margin-top:40px;
+padding:40px;
+border-radius:20px;
+background:linear-gradient(135deg,#2193b0,#6dd5ed);
+text-align:center;
+color:white;
+box-shadow:0px 15px 40px rgba(0,0,0,.5);
+
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+    # NAVBAR
+    st.markdown("""
+<div class="navbar">
+
+<div class="nav-left">
+🏥 ApexCare Medical Centre
+</div>
+
+<div class="nav-center">
+<span class="active">Dashboard</span>
+<span>Diagnosis</span>
+<span>Reports</span>
+<span>Settings</span>
+</div>
+
+<div class="nav-right">
+
+🔔
+
+👨‍⚕️ Dr MohanKrishna
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+
+    st.markdown(
+    '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
     unsafe_allow_html=True)
 
 
-    col1,col2,col3,col4 = st.columns(4)
+    # ---- CARDS ----
 
+    c1,c2,c3,c4 = st.columns(4)
 
-    with col1:
+    with c1:
         st.markdown("""
-        <div class="card green">
-        Cases Solved<br><br>
-        <h2>150</h2>
-        </div>
-        """,unsafe_allow_html=True)
+<div class="card green">
 
-    with col2:
+Cases Solved
+
+<h2>150</h2>
+
+</div>
+""", unsafe_allow_html=True)
+
+    with c2:
         st.markdown("""
-        <div class="card red">
-        High Risk<br><br>
-        <h2>45</h2>
-        </div>
-        """,unsafe_allow_html=True)
+<div class="card red">
 
-    with col3:
+High Risk
+
+<h2>45</h2>
+
+</div>
+""", unsafe_allow_html=True)
+
+    with c3:
         st.markdown("""
-        <div class="card blue">
-        Stable Patients<br><br>
-        <h2>105</h2>
-        </div>
-        """,unsafe_allow_html=True)
+<div class="card blue">
 
-    with col4:
+Stable Patients
+
+<h2>105</h2>
+
+</div>
+""", unsafe_allow_html=True)
+
+    with c4:
         st.markdown("""
-        <div class="card purple">
-        Total Patients<br><br>
-        <h2>150</h2>
-        </div>
-        """,unsafe_allow_html=True)
+<div class="card purple">
+
+Total Patients
+
+<h2>150</h2>
+
+</div>
+""", unsafe_allow_html=True)
 
 
 
-    # Recent Patients Table
+    # RECENT PATIENTS
 
     st.markdown("""
-    <div class="table-card">
-    <h4>📋 Recent Patients</h4>
-    </div>
-    """,unsafe_allow_html=True)
+<div class="white-card">
 
+<h4>📋 Recent Patients</h4>
+
+</div>
+""", unsafe_allow_html=True)
 
 
     df = pd.DataFrame({
 
-        "Name":["Ravi Kumar","Anita Devi"],
+    "Name":["Ravi Kumar","Anita Devi"],
 
-        "Age":[54,39],
+    "Age":[54,39],
 
-        "Status":["High Risk","Stable"],
+    "Status":["High Risk","Stable"],
 
-        "Treatment":[
-        "Cardiac Monitoring",
-        "Medication"]
+    "Treatment":[
+    "Cardiac Monitoring",
+    "Medication"]
 
     })
 
     st.dataframe(df,use_container_width=True)
+
+
+
+    # DIAGNOSIS SECTION
+
+    st.markdown("""
+
+<div class="diag">
+
+<h3>🩺 Medical Diagnosis</h3>
+
+Predict heart disease risk using AI model.
+
+<br><br>
+
+<button style="
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:10px;
+
+background:white;
+
+font-weight:600;
+
+color:#2193b0;
+
+">
+
+Start Diagnosis →
+
+</button>
+
+</div>
+
+""", unsafe_allow_html=True)
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -373,6 +535,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
