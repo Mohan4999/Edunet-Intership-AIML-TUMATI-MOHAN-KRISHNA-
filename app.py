@@ -124,7 +124,7 @@ if not st.session_state.login:
     left, center, right = st.columns([3,2,3])
 
     with center:
-      st.image("assets/hospital.png", width=120)
+        st.image("assets/hospital.png", width=120)
         st.markdown(
             "<h2 style='text-align:center;color:white;'>ApexCare Medical Centre</h2>",
             unsafe_allow_html=True
@@ -291,6 +291,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
