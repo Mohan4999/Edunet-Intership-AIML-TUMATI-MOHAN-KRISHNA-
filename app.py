@@ -277,7 +277,6 @@ with navbar:
         Dr MohanKrishna
         </div>
         """, unsafe_allow_html=True)
-
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
 
@@ -485,6 +484,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
