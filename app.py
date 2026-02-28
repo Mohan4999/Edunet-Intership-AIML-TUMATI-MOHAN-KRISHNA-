@@ -57,105 +57,91 @@ if "login" not in st.session_state:
 # =================================================
 # LOGIN PAGE
 # =================================================
+# =================================================
+# LOGIN PAGE
+# =================================================
 if not st.session_state.login:
 
-    logo=get_base64("assets/hospital.png")
+    logo = get_base64("assets/hospital.png")
 
-    st.markdown("""
-<style>
+    st.markdown(f"""
+    <style>
 
-.block-container{
-padding-top:140px;
-}
+    header, footer, #MainMenu {{
+        visibility: hidden;
+    }}
 
-.login-box{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-}
+    /* Full height center */
+    .main-container {{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }}
 
-div.stButton{
-display:flex;
-justify-content:center;
-}
+    .login-card {{
+        width: 400px;
+        padding: 40px;
+        border-radius: 18px;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,.6);
+        text-align: center;
+    }}
 
-div.stButton>button{
+    .login-logo {{
+        width: 150px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }}
 
-width:250px;
+    label {{
+        color: white !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+    }}
 
-padding:14px;
+    div.stButton > button {{
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+        border-radius: 12px;
+        background: linear-gradient(90deg,#00c6ff,#0072ff);
+        color: white;
+        font-weight: 700;
+        border: none;
+    }}
 
-font-size:18px;
+    div.stButton > button:hover {{
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,114,255,0.6);
+    }}
 
-border-radius:14px;
+    </style>
+    """, unsafe_allow_html=True)
 
-background:linear-gradient(90deg,#00c6ff,#0072ff);
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+    st.markdown('<div class="login-card">', unsafe_allow_html=True)
 
-color:white;
+    st.markdown(f"""
+    <img src="data:image/png;base64,{logo}" class="login-logo">
+    <h2 style="color:white;">ApexCare Medical Centre</h2>
+    """, unsafe_allow_html=True)
 
-font-weight:700;
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
 
-border:none;
+    if st.button("Login"):
+        if username == "admin" and password == "1234":
+            st.session_state.login = True
+            st.rerun()
+        else:
+            st.error("Invalid Login")
 
-}
-
-label{
-
-color:white!important;
-
-font-size:20px!important;
-
-font-weight:700!important;
-
-}
-
-.login-logo{
-
-width:170px;
-
-border-radius:15px;
-
-margin-bottom:15px;
-
-}
-
-</style>
-""",unsafe_allow_html=True)
-
-    c1,c2,c3=st.columns([3,2,3])
-
-    with c2:
-
-        st.markdown(f"""
-<div class="login-box">
-
-<img src="data:image/png;base64,{logo}"
-class="login-logo">
-
-<h2 style="color:white;">
-ApexCare Medical Centre
-</h2>
-
-</div>
-""",unsafe_allow_html=True)
-
-        username=st.text_input("Username")
-        password=st.text_input("Password",type="password")
-
-        if st.button("Login"):
-
-            if username=="admin" and password=="1234":
-
-                st.session_state.login=True
-                st.rerun()
-
-            else:
-
-                st.error("Invalid Login")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.stop()
-
 # =================================================
 # NAVBAR STYLE
 # =================================================
@@ -394,39 +380,51 @@ unsafe_allow_html=True)
 elif page=="Diagnosis":
 
     # NAVBAR BUTTON COLOR CHANGE ONLY HERE
-    st.markdown("""
+   st.markdown("""
 <style>
 
-/* Navbar buttons different color */
+/* Light Blue Predict Button */
+div.stButton > button {
 
-div.stButton > button{
+    background: linear-gradient(135deg,#4facfe,#00c6ff) !important;
 
-color:#ffffff!important;
+    color: white !important;
+
+    font-size: 18px !important;
+
+    font-weight: 700 !important;
+
+    border-radius: 14px !important;
+
+    padding: 14px !important;
+
+    border: none !important;
+
+    box-shadow: 0 8px 25px rgba(0,198,255,.4);
+
+    transition: .3s;
 
 }
 
-div.stButton > button:hover{
+/* Hover Effect */
+div.stButton > button:hover {
 
-background:linear-gradient(
-135deg,#ff416c,#ff4b2b)!important;
+    background: linear-gradient(135deg,#00c6ff,#0072ff) !important;
 
-}
+    transform: scale(1.05);
 
-label{
-
-color:white!important;
-
-font-weight:600!important;
+    box-shadow: 0 10px 30px rgba(0,114,255,.6);
 
 }
 
 </style>
+""", unsafe_allow_html=True)
 """,unsafe_allow_html=True)
 
     st.markdown("""
 <h2 style="text-align:center;color:white">
 
-❤️ Heart Disease Risk Prediction
+ Heart Disease Risk Prediction
 
 </h2>
 """,unsafe_allow_html=True)
@@ -455,7 +453,7 @@ font-weight:600!important;
         b1,b2,b3=st.columns([3,3,3])
 
         predict=b2.button(
-"❤️ Predict Heart Risk",
+" Predict Heart Risk",
 use_container_width=True)
 
     if predict:
@@ -517,3 +515,4 @@ unsafe_allow_html=True)
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
