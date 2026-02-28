@@ -419,46 +419,30 @@ div.stButton > button:hover {
 
 </style>
 """,unsafe_allow_html=True)
-
     st.markdown("""
-<h2 style="text-align:center;color:white">
- Heart Disease Risk Prediction
-</h2>
-""",unsafe_allow_html=True)
-
-    o1,o2,o3=st.columns([2,6,2])
-
-    with o2:
-
-        c1,c2=st.columns(2)
-
-        with c1:
-
-            age=st.number_input("Age",1,100,25)
-
-            resting_bp=st.number_input(
-"Resting BP",80,200,120)
-
+    <h2 style="text-align:center;color:white">
+    Heart Disease Risk Prediction
+    </h2>
+    """,unsafe_allow_html=True)
+o1,o2,o3=st.columns([2,6,2])
+with o2:
+    c1,c2=st.columns(2)
+    with c1:
+        age=st.number_input("Age",1,100,25)
+        resting_bp=st.number_input(
+            "Resting BP",80,200,120)
         with c2:
-
             cholesterol=st.number_input(
-"Cholesterol",100,400,200)
-
+                "Cholesterol",100,400,200)
             max_hr=st.number_input(
-"Max Heart Rate",60,220,150)
-
-        b1,b2,b3=st.columns([3,3,3])
-
-        predict=b2.button(
-" Predict Heart Risk",
-use_container_width=True)
-
-    if predict:
-
-        st.success(
-"Prediction Result : Low Risk ✅")
-
-
+                "Max Heart Rate",60,220,150)
+            b1,b2,b3=st.columns([3,3,3])
+            predict=b2.button(
+                " Predict Heart Risk",
+                use_container_width=True)
+            if predict:
+                st.success(
+                    "Prediction Result : Low Risk ✅")
 # =================================================
 # REPORTS
 # =================================================
@@ -512,5 +496,6 @@ unsafe_allow_html=True)
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
