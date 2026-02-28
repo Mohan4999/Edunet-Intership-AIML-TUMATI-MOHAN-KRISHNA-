@@ -54,16 +54,30 @@ if not st.session_state.login:
         border-radius:12px;
     }}
 
-    div.stButton > button {{
-        width:100%;
-        padding:12px;
-        border-radius:12px;
-        background:linear-gradient(90deg,#00c6ff,#0072ff);
-        color:white;
-        font-weight:600;
-        border:none;
-        margin-top:10px;
-    }}
+    /* Login Button Center + Bigger */
+div.stButton {{
+    display:flex;
+    justify-content:center;
+}}
+
+div.stButton > button {{
+    width:200px;                 /* button width */
+    padding:14px 0;
+    font-size:18px;
+    border-radius:14px;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:white;
+    font-weight:600;
+    border:none;
+    margin-top:15px;
+    transition:0.3s ease;
+}}
+
+/* Hover Effect */
+div.stButton > button:hover {{
+    transform:scale(1.05);
+    box-shadow:0 8px 20px rgba(0,114,255,0.6);
+}}
 
     .logo-box {{
         display:flex;
@@ -269,6 +283,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
