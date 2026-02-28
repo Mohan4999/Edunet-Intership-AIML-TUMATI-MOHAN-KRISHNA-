@@ -150,6 +150,8 @@ if "page" not in st.session_state:
 
 
 # ---------------- GLOBAL STYLE ----------------
+st.markdown("""
+<style>
 /* REMOVE STREAMLIT HEADER + SPACE */
 header{
 display:none !important;
@@ -535,6 +537,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
