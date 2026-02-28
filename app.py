@@ -28,28 +28,13 @@ if "login" not in st.session_state:
 
 if not st.session_state.login:
 
+    logo = get_base64("assets/hospital.png")
+
     st.markdown(f"""
     <style>
-
-    /* Hide Streamlit Menu */
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
 
-    /* Labels */
-    label {{
-        color:white !important;
-        font-weight:600 !important;
-        background:rgba(0,0,0,0.4);
-        padding:3px 8px;
-        border-radius:6px;
-        display:inline-block;
-    }}
-
-    input::placeholder {{
-        color:#cccccc;
-    }}
-
-    /* Full Background */
     .stApp {{
         background:
         linear-gradient(rgba(0,0,0,.65),
@@ -60,30 +45,15 @@ if not st.session_state.login:
         background-repeat:no-repeat;
     }}
 
-    /* Page spacing */
     .block-container {{
         padding-top:120px;
         max-width:100%;
     }}
 
-    /* Login Card Center */
-    section.main > div > div > div > div:nth-child(2) {{
-        background:rgba(0,0,0,.55);
-        backdrop-filter:blur(18px);
-        padding:35px;
-        border-radius:18px;
-        width:350px;
-        margin:auto;
-        box-shadow:0 30px 60px rgba(0,0,0,.8);
-        text-align:center;
-    }}
-
-    /* Input Box */
     div[data-baseweb="input"] > div {{
         border-radius:12px;
     }}
 
-    /* Login Button */
     div.stButton > button {{
         width:100%;
         padding:12px;
@@ -95,48 +65,40 @@ if not st.session_state.login:
         margin-top:10px;
     }}
 
-    /* Logo Center + Bigger */
-.logo-box {{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-bottom:15px;
-}}
+    .logo-box {{
+        display:flex;
+        justify-content:center;
+        margin-bottom:15px;
+    }}
 
-.login-logo {{
-    width:160px;      /* increase size here */
-    border-radius:15px;
-}}
-
+    .login-logo {{
+        width:180px;
+        border-radius:15px;
+    }}
     </style>
     """, unsafe_allow_html=True)
-st.markdown("""
-<h1 style='text-align:center;
-           color:white;
-           font-weight:700;
-           margin-bottom:25px;'>
-ApexCare Medical Centre
-</h1>
-""", unsafe_allow_html=True)
-    # Center layout
-    left, center, right = st.columns([3,2,3])
 
-    with center:
+    col1, col2, col3 = st.columns([3,2,3])
+
+    with col2:
         st.markdown(f"""
         <div class="logo-box">
-        <img src="data:image/png;base64,{logo}" class="login-logo">
+            <img src="data:assets/hospital.png;base64,{logo}" class="login-logo">
         </div>
         """, unsafe_allow_html=True)
+
         st.markdown(
-            "<h2 style='text-align:center;color:white;'>ApexCare Medical Centre</h2>",
+            "<h1 style='text-align:center;color:white;'>ApexCare Medical Centre</h1>",
             unsafe_allow_html=True
         )
+
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
 
         if st.button("Login"):
             if username == "admin" and password == "1234":
-                st.success("Login Successful")
+                st.session_state.login = True
+                st.rerun()
             else:
                 st.error("Invalid Login")
 
@@ -293,6 +255,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
