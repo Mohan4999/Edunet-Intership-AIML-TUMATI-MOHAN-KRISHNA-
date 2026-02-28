@@ -58,6 +58,9 @@ if "login" not in st.session_state:
 # ===========================================
 # LOGIN PAGE
 # ===========================================
+# =================================================
+# LOGIN PAGE
+# =================================================
 
 if not st.session_state.login:
 
@@ -66,55 +69,90 @@ if not st.session_state.login:
     st.markdown("""
 <style>
 
-header,footer,#MainMenu{visibility:hidden;}
+header,footer,#MainMenu{
+visibility:hidden;
+}
+
+/* Remove Streamlit spacing */
 
 .block-container{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+padding-top:8vh !important;
+max-width:450px;
+margin:auto;
 }
+
+/* Login Card */
 
 .login-card{
 
-width:420px;
 padding:40px;
 
-border-radius:18px;
+border-radius:20px;
 
-background:rgba(0,0,0,.7);
+background:rgba(0,0,0,.70);
 
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 
-box-shadow:0 10px 30px rgba(0,0,0,.6);
+box-shadow:0 15px 40px rgba(0,0,0,.7);
 
 text-align:center;
 
 }
 
+/* Logo */
+
 .login-logo{
-width:150px;
+
+width:140px;
+
 margin-bottom:15px;
+
 border-radius:12px;
+
 }
 
+/* Labels */
+
 label{
+
 color:white!important;
+
 font-size:18px!important;
+
 font-weight:600!important;
+
+}
+
+/* Input box size fix */
+
+div[data-baseweb="input"]{
+
+max-width:100%!important;
+
+}
+
+/* Login Button */
+
+div.stButton{
+
+display:flex;
+
+justify-content:center;
+
 }
 
 div.stButton>button{
 
-width:100%;
+width:220px;
 
 padding:14px;
 
 font-size:18px;
 
-border-radius:12px;
+border-radius:14px;
 
-background:linear-gradient(90deg,#00c6ff,#0072ff);
+background:linear-gradient(
+90deg,#00c6ff,#0072ff);
 
 color:white;
 
@@ -138,23 +176,28 @@ ApexCare Medical Centre
 </h2>
 """,unsafe_allow_html=True)
 
-    username=st.text_input("Username")
-    password=st.text_input("Password",type="password")
+    username = st.text_input("Username")
+
+    password = st.text_input(
+        "Password",
+        type="password"
+    )
 
     if st.button("Login"):
 
         if username=="admin" and password=="1234":
 
             st.session_state.login=True
+
             st.rerun()
 
         else:
+
             st.error("Invalid Login")
 
     st.markdown("</div>",unsafe_allow_html=True)
 
     st.stop()
-
 # ===========================================
 # NAVBAR STYLE
 # ===========================================
@@ -520,3 +563,4 @@ unsafe_allow_html=True)
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
