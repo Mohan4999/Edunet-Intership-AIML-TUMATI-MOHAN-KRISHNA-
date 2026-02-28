@@ -169,138 +169,114 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 
 
 # ---------------- NAVBAR STYLE ----------------
+# ---------------- NAVBAR ----------------
+
 st.markdown("""
 <style>
 
-/* ---------- NAVBAR BLACK BACKGROUND ---------- */
-
 .navbar{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 padding:18px 40px;
-
-/* BLACK BACKGROUND */
 background:#000000;
-
-/* Optional premium glass look */
-backdrop-filter:blur(12px);
-
 border-radius:20px;
-
 margin-bottom:35px;
-
 color:white;
-
-box-shadow:0px 10px 30px rgba(0,0,0,.9);
-
+box-shadow:0px 12px 30px rgba(0,0,0,1);
 }
 
-
-/* LEFT LOGO */
-
 .nav-left{
-
 display:flex;
 align-items:center;
 gap:10px;
 font-size:18px;
 font-weight:600;
-
 }
-
-
-/* CENTER MENU */
 
 .nav-center{
-
 display:flex;
 gap:30px;
-
 }
 
+.nav-center button{
+background:transparent;
+border:none;
+color:white;
+font-weight:600;
+}
 
-/* RIGHT PROFILE */
+.nav-center button:hover{
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+border-radius:20px;
+}
 
 .nav-right{
-
 display:flex;
 align-items:center;
 gap:15px;
-
 }
 
-
-/* AVATAR */
-
 .avatar{
-
 width:35px;
 height:35px;
 border-radius:50%;
 background:linear-gradient(135deg,#00c6ff,#0072ff);
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 }
 
 </style>
-""",unsafe_allow_html=True)
-# ---------------- NAVBAR ----------------
-col1,col2,col3 = st.columns([4,6,3])
-
-
-# LEFT
-with col1:
-
-    st.markdown("""
-<div class="nav-left">
-<img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="28">
-ApexCare Medical Centre
-</div>
-""",unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 
 
-# CENTER NAVIGATION
-with col2:
+# NAVBAR CONTAINER
+navbar = st.container()
 
-    nav1,nav2,nav3,nav4 = st.columns(4)
+with navbar:
 
-    with nav1:
-        if st.button("Dashboard"):
-            st.session_state.page="Dashboard"
+    col1,col2,col3 = st.columns([4,6,3])
 
-    with nav2:
-        if st.button("Diagnosis"):
-            st.session_state.page="Diagnosis"
+    # LEFT
+    with col1:
+        st.markdown("""
+        <div class="nav-left">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="28">
+        ApexCare Medical Centre
+        </div>
+        """, unsafe_allow_html=True)
 
-    with nav3:
-        if st.button("Reports"):
-            st.session_state.page="Reports"
+    # CENTER
+    with col2:
+        nav1,nav2,nav3,nav4 = st.columns(4)
 
-    with nav4:
-        if st.button("Settings"):
-            st.session_state.page="Settings"
+        with nav1:
+            if st.button("Dashboard"):
+                st.session_state.page="Dashboard"
 
+        with nav2:
+            if st.button("Diagnosis"):
+                st.session_state.page="Diagnosis"
 
+        with nav3:
+            if st.button("Reports"):
+                st.session_state.page="Reports"
 
-# RIGHT
-with col3:
+        with nav4:
+            if st.button("Settings"):
+                st.session_state.page="Settings"
 
-    st.markdown("""
-<div class="nav-right">
-🔔
-<div class="avatar">👨‍⚕️</div>
-Dr MohanKrishna
-</div>
-""",unsafe_allow_html=True)
-
-
+    # RIGHT
+    with col3:
+        st.markdown("""
+        <div class="nav-right">
+        🔔
+        <div class="avatar">👨‍⚕️</div>
+        Dr MohanKrishna
+        </div>
+        """, unsafe_allow_html=True)
 
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
@@ -509,6 +485,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
