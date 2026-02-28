@@ -173,200 +173,141 @@ logo = Image.open("assets/hospital.png")
 st.markdown("""
 <style>
 
-/* ---------- REMOVE STREAMLIT DEFAULT ---------- */
-
+/* Remove default Streamlit */
 header {visibility:hidden;}
-[data-testid="stSidebar"]{display:none;}
+[data-testid="stSidebar"] {display:none;}
 
-
-/* ---------- APP BACKGROUND ---------- */
-
-.stApp{
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+/* App Background */
+.stApp {
+    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
 }
 
-
-/* ---------- FIXED TOP BAR ---------- */
-
-.navbar{
-
-position:fixed;     /* STICKY */
-
-top:0;
-
-left:0;
-
-width:100%;
-
-z-index:999;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:18px 60px;
-
-background:#000000;
-
-box-shadow:0px 10px 30px rgba(0,0,0,.9);
-
+/* Push content below fixed navbar */
+.block-container {
+    margin-top: 110px;
+    max-width: 92%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* ---------------- NAVBAR ---------------- */
 
-/* PUSH PAGE DOWN (avoid overlap) */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 85px;
 
-.block-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-margin-top:90px;
+    padding: 0 70px;
 
-max-width:95%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
 
-margin-left:auto;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
 
-margin-right:auto;
-
+    z-index: 999;
 }
 
+/* Logo Section */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
-/* ---------- LEFT LOGO ---------- */
-
-.nav-left{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-font-size:24px;     /* BIGGER TEXT */
-
-font-weight:800;
-
-color:#00c6ff;
-
+    font-size: 26px;
+    font-weight: 700;
+    color: #00d4ff;
+    letter-spacing: 0.5px;
 }
 
-
-/* ---------- LOGO IMAGE ---------- */
-
-.nav-left img{
-
-height:48px;        /* BIGGER LOGO */
-
+.nav-left img {
+    height: 50px;
 }
 
-
-/* ---------- CENTER MENU ---------- */
-
-.nav-center{
-
-display:flex;
-
-gap:35px;
-
+/* Center Menu */
+.nav-center {
+    display: flex;
+    gap: 40px;
 }
 
-
-/* REMOVE WHITE BUTTON */
-
-div.stButton > button{
-
-background:transparent !important;
-
-border:none !important;
-
-color:white !important;
-
-font-size:16px;
-
-font-weight:600;
-
-padding:10px 20px;
-
-border-radius:25px;
-
+/* Remove white Streamlit button style */
+div.stButton > button {
+    background: transparent !important;
+    border: none !important;
+    color: #cccccc !important;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 25px;
 }
 
-
-/* HOVER */
-
-div.stButton > button:hover{
-
-background:linear-gradient(90deg,#00c6ff,#0072ff)!important;
-
+/* Hover Effect */
+div.stButton > button:hover {
+    background: linear-gradient(90deg,#00c6ff,#0072ff) !important;
+    color: white !important;
+    transition: 0.3s;
 }
 
-
-/* ---------- RIGHT ---------- */
-
-.nav-right{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-color:white;
-
-font-size:17px;
-
-font-weight:600;
-
+/* Right Section */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
 }
 
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
 
-/* AVATAR */
+/* ---------------- CARDS ---------------- */
 
-.avatar{
+.card {
+    padding: 35px;
+    border-radius: 18px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
 
-width:40px;
-
-height:40px;
-
-border-radius:50%;
-
-background:linear-gradient(135deg,#00c6ff,#0072ff);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:18px;
-
+.card:hover {
+    transform: translateY(-6px);
 }
 
 </style>
-""",unsafe_allow_html=True)
-nav1,nav2,nav3 = st.columns([4,6,3])
+""", unsafe_allow_html=True)
 
+nav1, nav2, nav3 = st.columns([4,6,3])
 
-# -------- LEFT --------
-
+# LEFT (Logo + Name)
 with nav1:
-
-    logo_col,text_col = st.columns([1,6])
-
-    with logo_col:
-
-        st.image("assets/hospital.png",use_container_width=True)
-
-    with text_col:
-
+    col_logo, col_name = st.columns([1,5])
+    with col_logo:
+        st.image("assets/hospital.png", use_container_width=True)
+    with col_name:
         st.markdown(
-        "<div class='nav-left'>ApexCare Medical Centre</div>",
-        unsafe_allow_html=True)
+            "<div class='nav-left'>ApexCare Medical Centre</div>",
+            unsafe_allow_html=True
+        )
 
-
-
-# -------- CENTER MENU --------
-
+# CENTER (Navigation)
 with nav2:
-
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
@@ -385,28 +326,17 @@ with nav2:
         if st.button("Settings"):
             st.session_state.page="Settings"
 
-
-
-# -------- RIGHT --------
-
+# RIGHT (Profile)
 with nav3:
-
     st.markdown("""
-<div class="nav-right">
-
-🔔
-
-<div class="avatar">👨‍⚕️</div>
-
-Dr MohanKrishna
-
-</div>
-""",unsafe_allow_html=True)
+    <div class="nav-right">
+        🔔
+        <div class="avatar">👨‍⚕️</div>
+        Dr MohanKrishna
+    </div>
+    """, unsafe_allow_html=True)
 # ---------------- CURRENT PAGE ----------------
 page = st.session_state.page
-
-
-
 # ===================================================
 # DASHBOARD
 # ===================================================
@@ -609,6 +539,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
