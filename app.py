@@ -404,9 +404,9 @@ elif page=="Diagnosis":
 
     age=st.number_input("Age",1,100)
 
-    bp=st.number_input("Blood Pressure",50,200)
+    bp=st.number_input("Blood Pressure",50,120)
 
-    chol=st.number_input("Cholesterol",100,400)
+    chol=st.number_input("Cholesterol",100,240)
 
     if st.button("Predict Heart Risk"):
 
@@ -487,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
