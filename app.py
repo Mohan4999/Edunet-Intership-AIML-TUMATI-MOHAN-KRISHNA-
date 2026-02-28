@@ -161,8 +161,6 @@ border-radius:20px;
 margin-bottom:30px;
 color:white;
 }
-
-
 /* NAV LINKS */
 
 .nav-center a{
@@ -173,59 +171,39 @@ margin:0px 20px;
 padding:8px 18px;
 border-radius:20px;
 font-weight:600;
-
 }
-
 .nav-center a:hover{
-
 background:linear-gradient(90deg,#00c6ff,#0072ff);
-
 }
-
-
 /* TITLE */
-
 .dashboard-title{
-
 text-align:center;
 color:white;
 font-size:30px;
 font-weight:700;
 margin-bottom:25px;
-
 }
-
-
 /* CARDS */
-
 .card{
-
 padding:30px;
 border-radius:18px;
 text-align:center;
 color:white;
 font-weight:600;
 box-shadow:0px 15px 35px rgba(0,0,0,.5);
-
 }
-
 .green{
 background:linear-gradient(135deg,#00b09b,#96c93d);
 }
-
 .red{
 background:linear-gradient(135deg,#ff416c,#ff4b2b);
 }
-
 .blue{
 background:linear-gradient(135deg,#36d1dc,#5b86e5);
 }
-
 .purple{
 background:linear-gradient(135deg,#8360c3,#2ebf91);
 }
-
-
 /* WHITE TABLE CARD */
 
 .white-card{
@@ -604,6 +582,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
