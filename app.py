@@ -4,14 +4,15 @@ import pickle
 import base64
 
 # =================================================
-# PAGE CONFIG (ONLY ONCE)
+# PAGE CONFIG
 # =================================================
-
 st.set_page_config(layout="wide")
-import base64
 
+# =================================================
+# BACKGROUND IMAGE
+# =================================================
 def get_base64(path):
-    with open(path, "rb") as f:
+    with open(path,"rb") as f:
         return base64.b64encode(f.read()).decode()
 
 bg = get_base64("assets/medical-bg.jpg")
@@ -19,103 +20,115 @@ bg = get_base64("assets/medical-bg.jpg")
 st.markdown(f"""
 <style>
 
-/* Hide default header */
-header {{
-    visibility: hidden;
-}}
+header{{visibility:hidden;}}
 
-/* Apply medical background to entire app */
-.stApp {{
-    background:
-    linear-gradient(rgba(0,0,0,0.65),
-                    rgba(0,0,0,0.75)),
-    url("data:image/jpg;base64,{bg}");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}}
-
-/* Remove top spacing */
-.block-container {{
-    padding-top: 0rem !important;
-}}
-
-</style>
-""", unsafe_allow_html=True)
-
-# =================================================
-# LOAD MODEL
-# =================================================
-
-model = pickle.load(open("model.pkl","rb"))
-# =================================================
-# LOGIN SESSION
-# =================================================
-
-if "login" not in st.session_state:
-    st.session_state.login=False
-
-# =================================================
-# LOGIN PAGE
-# =================================================
-
-if not st.session_state.login:
-
-    logo = get_base64("assets/hospital.png")
-
-    st.markdown(f"""
-<style>
-
-header,footer,#MainMenu{{visibility:hidden;}}
+/* GLOBAL BACKGROUND */
 
 .stApp{{
 background:
-linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.8)),
+linear-gradient(rgba(0,0,0,.65),
+rgba(0,0,0,.75)),
 url("data:image/jpg;base64,{bg}");
 
 background-size:cover;
 background-position:center;
+background-attachment:fixed;
 }}
 
 .block-container{{
-padding-top:140px;
-max-width:100%;
-}}
-
-div.stButton{{display:flex;justify-content:center;}}
-
-div.stButton>button{{
-width:240px;
-padding:14px;
-font-size:18px;
-border-radius:14px;
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-color:white;
-font-weight:700;
-border:none;
-}}
-
-.login-logo{{
-width:180px;
-border-radius:15px;
-}}
-
-label{{
-color:white !important;
-font-size:20px !important;
-font-weight:800 !important;
+padding-top:0rem!important;
 }}
 
 </style>
 """,unsafe_allow_html=True)
 
+# =================================================
+# MODEL
+# =================================================
+model = pickle.load(open("model.pkl","rb"))
+
+# =================================================
+# LOGIN SESSION
+# =================================================
+if "login" not in st.session_state:
+    st.session_state.login=False
+
+
+# =================================================
+# LOGIN PAGE
+# =================================================
+if not st.session_state.login:
+
+    logo=get_base64("assets/hospital.png")
+
+    st.markdown("""
+<style>
+
+.block-container{
+padding-top:140px;
+}
+
+.login-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+div.stButton{
+display:flex;
+justify-content:center;
+}
+
+div.stButton>button{
+
+width:250px;
+
+padding:14px;
+
+font-size:18px;
+
+border-radius:14px;
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+
+color:white;
+
+font-weight:700;
+
+border:none;
+
+}
+
+label{
+
+color:white!important;
+
+font-size:20px!important;
+
+font-weight:700!important;
+
+}
+
+.login-logo{
+
+width:170px;
+
+border-radius:15px;
+
+margin-bottom:15px;
+
+}
+
+</style>
+""",unsafe_allow_html=True)
 
     c1,c2,c3=st.columns([3,2,3])
 
     with c2:
 
         st.markdown(f"""
-<div style="text-align:center">
+<div class="login-box">
 
 <img src="data:image/png;base64,{logo}"
 class="login-logo">
@@ -138,62 +151,41 @@ ApexCare Medical Centre
                 st.rerun()
 
             else:
+
                 st.error("Invalid Login")
 
     st.stop()
 
 # =================================================
-# DASHBOARD STYLE + NAVBAR
+# NAVBAR STYLE
 # =================================================
-
 st.markdown("""
 <style>
 
-header{display:none;}
-
-.stApp{
-background: radial-gradient(circle at top left,#0f2027,#203a43,#2c5364);
-}
-
 .block-container{
+
 margin-top:70px;
+
 max-width:92%;
-margin:auto;
+
+margin-left:auto;
+margin-right:auto;
 }
 
 /* NAVBAR */
 
-.navbar{
-
-position:fixed;
-top:0;
-left:0;
-
-height:70px;
-width:100%;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-padding:0px 60px;
-
-background:#000;
-
-z-index:9999;
-
-box-shadow:0 8px 25px rgba(0,0,0,.8);
-
-}
-
 .nav-left{
 
 display:flex;
+
 align-items:center;
+
 gap:15px;
 
 font-size:26px;
+
 font-weight:700;
+
 color:#00d4ff;
 
 }
@@ -201,10 +193,13 @@ color:#00d4ff;
 .nav-right{
 
 display:flex;
+
 align-items:center;
+
 gap:18px;
 
 color:white;
+
 font-weight:600;
 
 }
@@ -212,6 +207,7 @@ font-weight:600;
 .avatar{
 
 width:42px;
+
 height:42px;
 
 border-radius:50%;
@@ -219,28 +215,35 @@ border-radius:50%;
 background:linear-gradient(135deg,#00c6ff,#0072ff);
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
 }
 
-/* NAV BUTTONS */
+/* NAV BUTTONS NORMAL */
 
-div.stButton>button{
+div.stButton > button{
 
-background:transparent !important;
-border:none !important;
+background:transparent!important;
 
-color:#cccccc !important;
+border:none!important;
+
+color:#cccccc!important;
 
 font-size:17px;
-font-weight:500;
+
+font-weight:600;
 
 }
 
-div.stButton>button:hover{
+/* HOVER */
 
-background:linear-gradient(90deg,#00c6ff,#0072ff)!important;
+div.stButton > button:hover{
+
+background:linear-gradient(
+90deg,#00c6ff,#0072ff)!important;
 
 color:white!important;
 
@@ -253,8 +256,11 @@ border-radius:25px;
 .card{
 
 padding:30px;
+
 border-radius:18px;
+
 text-align:center;
+
 color:white;
 
 box-shadow:0 10px 30px rgba(0,0,0,.5);
@@ -263,7 +269,6 @@ box-shadow:0 10px 30px rgba(0,0,0,.5);
 
 </style>
 """,unsafe_allow_html=True)
-
 
 # =================================================
 # NAVBAR
@@ -274,18 +279,20 @@ if "page" not in st.session_state:
 
 nav1,nav2,nav3=st.columns([4,6,3])
 
+# LEFT
 with nav1:
 
-    col_logo,col_name=st.columns([1,5])
+    l1,l2=st.columns([1,5])
 
-    with col_logo:
+    with l1:
         st.image("assets/hospital.png",width=55)
 
-    with col_name:
+    with l2:
         st.markdown(
-        "<div class='nav-left'>ApexCare Medical Centre</div>",
-        unsafe_allow_html=True)
+"<div class='nav-left'>ApexCare Medical Centre</div>",
+unsafe_allow_html=True)
 
+# CENTER MENU
 with nav2:
 
     c1,c2,c3,c4=st.columns(4)
@@ -302,6 +309,7 @@ with nav2:
     if c4.button("Settings"):
         st.session_state.page="Settings"
 
+# RIGHT
 with nav3:
 
     st.markdown("""
@@ -321,7 +329,6 @@ page=st.session_state.page
 # =================================================
 # DASHBOARD
 # =================================================
-
 if page=="Dashboard":
 
     st.markdown(
@@ -375,300 +382,131 @@ unsafe_allow_html=True)
 
     st.dataframe(df,use_container_width=True)
 
-    st.markdown("""
-<div style="
-
-margin-top:40px;
-
-padding:40px;
-
-border-radius:20px;
-
-background:linear-gradient(135deg,#2193b0,#6dd5ed);
-
-text-align:center;
-
-color:white;
-
-">
-
-<h3>🩺 Medical Diagnosis</h3>
-
-<p>Predict heart disease risk using AI model.</p>
-
-</div>
-""",unsafe_allow_html=True)
-
     c1,c2,c3=st.columns([3,2,3])
 
     if c2.button("Start Diagnosis →"):
-
         st.session_state.page="Diagnosis"
+
 
 # =================================================
 # DIAGNOSIS PAGE
 # =================================================
+elif page=="Diagnosis":
 
-elif page == "Diagnosis":
+    # NAVBAR BUTTON COLOR CHANGE ONLY HERE
+    st.markdown("""
+<style>
 
-    # -------- GLOBAL STYLE --------
+/* Navbar buttons different color */
+
+div.stButton > button{
+
+color:#ffffff!important;
+
+}
+
+div.stButton > button:hover{
+
+background:linear-gradient(
+135deg,#ff416c,#ff4b2b)!important;
+
+}
+
+label{
+
+color:white!important;
+
+font-weight:600!important;
+
+}
+
+</style>
+""",unsafe_allow_html=True)
 
     st.markdown("""
-    <style>
+<h2 style="text-align:center;color:white">
 
-    /* Remove Top Gap */
-    .block-container{
-        padding-top:0rem !important;
-        margin-top:80px !important;
-    }
+❤️ Heart Disease Risk Prediction
 
-    section.main > div{
-        padding-top:0rem !important;
-    }
+</h2>
+""",unsafe_allow_html=True)
 
-    /* Label Visibility */
-    label{
-        color:white !important;
-        font-size:16px !important;
-        font-weight:600 !important;
-    }
+    o1,o2,o3=st.columns([2,6,2])
 
-    /* Input Styling */
-    div[data-baseweb="input"] input{
-        background:rgba(255,255,255,.95) !important;
-        color:black !important;
-        border-radius:10px !important;
-    }
+    with o2:
 
-    /* Predict Button Highlight */
-    div.stButton > button{
-
-        background:linear-gradient(135deg,#ff416c,#ff4b2b) !important;
-
-        color:white !important;
-
-        font-size:18px !important;
-
-        font-weight:700 !important;
-
-        border-radius:14px !important;
-
-        padding:14px !important;
-
-        border:none !important;
-
-        box-shadow:0 8px 25px rgba(255,75,43,.6);
-
-        transition:.3s;
-
-    }
-
-    div.stButton > button:hover{
-
-        background:linear-gradient(135deg,#00c6ff,#0072ff) !important;
-
-        transform:scale(1.05);
-
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-
-    # -------- TITLE --------
-
-    st.markdown("""
-    <h2 style="text-align:center;color:white;margin-bottom:30px;">
-    ❤️ Heart Disease Risk Prediction
-    </h2>
-    """, unsafe_allow_html=True)
-
-
-
-    # -------- CENTER CARD --------
-
-    outer1, outer2, outer3 = st.columns([2,6,2])
-
-    with outer2:
-
-        st.markdown("""
-        <div style="
-
-        background:rgba(255,255,255,.08);
-
-        padding:35px;
-
-        border-radius:18px;
-
-        backdrop-filter:blur(10px);
-
-        box-shadow:0 10px 30px rgba(0,0,0,.4);
-
-        ">
-        """, unsafe_allow_html=True)
-
-
-        # INPUTS
-        c1, c2 = st.columns(2)
+        c1,c2=st.columns(2)
 
         with c1:
 
-            age = st.number_input("Age", 1, 100, 25)
+            age=st.number_input("Age",1,100,25)
 
-            resting_bp = st.number_input(
-                "Resting Blood Pressure", 80, 200, 120
-            )
+            resting_bp=st.number_input(
+"Resting BP",80,200,120)
 
         with c2:
 
-            cholesterol = st.number_input(
-                "Cholesterol", 100, 400, 200
-            )
+            cholesterol=st.number_input(
+"Cholesterol",100,400,200)
 
-            max_hr = st.number_input(
-                "Max Heart Rate", 60, 220, 150
-            )
+            max_hr=st.number_input(
+"Max Heart Rate",60,220,150)
 
+        b1,b2,b3=st.columns([3,3,3])
 
-        st.markdown("<br>", unsafe_allow_html=True)
-
-
-        # CENTER BUTTON
-
-        b1, b2, b3 = st.columns([2,3,2])
-
-        with b2:
-
-            predict = st.button(
-                "❤️ Predict Heart Risk",
-                use_container_width=True
-            )
-
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-    # -------- RESULT --------
+        predict=b2.button(
+"❤️ Predict Heart Risk",
+use_container_width=True)
 
     if predict:
 
-        r1, r2, r3 = st.columns([2,6,2])
-
-        with r2:
-
-            st.markdown("""
-            <div style="
-
-            background:linear-gradient(
-            135deg,#00c6ff,#0072ff);
-
-            padding:25px;
-
-            border-radius:15px;
-
-            text-align:center;
-
-            color:white;
-
-            font-size:20px;
-
-            font-weight:600;
-
-            margin-top:20px;
-
-            box-shadow:0 10px 30px rgba(0,0,0,.4);
-
-            ">
-
-            Prediction Result : Low Risk ✅
-
-            </div>
-            """, unsafe_allow_html=True)
+        st.success(
+"Prediction Result : Low Risk ✅")
 
 
-
-# =================================================
-# REPORTS PAGE
-# =================================================
-
-elif page == "Reports":
-
-    st.markdown("""
-    <h2 style='color:white'>
-    📊 Reports Page
-    </h2>
-    """, unsafe_allow_html=True)
-
-
-
-# =================================================
-# SETTINGS PAGE
-# =================================================
-
-elif page == "Settings":
-
-    st.markdown("""
-    <h2 style='color:white'>
-    ⚙️ Settings Page
-    </h2>
-    """, unsafe_allow_html=True)
 # =================================================
 # REPORTS
 # =================================================
-
 elif page=="Reports":
 
-    st.title("Patient Treatment Reports")
+    st.markdown(
+"<h2 style='color:white'>📊 Reports</h2>",
+unsafe_allow_html=True)
 
     df=pd.DataFrame({
 
-    "Name":["Ravi Kumar","Anita Devi",
-    "Suresh Reddy","Meena Sharma","Priya Nair"],
+"Name":["Ravi Kumar","Anita Devi"],
 
-    "Age":[54,39,61,45,33],
+"Age":[54,39],
 
-    "Status":[
-    "High Risk","Stable",
-    "High Risk","Stable","Stable"],
+"Status":["High Risk","Stable"],
 
-    "Treatment":[
+"Treatment":["Cardiac Monitoring","Medication"]
 
-    "Cardiac Monitoring",
+})
 
-    "Medication",
-
-    "ICU Observation",
-
-    "Regular Checkup",
-
-    "Diet Monitoring"]
-
-    })
-
-    st.dataframe(df,
-    use_container_width=True)
-
+    st.dataframe(df,use_container_width=True)
 
 # =================================================
 # SETTINGS
 # =================================================
-
 elif page=="Settings":
 
-    st.title("Account Settings")
+    st.markdown(
+"<h2 style='color:white'>⚙️ Settings</h2>",
+unsafe_allow_html=True)
 
     st.text_input(
-    "Doctor Name",
-    "Dr MohanKrishna")
+"Doctor Name",
+"Dr MohanKrishna")
 
     st.text_input(
-    "Email",
-    "mohankrishna@email.com")
+"Email",
+"mohankrishna@email.com")
 
     st.text_input(
-    "Hospital",
-    "ApexCare Medical Centre")
+"Hospital",
+"ApexCare Medical Centre")
 
     if st.button("Save Profile"):
 
@@ -679,4 +517,3 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
-
