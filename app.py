@@ -418,14 +418,11 @@ div.stButton > button:hover {
 }
 
 </style>
-""", unsafe_allow_html=True)
 """,unsafe_allow_html=True)
 
     st.markdown("""
 <h2 style="text-align:center;color:white">
-
  Heart Disease Risk Prediction
-
 </h2>
 """,unsafe_allow_html=True)
 
@@ -515,4 +512,5 @@ unsafe_allow_html=True)
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
