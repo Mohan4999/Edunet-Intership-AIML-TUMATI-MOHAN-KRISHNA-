@@ -239,8 +239,8 @@ with navbar:
     col1,col2,col3 = st.columns([4,6,3])
 
     # LEFT
-   with col1:
-    logo_col, text_col = st.columns([1,4])
+    with col1:
+        logo_col, text_col = st.columns([1,4])
 
     with logo_col:
         st.image(hospital, width=55)
@@ -487,6 +487,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
