@@ -174,7 +174,6 @@ max-width:100%;
 }
 
 /* NAVBAR */
-
 .navbar{
 display:flex;
 justify-content:space-between;
@@ -186,7 +185,6 @@ border-radius:0px 0px 20px 20px;
 margin-bottom:40px;
 }
 
-/* LEFT */
 .nav-left{
 display:flex;
 align-items:center;
@@ -195,8 +193,6 @@ color:white;
 font-size:18px;
 font-weight:600;
 }
-
-/* CENTER MENU */
 
 .nav-center{
 display:flex;
@@ -215,8 +211,6 @@ cursor:pointer;
 background:linear-gradient(90deg,#00c6ff,#0072ff);
 }
 
-/* RIGHT */
-
 .nav-right{
 display:flex;
 align-items:center;
@@ -225,9 +219,6 @@ color:white;
 font-weight:600;
 }
 
-
-/* DASHBOARD TITLE */
-
 .dashboard-title{
 text-align:center;
 color:white;
@@ -235,9 +226,6 @@ font-size:30px;
 font-weight:700;
 margin-bottom:25px;
 }
-
-
-/* CARDS */
 
 .card{
 padding:30px;
@@ -248,40 +236,20 @@ font-weight:600;
 box-shadow:0px 15px 35px rgba(0,0,0,.5);
 }
 
-.green{
-background:linear-gradient(135deg,#00b09b,#96c93d);
-}
-
-.red{
-background:linear-gradient(135deg,#ff416c,#ff4b2b);
-}
-
-.blue{
-background:linear-gradient(135deg,#36d1dc,#5b86e5);
-}
-
-.purple{
-background:linear-gradient(135deg,#8360c3,#2ebf91);
-}
-
-
-/* WHITE TABLE CARD */
+.green{background:linear-gradient(135deg,#00b09b,#96c93d);}
+.red{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
+.blue{background:linear-gradient(135deg,#36d1dc,#5b86e5);}
+.purple{background:linear-gradient(135deg,#8360c3,#2ebf91);}
 
 .white-card{
-
 background:white;
 border-radius:20px;
 padding:25px;
 margin-top:30px;
 box-shadow:0px 12px 30px rgba(0,0,0,.5);
-
 }
 
-
-/* DIAGNOSIS */
-
 .diag{
-
 margin-top:40px;
 padding:40px;
 border-radius:20px;
@@ -289,7 +257,6 @@ background:linear-gradient(135deg,#2193b0,#6dd5ed);
 text-align:center;
 color:white;
 box-shadow:0px 15px 40px rgba(0,0,0,.5);
-
 }
 
 div.stButton > button {
@@ -308,129 +275,68 @@ border:none;
     # NAVBAR
     st.markdown("""
 <div class="navbar">
-
-<div class="nav-left">
-🏥 ApexCare Medical Centre
-</div>
-
+<div class="nav-left">🏥 ApexCare Medical Centre</div>
 <div class="nav-center">
 <span class="active">Dashboard</span>
 <span>Diagnosis</span>
 <span>Reports</span>
 <span>Settings</span>
 </div>
-
 <div class="nav-right">
-
-🔔
-
-👨‍⚕️ Dr MohanKrishna
-
+🔔 👨‍⚕️ Dr MohanKrishna
 </div>
-
 </div>
 """, unsafe_allow_html=True)
 
 
     st.markdown(
-    '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
-    unsafe_allow_html=True)
+        '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
+        unsafe_allow_html=True
+    )
 
 
-    # ---- CARDS ----
-
+    # CARDS
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
-        st.markdown("""
-<div class="card green">
-
-Cases Solved
-
-<h2>150</h2>
-
-</div>
-""", unsafe_allow_html=True)
+        st.markdown('<div class="card green">Cases Solved<h2>150</h2></div>', unsafe_allow_html=True)
 
     with c2:
-        st.markdown("""
-<div class="card red">
-
-High Risk
-
-<h2>45</h2>
-
-</div>
-""", unsafe_allow_html=True)
+        st.markdown('<div class="card red">High Risk<h2>45</h2></div>', unsafe_allow_html=True)
 
     with c3:
-        st.markdown("""
-<div class="card blue">
-
-Stable Patients
-
-<h2>105</h2>
-
-</div>
-""", unsafe_allow_html=True)
+        st.markdown('<div class="card blue">Stable Patients<h2>105</h2></div>', unsafe_allow_html=True)
 
     with c4:
-        st.markdown("""
-<div class="card purple">
-
-Total Patients
-
-<h2>150</h2>
-
-</div>
-""", unsafe_allow_html=True)
-
+        st.markdown('<div class="card purple">Total Patients<h2>150</h2></div>', unsafe_allow_html=True)
 
 
     # RECENT PATIENTS
-
-    st.markdown("""
-<div class="white-card">
-
-<h4>📋 Recent Patients</h4>
-
-</div>
-""", unsafe_allow_html=True)
-
+    st.markdown('<div class="white-card"><h4>📋 Recent Patients</h4></div>', unsafe_allow_html=True)
 
     df = pd.DataFrame({
-
-    "Name":["Ravi Kumar","Anita Devi"],
-
-    "Age":[54,39],
-
-    "Status":["High Risk","Stable"],
-
-    "Treatment":[
-    "Cardiac Monitoring",
-    "Medication"]
-
+        "Name":["Ravi Kumar","Anita Devi"],
+        "Age":[54,39],
+        "Status":["High Risk","Stable"],
+        "Treatment":["Cardiac Monitoring","Medication"]
     })
 
     st.dataframe(df,use_container_width=True)
 
 
-
     # DIAGNOSIS SECTION
-
-st.markdown("""
+    st.markdown("""
 <div class="diag">
 <h3>🩺 Medical Diagnosis</h3>
 <p>Predict heart disease risk using AI model.</p>
 </div>
 """, unsafe_allow_html=True)
 
-col1,col2,col3 = st.columns([3,2,3])
+    col1,col2,col3 = st.columns([3,2,3])
 
-with col2:
-    if st.button("Start Diagnosis →"):
-        st.success("Redirecting to Diagnosis page...")
-        """, unsafe_allow_html=True)
+    with col2:
+        if st.button("Start Diagnosis →"):
+            st.success("Redirecting to Diagnosis page...")
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -524,6 +430,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
