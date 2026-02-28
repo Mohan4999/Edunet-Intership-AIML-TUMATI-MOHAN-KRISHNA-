@@ -162,8 +162,10 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 
 
 # ---------------- NAVBAR STYLE ----------------
+# ---------------- NAVBAR CSS ----------------
 st.markdown("""
 <style>
+
 .navbar{
 display:flex;
 justify-content:space-between;
@@ -186,24 +188,22 @@ font-size:18px;
 
 .nav-center{
 display:flex;
-gap:25px;
+gap:30px;
 }
 
-.nav-btn button{
-background:transparent;
+.nav-link{
 color:white;
-border:none;
-font-weight:500;
 padding:8px 18px;
 border-radius:20px;
-cursor:pointer;
+text-decoration:none;
+font-weight:500;
 }
 
-.nav-btn button:hover{
+.nav-link:hover{
 background:#1f4068;
 }
 
-.active button{
+.active-tab{
 background:linear-gradient(90deg,#00c6ff,#0072ff);
 }
 
@@ -222,10 +222,60 @@ display:flex;
 align-items:center;
 justify-content:center;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
 
+# ---------------- NAVBAR STRUCTURE ----------------
+st.markdown(f"""
+<div class="navbar">
+
+<div class="nav-left">
+<img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="28">
+ApexCare Medical Centre
+</div>
+
+<div class="nav-center">
+
+<span class="nav-link {'active-tab' if st.session_state.page=='Dashboard' else ''}">Dashboard</span>
+
+<span class="nav-link {'active-tab' if st.session_state.page=='Diagnosis' else ''}">Diagnosis</span>
+
+<span class="nav-link {'active-tab' if st.session_state.page=='Reports' else ''}">Reports</span>
+
+<span class="nav-link {'active-tab' if st.session_state.page=='Settings' else ''}">Settings</span>
+
+</div>
+
+<div class="nav-right">
+🔔
+<div class="avatar">👨‍⚕️</div>
+Dr MohanKrishna
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+
+# ---------------- FUNCTIONAL BUTTONS (INVISIBLE ROW) ----------------
+c1,c2,c3,c4 = st.columns(4)
+
+with c1:
+    if st.button("Dashboard"):
+        st.session_state.page = "Dashboard"
+
+with c2:
+    if st.button("Diagnosis"):
+        st.session_state.page = "Diagnosis"
+
+with c3:
+    if st.button("Reports"):
+        st.session_state.page = "Reports"
+
+with c4:
+    if st.button("Settings"):
+        st.session_state.page = "Settings"
 # ---------------- NAVBAR ----------------
 col1, col2, col3 = st.columns([3,5,2])
 
@@ -445,6 +495,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
