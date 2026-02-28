@@ -55,22 +55,22 @@ if not st.session_state.login:
     }}
 
     /* Login Button Center + Bigger */
+/* Center Login Button */
 div.stButton {{
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }}
 
 div.stButton > button {{
-    width:200px;                 /* button width */
-    padding:14px 0;
-    font-size:18px;
-    border-radius:14px;
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-    color:white;
-    font-weight:600;
-    border:none;
-    margin-top:15px;
-    transition:0.3s ease;
+    width: 220px;
+    padding: 14px 0;
+    font-size: 18px;
+    border-radius: 14px;
+    background: linear-gradient(90deg,#00c6ff,#0072ff);
+    color: white;
+    font-weight: 600;
+    border: none;
+    margin-top: 20px;
 }}
 
 /* Hover Effect */
@@ -90,19 +90,21 @@ div.stButton > button:hover {{
         border-radius:15px;
     }}
     /* Improve label visibility */
+/* Clean Label Styling */
 label {{
     color: white !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    background: rgba(0,0,0,0.6);
-    padding: 4px 10px;
-    border-radius: 8px;
+    font-size: 18px !important;   /* Bigger text */
+    font-weight: 700 !important;
+    background: none !important;  /* REMOVE black box */
+    padding: 0 !important;
 }}
     /* Input field styling */
 div[data-baseweb="input"] input {{
     background-color: rgba(255,255,255,0.95) !important;
     color: black !important;
+    font-size: 16px !important;
     font-weight: 500;
+    border-radius: 12px !important;
 }}
     </style>
     """, unsafe_allow_html=True)
@@ -283,6 +285,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
