@@ -148,6 +148,9 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+
 /* NAVBAR */
 
 .navbar{
@@ -155,26 +158,55 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:18px 40px;
-background:rgba(0,0,0,.65);
-backdrop-filter:blur(12px);
+background:rgba(0,0,0,.75);
 border-radius:20px;
-margin-bottom:30px;
+margin-bottom:40px;
 color:white;
+box-shadow:0px 8px 25px rgba(0,0,0,.5);
 }
-/* NAV LINKS */
 
-.nav-center a{
+.nav-left{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:600;
+font-size:18px;
+}
 
-text-decoration:none;
-color:white;
-margin:0px 20px;
+.nav-center{
+display:flex;
+gap:35px;
+font-weight:500;
+}
+
+.nav-center span{
 padding:8px 18px;
 border-radius:20px;
-font-weight:600;
+cursor:pointer;
 }
-.nav-center a:hover{
+
+.active{
 background:linear-gradient(90deg,#00c6ff,#0072ff);
 }
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.avatar{
+width:35px;
+height:35px;
+border-radius:50%;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+</style>
+""", unsafe_allow_html=True)
 /* TITLE */
 .dashboard-title{
 text-align:center;
@@ -582,6 +614,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
