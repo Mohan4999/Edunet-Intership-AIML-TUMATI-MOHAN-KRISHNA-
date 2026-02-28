@@ -125,10 +125,10 @@ div[data-baseweb="input"] input {{
 
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
-        if st.button("Login"):
+        if st.button("Login", key="login_btn"):
             col1, col2, col3 = st.columns([2,2,2])
             with col2:
-                if st.button("Login"):
+                if st.button("Login", key="login_btn"):
                     if username == "admin" and password == "1234":
                         st.session_state.login = True
                         st.rerun()
@@ -287,6 +287,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
