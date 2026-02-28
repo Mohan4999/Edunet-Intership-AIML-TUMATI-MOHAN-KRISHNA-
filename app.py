@@ -156,23 +156,25 @@ page=st.sidebar.radio(
 # =================================================
 # DASHBOARD PAGE
 # =================================================
-
 if page == "Dashboard":
 
-    # ---------- CSS ----------
     st.markdown("""
 <style>
 
-/* FULL BACKGROUND */
+/* DARK BACKGROUND */
+
 .stApp{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
-/* REMOVE SPACE */
+/* FIX TOP SPACE (IMPORTANT) */
+
 .block-container{
-padding-top:0rem;
-max-width:100%;
+padding-top:2rem;
+max-width:1200px;
+margin:auto;
 }
+
 
 /* NAVBAR */
 
@@ -183,58 +185,52 @@ align-items:center;
 padding:18px 40px;
 background:rgba(0,0,0,.65);
 backdrop-filter:blur(12px);
-border-radius:0px 0px 20px 20px;
-margin-bottom:40px;
+border-radius:15px;
+margin-bottom:30px;
 color:white;
-font-weight:600;
 }
+
 
 /* TITLE */
 
 .dashboard-title{
+
 text-align:center;
 color:white;
-font-size:30px;
+font-size:28px;
 font-weight:700;
 margin-bottom:25px;
+
 }
+
 
 /* CARDS */
 
 .card{
-padding:30px;
+
+padding:28px;
 border-radius:18px;
 text-align:center;
 color:white;
 font-weight:600;
 box-shadow:0px 15px 35px rgba(0,0,0,.5);
+
 }
 
-.green{
-background:linear-gradient(135deg,#00b09b,#96c93d);
-}
-
-.red{
-background:linear-gradient(135deg,#ff416c,#ff4b2b);
-}
-
-.blue{
-background:linear-gradient(135deg,#36d1dc,#5b86e5);
-}
-
-.purple{
-background:linear-gradient(135deg,#8360c3,#2ebf91);
-}
+.green{background:linear-gradient(135deg,#00b09b,#96c93d);}
+.red{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
+.blue{background:linear-gradient(135deg,#36d1dc,#5b86e5);}
+.purple{background:linear-gradient(135deg,#8360c3,#2ebf91);}
 
 
-/* WHITE TABLE CARD */
+/* WHITE CARD */
 
 .white-card{
 
 background:white;
 border-radius:20px;
 padding:25px;
-margin-top:30px;
+margin-top:35px;
 box-shadow:0px 12px 30px rgba(0,0,0,.5);
 
 }
@@ -245,7 +241,7 @@ box-shadow:0px 12px 30px rgba(0,0,0,.5);
 .diag{
 
 margin-top:40px;
-padding:40px;
+padding:45px;
 border-radius:20px;
 background:linear-gradient(135deg,#2193b0,#6dd5ed);
 text-align:center;
@@ -254,7 +250,8 @@ box-shadow:0px 15px 40px rgba(0,0,0,.5);
 
 }
 
-/* CENTER BUTTON */
+
+/* BUTTON CENTER */
 
 .center-btn{
 
@@ -264,10 +261,10 @@ margin-top:20px;
 
 }
 
-div.stButton > button {
+div.stButton > button{
 
 padding:14px 30px;
-border-radius:12px;
+border-radius:10px;
 background:white;
 color:#2193b0;
 font-weight:600;
@@ -279,8 +276,8 @@ border:none;
 """, unsafe_allow_html=True)
 
 
+# -------- NAVBAR --------
 
-    # ---------- NAVBAR ----------
     st.markdown("""
 
 <div class="navbar">
@@ -288,10 +285,9 @@ border:none;
 🏥 ApexCare Medical Centre
 
 <div>
-Dashboard &nbsp;&nbsp;&nbsp;
-Diagnosis &nbsp;&nbsp;&nbsp;
-Reports &nbsp;&nbsp;&nbsp;
-Settings
+
+Dashboard | Diagnosis | Reports | Settings
+
 </div>
 
 👨‍⚕️ Dr MohanKrishna
@@ -302,17 +298,16 @@ Settings
 
 
 
-    # ---------- TITLE ----------
+# TITLE
+
     st.markdown(
-        '<div class="dashboard-title">'
-        'ApexCare Medical Centre Dashboard'
-        '</div>',
-        unsafe_allow_html=True
-    )
+    '<div class="dashboard-title">ApexCare Medical Centre Dashboard</div>',
+    unsafe_allow_html=True)
 
 
 
-    # ---------- CARDS ----------
+# -------- CARDS --------
+
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
@@ -349,29 +344,38 @@ Total Patients
 
 
 
-    # ---------- WHITE CARD ----------
-    st.markdown('<div class="white-card">',unsafe_allow_html=True)
+# -------- RECENT PATIENTS --------
 
-    st.markdown("#### 📋 Recent Patients")
+    st.markdown("""
+<div class="white-card">
+
+<h4>📋 Recent Patients</h4>
+
+""", unsafe_allow_html=True)
+
 
     df = pd.DataFrame({
 
-        "Name":["Ravi Kumar","Anita Devi"],
-        "Age":[54,39],
-        "Status":["High Risk","Stable"],
-        "Treatment":[
-            "Cardiac Monitoring",
-            "Medication"]
+    "Name":["Ravi Kumar","Anita Devi"],
+
+    "Age":[54,39],
+
+    "Status":["High Risk","Stable"],
+
+    "Treatment":[
+    "Cardiac Monitoring",
+    "Medication"]
 
     })
 
     st.dataframe(df,use_container_width=True)
 
-    st.markdown('</div>',unsafe_allow_html=True)
+    st.markdown("</div>",unsafe_allow_html=True)
 
 
 
-    # ---------- DIAGNOSIS ----------
+# -------- DIAGNOSIS --------
+
     st.markdown("""
 
 <div class="diag">
@@ -386,14 +390,15 @@ Total Patients
 
 
 
-    # ---------- CENTER BUTTON ----------
-    st.markdown('<div class="center-btn">',unsafe_allow_html=True)
+# CENTER BUTTON
 
-    if st.button("Start Diagnosis →",key="start_diag"):
+    col1,col2,col3 = st.columns([3,2,3])
 
-        st.success("Redirecting to Diagnosis page...")
+    with col2:
 
-    st.markdown('</div>',unsafe_allow_html=True)
+        if st.button("Start Diagnosis →", key="diag_btn"):
+
+            st.success("Redirecting to Diagnosis Page")
 # =================================================
 # DIAGNOSIS
 # =================================================
@@ -487,6 +492,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
