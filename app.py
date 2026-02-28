@@ -35,15 +35,15 @@ if not st.session_state.login:
     #MainMenu {{visibility:hidden;}}
     /* LABEL STYLE */
     label {
-    color: white !important;
-    font-weight: 600 !important;
+    color: white;
+    font-weight: 600;
     background: rgba(0,0,0,0.4);
     padding: 3px 8px;
     border-radius: 6px;
     display: inline-block;
 }
 input::placeholder {
-    color: #cccccc !important;
+    color: #cccccc;
 }
 
     /* Full background */
@@ -264,6 +264,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
