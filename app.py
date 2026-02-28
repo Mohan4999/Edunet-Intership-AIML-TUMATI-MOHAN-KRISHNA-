@@ -16,6 +16,7 @@ if "login" not in st.session_state:
 # LOGIN PAGE
 # =================================================
 
+
 if not st.session_state.login:
 
     st.markdown("""
@@ -26,7 +27,7 @@ header,footer{visibility:hidden;}
 #MainMenu{visibility:hidden;}
 
 
-/* FULL BACKGROUND */
+/* FULL SCREEN BACKGROUND */
 
 .stApp{
 
@@ -38,27 +39,30 @@ rgba(0,0,0,.85)),
 url("https://images.unsplash.com/photo-1580281657527-47f249e0bfc4?auto=format&fit=crop&w=2000&q=80");
 
 background-size:cover;
+
 background-position:center;
 
 }
 
 
-/* remove white spacing */
+/* REMOVE STREAMLIT WHITE BOX */
 
 .block-container{
 
-padding-top:130px;
+max-width:100%;
+
+padding-top:120px;
 
 }
 
 
 /* LOGIN CARD */
 
-[data-testid="stVerticalBlock"]:has(.login-card){
+.login-card{
 
-background:rgba(255,255,255,.12);
+background:rgba(0,0,0,.55);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(14px);
 
 padding:35px;
 
@@ -66,12 +70,16 @@ border-radius:18px;
 
 box-shadow:
 
-0 15px 45px rgba(0,0,0,.7);
+0 20px 60px rgba(0,0,0,.8);
+
+text-align:center;
+
+color:white;
 
 }
 
 
-/* BUTTON */
+/* BUTTON STYLE */
 
 div.stButton > button{
 
@@ -79,11 +87,11 @@ width:100%;
 
 padding:14px;
 
-border-radius:12px;
+border-radius:10px;
 
 background:
 
-linear-gradient(45deg,#00c6ff,#0072ff);
+linear-gradient(90deg,#00c6ff,#0072ff);
 
 color:white;
 
@@ -98,24 +106,25 @@ border:none;
 """,unsafe_allow_html=True)
 
 
-    # CENTER PAGE
-    left,center,right=st.columns([3,2,3])
+
+    # PERFECT CENTER
+    left,center,right = st.columns([3,1.2,3])
 
     with center:
 
-        # MAGIC CSS TARGET
-        st.markdown('<div class="login-card"></div>',
+        st.markdown('<div class="login-card">',
         unsafe_allow_html=True)
 
         st.image("assets/hospital.png",
-        width=220)
+        width=200)
 
         st.markdown(
-        "### ApexCare Medical Centre")
+        "<h3>ApexCare Medical Centre</h3>",
+        unsafe_allow_html=True)
 
-        username=st.text_input("Username")
+        username = st.text_input("Username")
 
-        password=st.text_input(
+        password = st.text_input(
         "Password",
         type="password")
 
@@ -131,8 +140,10 @@ border:none;
 
                 st.error("Invalid Login")
 
-    st.stop()
+        st.markdown("</div>",
+        unsafe_allow_html=True)
 
+    st.stop()
 # =================================================
 # SIDEBAR
 # =================================================
@@ -285,4 +296,5 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
