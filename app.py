@@ -31,21 +31,25 @@ if not st.session_state.login:
     st.markdown(f"""
     <style>
 
+    /* Hide Streamlit Menu */
     header, footer {{visibility:hidden;}}
     #MainMenu {{visibility:hidden;}}
-    label {{
-    color: white !important;
-    font-weight: 600 !important;
-    background: rgba(0,0,0,0.4);
-    padding: 3px 8px;
-    border-radius: 6px;
-    display: inline-block;
-}}
-input::placeholder {{
-    color: #cccccc;
-}}
 
-    /* Full background */
+    /* Labels */
+    label {{
+        color:white !important;
+        font-weight:600 !important;
+        background:rgba(0,0,0,0.4);
+        padding:3px 8px;
+        border-radius:6px;
+        display:inline-block;
+    }}
+
+    input::placeholder {{
+        color:#cccccc;
+    }}
+
+    /* Full Background */
     .stApp {{
         background:
         linear-gradient(rgba(0,0,0,.65),
@@ -56,12 +60,13 @@ input::placeholder {{
         background-repeat:no-repeat;
     }}
 
+    /* Page spacing */
     .block-container {{
         padding-top:120px;
         max-width:100%;
     }}
 
-    /* Style only CENTER column */
+    /* Login Card Center */
     section.main > div > div > div > div:nth-child(2) {{
         background:rgba(0,0,0,.55);
         backdrop-filter:blur(18px);
@@ -73,10 +78,12 @@ input::placeholder {{
         text-align:center;
     }}
 
+    /* Input Box */
     div[data-baseweb="input"] > div {{
         border-radius:12px;
     }}
 
+    /* Login Button */
     div.stButton > button {{
         width:100%;
         padding:12px;
@@ -88,6 +95,28 @@ input::placeholder {{
         margin-top:10px;
     }}
 
+    /* Center Logo + Title */
+    .center-box {{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+    }}
+
+    .center-box img {{
+        border-radius:12px;
+        margin-bottom:10px;
+    }}
+
+    .center-title {{
+        text-align:center;
+        font-size:28px;
+        font-weight:700;
+        color:white;
+        margin-bottom:20px;
+    }}
+
     </style>
     """, unsafe_allow_html=True)
 
@@ -95,12 +124,11 @@ input::placeholder {{
     left, center, right = st.columns([3,2,3])
 
     with center:
-        st.image("assets/hospital.png", width=160)
+      st.image("assets/hospital.png", width=120)
         st.markdown(
-            "<h3 style='color:white;'>ApexCare Medical Centre</h3>",
+            "<h2 style='text-align:center;color:white;'>ApexCare Medical Centre</h2>",
             unsafe_allow_html=True
         )
-
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
 
@@ -263,6 +291,7 @@ elif page=="Settings":
     st.checkbox("High Risk Alerts",True)
 
     st.checkbox("Weekly Report")
+
 
 
 
